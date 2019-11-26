@@ -1,20 +1,31 @@
-import React, { Component } from 'react';
-import karmaService from './services/karma-service';
+import React, {Component} from 'react';
 import './App.css';
+import SubmissionFrom from './SubmissionFrom/SubmissionForm';
+import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
 
+class App extends Component {
 
-export default class App extends Component {
   componentDidMount() {
     karmaService.setNewKarma();
   }
-
-  render() {
+ 
+  render(){
     return (
       <div className="App">
-        <header className="App-header">
+        <header>
+          <h1>Anonygram</h1>
         </header>
+        <button>Popular</button>
+        <button>Newest</button>
+        <DisplayFeed />
+        <SubmissionFrom />
+         
       </div>
     );
   }
 }
+
+export default App;
+
+
