@@ -13,9 +13,8 @@ const KarmaService = {
 
   decrementKarma() {
     let currKarma = this.getKarma();
-    console.log(currKarma)
 
-    if (currKarma === 0) {
+    if (currKarma < 1) {
       return;
     } else {
       currKarma--;
