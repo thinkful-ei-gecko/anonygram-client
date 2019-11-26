@@ -1,24 +1,31 @@
-import React, { Component } from 'react';
-import karmaService from './services/karma-service';
+import React, {Component} from 'react';
 import './App.css';
+import SubmissionFrom from './SubmissionFrom/SubmissionForm';
+import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
+import NavBar from './NavBar/NavBar';
 
+class App extends Component {
 
-export default class App extends Component {
   componentDidMount() {
     karmaService.setNewKarma();
   }
-
-  render() {
+ 
+  render(){
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>hi</h1>
-          {/* <button onClick={this.refreshState()}>get karma</button> */}
-          <button onClick={() => karmaService.decrementKarma()}>decrement karma</button>
-          <DisplayFeed />
+        <header className='App-header'>
+          <img className='App-logo' src={'./assets/icon.png'} alt='logo'/>
+          <h1>Anonygram</h1>
         </header>
+        <NavBar />
+        <DisplayFeed />
+        <SubmissionFrom />
       </div>
     );
   }
 }
+
+export default App;
+
+
