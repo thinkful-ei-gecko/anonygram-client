@@ -5,6 +5,7 @@
 .display-img {
     width: 100%;
     min-width: 310px;
+    height: auto;
 }
 
 .upvote-wrapper {

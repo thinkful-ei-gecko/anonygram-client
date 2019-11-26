@@ -2,16 +2,13 @@ import config from '../config';
 
 const ImageApi = {
   getLocalImages(sort, lat, long) {
-    return fetch(`${config.API_ENDPOINT}/sort=${sort}&lat=${lat}&long=${long}`, {
-      headers: {
-
-      },
+    return fetch(`${config.API_ENDPOINT}?sort=${sort}&lat=${lat}&lon=${long}`, {
     })
-      .then((res) => {
+      .then((res) => 
         (!res.ok)
           ? res.json().then((e) => Promise.reject(e))
-          : res.json();
-      });
+          : res.json()
+      )
   },
 }
 

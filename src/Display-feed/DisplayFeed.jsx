@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
+import ImageApi from '../services/image-api-service';
+
+import config from '../config';
+
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
@@ -16,15 +20,21 @@ export default function DisplayFeed(props) {
         { imgAddress: 'https://picsum.photos/id/1031/400/400', upvotes: 3 },
     ]
 
+    const { userLocation } = props;
+    const { lat, long } = userLocation;
+
 
     const [imageFeed, setImageFeed] = useState(filler);
     // const [userPos, setUserPos] = useState({});
     const [isLoading, setLoading] = useState(false);
 
-    // useEffect(() => {
-    //     navigator.geolocation.getCurrentPosition(setUserPos);
-
-    // }, []);
+    useEffect(() => {
+        ImageApi.getLocalImages('top', lat, long)
+            .then((res) => {
+                console.log(res);
+                setImageFeed(res);
+            })
+    }, [lat, long]);
 
     const incrementUpvotes = (address) => {
 
@@ -46,7 +56,7 @@ export default function DisplayFeed(props) {
         <section className="display-feed">
             <ul className="img-container">
                 {imageFeed.map((imgObj, index) => (
-                    <DisplayItem imgAddress={imgObj.imgAddress} upvotes={imgObj.upvotes} key={index}/>
+                    <DisplayItem imgAddress={imgObj.image_url} upvotes={imgObj.karma_total} key={imgObj.id}/>
                 ))}
             </ul>
         </section>
