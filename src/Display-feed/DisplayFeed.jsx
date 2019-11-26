@@ -23,8 +23,8 @@ export default function DisplayFeed() {
     return (
         <section className="display-feed">
             <ul className="img-container">
-                {imageFeed.map((imgObj) => (
-                    <DisplayItem imgAddress={imgObj.imgAddress} upvotes={imgObj.upvotes} />
+                {imageFeed.map((imgObj, index) => (
+                    <DisplayItem imgAddress={imgObj.imgAddress} upvotes={imgObj.upvotes} key={index}/>
                 ))}
             </ul>
         </section>
