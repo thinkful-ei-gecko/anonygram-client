@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 import './App.css';
 import SubmissionFrom from './SubmissionFrom/SubmissionForm';
+import karmaService from './services/karma-service';
+import DisplayFeed from './Display-feed/DisplayFeed';
 
 class App extends Component {
+
+  componentDidMount() {
+    karmaService.setNewKarma();
+  }
  
   render(){
     return (
@@ -12,6 +18,7 @@ class App extends Component {
         </header>
         <button>Popular</button>
         <button>Newest</button>
+        <DisplayFeed />
         <SubmissionFrom />
          
       </div>
@@ -20,3 +27,5 @@ class App extends Component {
 }
 
 export default App;
+
+

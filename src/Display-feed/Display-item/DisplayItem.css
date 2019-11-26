@@ -1,0 +1,8 @@
+.display-item {
+    list-style-type: none;
+}
+
+.display-img {
+    width: 100%;
+    min-width: 310px;
+}
