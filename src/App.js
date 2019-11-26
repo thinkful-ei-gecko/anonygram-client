@@ -3,6 +3,7 @@ import './App.css';
 import SubmissionFrom from './SubmissionFrom/SubmissionForm';
 import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
+import NavBar from './NavBar/NavBar';
 
 class App extends Component {
 
@@ -16,8 +17,7 @@ class App extends Component {
         <header>
           <h1>Anonygram</h1>
         </header>
-        <button>Popular</button>
-        <button>Newest</button>
+        <NavBar />
         <DisplayFeed />
         <SubmissionFrom />
          
