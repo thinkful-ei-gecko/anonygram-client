@@ -12,9 +12,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>hi</h1>
-          {/* <button onClick={this.refreshState()}>get karma</button> */}
-          <button onClick={() => karmaService.decrementKarma()}>decrement karma</button>
+         
         </header>
       </div>
     );
