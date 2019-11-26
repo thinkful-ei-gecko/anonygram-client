@@ -1,0 +1,21 @@
+.display-feed {
+
+}
+
+.img-container {
+    margin: 0;
+    padding: 0;
+    display: grid;
+}
+
+@media screen and (min-width: 40em) {
+    .img-container {
+        width: 80%;
+        margin: 0 auto;
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .img-container li {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
