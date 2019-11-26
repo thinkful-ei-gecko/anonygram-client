@@ -6,9 +6,20 @@ import DisplayFeed from './Display-feed/DisplayFeed';
 import NavBar from './NavBar/NavBar';
 
 class App extends Component {
+  state = {
+    userLocation: {},
+  }
 
   componentDidMount() {
     karmaService.setNewKarma();
+    navigator.geolocation.getCurrentPosition(this.setPosition);
+  }
+
+  setPosition = (position) => {
+    const lat = position.coords.latitude;
+    const long = position.coords.longitude;
+    const posObj = { lat, long }
+    this.setState({ userLocation: posObj });
   }
  
   render(){
@@ -19,7 +30,7 @@ class App extends Component {
           <h1>Anonygram</h1>
         </header>
         <NavBar />
-        <DisplayFeed />
+        <DisplayFeed userLocation={this.state.userLocation} />
         <SubmissionFrom />
       </div>
     );
