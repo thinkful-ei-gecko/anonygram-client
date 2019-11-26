@@ -16,6 +16,7 @@ export default class App extends Component {
           <h1>hi</h1>
           {/* <button onClick={this.refreshState()}>get karma</button> */}
           <button onClick={() => karmaService.decrementKarma()}>decrement karma</button>
+          <DisplayFeed />
         </header>
       </div>
     );

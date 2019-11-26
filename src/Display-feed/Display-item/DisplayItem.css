@@ -6,3 +6,38 @@
     width: 100%;
     min-width: 310px;
 }
+
+.upvote-wrapper {
+    position: relative;
+    display: flex;
+    direction: row;
+    justify-content: center;
+}
+
+.upvote-count {
+    position: absolute;
+    bottom: 10px;
+    right: 8px;
+    font-size: 14px;
+}
+
+.upvote-button {
+    position: absolute;
+    bottom: 8px;
+    right: 30px;
+    border: none;
+    width: 20px;
+    height: 20px;
+    background: grey;
+    opacity: .5;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.upvote-button:hover,
+.upvote-button:focus {
+    opacity: 1;
+}

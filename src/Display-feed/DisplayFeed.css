@@ -8,11 +8,35 @@
     display: grid;
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 50em) {
+    .img-container {
+        width: 80%;
+        margin: 0 auto;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .img-container li {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
+
+@media screen and (min-width: 80em) {
     .img-container {
         width: 80%;
         margin: 0 auto;
         grid-template-columns: repeat(6, 1fr);
+    }
+    .img-container li {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
+
+@media screen and (min-width: 120em) {
+    .img-container {
+        width: 80%;
+        margin: 0 auto;
+        grid-template-columns: repeat(8, 1fr);
     }
     .img-container li {
         grid-column: span 2;
