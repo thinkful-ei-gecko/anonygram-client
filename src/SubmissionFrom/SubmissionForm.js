@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './SubmissionForm.css'
 
 class SubmissionFrom extends Component{
 
@@ -20,10 +21,10 @@ class SubmissionFrom extends Component{
         <form>
           <input style = {{display: 'none'}} type="file" onChange={this.imageSelectedHandler}
            ref={imageInput => this.imageInput = imageInput }/>
-          <button onClick={() => this.imageInput.click()}>+</button>
+          <button className='SubmissionForm__button' onClick={() => this.imageInput.click()}>+</button>
           <br/>
           <button onClick= {this.imageUploadHandler}>Upload</button>
-        </form>  
+        </form>
         )
     }
 }
