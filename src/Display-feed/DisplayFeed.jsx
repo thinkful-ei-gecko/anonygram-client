@@ -4,22 +4,23 @@ import ImageApi from '../services/image-api-service';
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
-    const { userLocation, newContentLoaded, updateNewContent } = props;
-    const { lat, long } = userLocation;
+    const { userLocation, newContentLoaded, sort, updateNewContent } = props;
 
+    const { lat, long } = userLocation;
+    const sortParam = sort[0];
 
     const [imageFeed, setImageFeed] = useState([]);
     const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true);
-        ImageApi.getLocalImages('top', lat, long)
+        ImageApi.getLocalImages(sortParam, lat, long)
             .then((res) => {
                 console.log(res);
                 setImageFeed(res);
                 setLoading(false);
             })
-    }, [lat, long, newContentLoaded]);
+    }, [sortParam, lat, long, newContentLoaded]);
 
     const debounce = (func, delay) => {
         console.log({ func }, { delay });
