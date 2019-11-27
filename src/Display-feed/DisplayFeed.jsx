@@ -46,7 +46,7 @@ export default function DisplayFeed(props) {
         }
         return (
             <ul className="img-container">
-                {imageFeed.map((imgObj, index) => (
+                {imageFeed.map((imgObj) => (
                     <DisplayItem imgAddress={imgObj.image_url} upvotes={imgObj.karma_total} key={imgObj.id} />
                 ))}
             </ul>
