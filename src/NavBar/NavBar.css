@@ -1,9 +1,5 @@
 .navswitch-checkbox {
   display: none;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  background-color: #03a9f4;
 }
 .navswitch-label {
   display: block; 
