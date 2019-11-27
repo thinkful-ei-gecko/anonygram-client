@@ -25,7 +25,7 @@ export default function DisplayFeed(props) {
 
 
 	const [imageFeed, setImageFeed] = useState([]);
-	const [isLoading, setLoading] = useState(true);
+	const [isLoading, setLoading] = useState(false);
 
 	useEffect(() => {
 			setLoading(true);
@@ -49,15 +49,15 @@ export default function DisplayFeed(props) {
 	};
 
 	const incrementUpvotes = id => {
-		// const handleDebounce = debounce(imageApi.patchImageKarma, 3000);
+		// const handleDebounce = debounce(ImageApi.patchImageKarma, 3000);
 
 		const tempImageFeed = imageFeed.map(imgObj => imgObj);
 		const image = tempImageFeed.find(imgObj => imgObj.id === id);
 		const index = tempImageFeed.indexOf(image);
-		let currKarma = tempImageFeed[index].upvotes++;
+		let currKarma = tempImageFeed[index].karma_total++;
 		setImageFeed(tempImageFeed);
 		ImageApi.patchImageKarma(id, currKarma);
-		console.log(id, currKarma);
+		// console.log(id, currKarma);
 
 		// handleDebounce(id, currKarma);
 	};
@@ -72,8 +72,8 @@ export default function DisplayFeed(props) {
 								
 							{imageFeed.map(imgObj => (
 								<DisplayItem
-									imgAddress={imgObj.imgAddress}
-									upvotes={imgObj.upvotes}
+									imgAddress={imgObj.image_url}
+									upvotes={imgObj.karma_total}
 									id={imgObj.id}
 									incrementUpvotes={incrementUpvotes}
 									key={imgObj.id}

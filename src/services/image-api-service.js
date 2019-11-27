@@ -11,7 +11,7 @@ const ImageApi = {
       )
   },
   patchImageKarma(id, karma_total) {
-    fetch(`${config.API_ENDPOINT}/images/${id}`, {
+    fetch(`${config.API_ENDPOINT}/${id}`, {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json"
