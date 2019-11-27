@@ -31,6 +31,7 @@ class SubmissionFrom extends Component {
       .then((res) => {
         this.props.updateNewContent();
         console.log(res);
+        this.setState({ image: null })
       })
       .catch((error) => {
         console.error(error);
