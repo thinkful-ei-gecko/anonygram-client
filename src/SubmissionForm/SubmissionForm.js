@@ -24,7 +24,6 @@ class SubmissionFrom extends Component {
     formData.set('longitude', this.props.userLocation.long)
     for (var value of formData.values()) { 
       console.log(value); }
-    //console.log(formData.values());
     fetch(`${config.API_ENDPOINT}`, {
       method: 'POST',
       body: formData,
@@ -32,7 +31,9 @@ class SubmissionFrom extends Component {
       .then((res) => {
         console.log(res);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   render() {
