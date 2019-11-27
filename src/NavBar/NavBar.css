@@ -1,6 +1,46 @@
-.Navigation {
+.navswitch-checkbox {
+  display: none;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
   background-color: #03a9f4;
 }
+.navswitch-label {
+  display: block; 
+  overflow: hidden; 
+  border: 2px solid #999999; 
+ 
+}
+.navswitch-inner {
+  display: block;
+  width: 200%; 
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.navswitch-inner:before, .navswitch-inner:after {  
+  float: left; 
+  width: 50%; 
+  height: 30px;     
+  line-height: 30px;
+  color: white; 
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.navswitch-inner:before {
+  content: "POPULAR";
+  padding-left: 10px;
+  background-color: #34A7C1; 
+  color: #FFFFFF;
+}
+.navswitch-inner:after {
+  content: "NEWEST";
+  padding-right: 10px;
+  background-color: #EEEEEE; 
+  color: #999999;
+  text-align: right;
+}
+
+.navswitch-checkbox:checked + .navswitch-label .navswitch-inner {
+  margin-left: 0;
+}
+

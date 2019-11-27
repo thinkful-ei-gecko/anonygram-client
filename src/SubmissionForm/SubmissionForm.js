@@ -24,15 +24,18 @@ class SubmissionFrom extends Component {
     formData.set('longitude', this.props.userLocation.long)
     for (var value of formData.values()) { 
       console.log(value); }
-    //console.log(formData.values());
     fetch(`${config.API_ENDPOINT}`, {
       method: 'POST',
       body: formData,
     })
       .then((res) => {
+        this.props.updateNewContent();
         console.log(res);
+        this.setState({ image: null })
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   resetState = () => {

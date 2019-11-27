@@ -8,6 +8,8 @@ import NavBar from './NavBar/NavBar';
 class App extends Component {
   state = {
     userLocation: {},
+    newContentLoaded: false,
+    sort: ['new', 'top'],
   }
 
   componentDidMount() {
@@ -24,17 +26,39 @@ class App extends Component {
     const posObj = { lat, long }
     this.setState({ userLocation: posObj });
   }
+
+  setNewContentLoaded = () => {
+    let temp = !this.state.newContentLoaded;
+    this.setState({ newContentLoaded: temp })
+  }
+
+  setSort = () => {
+    const clone = [...this.state.sort]
+    clone.reverse();
+    this.setState({ sort: clone });
+  }
  
   render(){
+    const { sort, userLocation, newContentLoaded, } = this.state;
+
     return (
       <div className="App">
         <header className='App-header'>
           <img className='App-logo' src='images/icon.png' alt='logo'/>{' '}
           <h1>Anonygram</h1>
         </header>
-        <NavBar />
-        <DisplayFeed userLocation={this.state.userLocation} />
-        <SubmissionForm userLocation={this.state.userLocation}/>
+        <NavBar setSort={this.setSort} />
+        <DisplayFeed 
+          sort={sort}
+          userLocation={userLocation} 
+          newContentLoaded={newContentLoaded}
+          updateNewContent={this.setNewContentLoaded}
+        />
+        <SubmissionForm 
+          userLocation={userLocation} 
+          newContentLoaded={newContentLoaded} 
+          updateNewContent={this.setNewContentLoaded} 
+        />
       </div>
     );
   }

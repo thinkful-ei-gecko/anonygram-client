@@ -6,50 +6,35 @@ import ImageApi from '../services/image-api-service';
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
-	const filler = [
-		{ imgAddress: "https://picsum.photos/id/1039/400/400", upvotes: 99, id: 1 },
-		{
-			imgAddress: "https://picsum.photos/id/1038/400/400",
-			upvotes: 200,
-			id: 2
-		},
-		{ imgAddress: "https://picsum.photos/id/1037/400/400", upvotes: 12, id: 3 },
-		{ imgAddress: "https://picsum.photos/id/1036/400/400", upvotes: 33, id: 4 },
-		{ imgAddress: "https://picsum.photos/id/1035/400/400", upvotes: 55, id: 5 },
-		{ imgAddress: "https://picsum.photos/id/1044/400/400", upvotes: 44, id: 6 },
-		{ imgAddress: "https://picsum.photos/id/1033/400/400", upvotes: 88, id: 7 },
-		{ imgAddress: "https://picsum.photos/id/1032/400/400", upvotes: 11, id: 8 },
-		{ imgAddress: "https://picsum.photos/id/1031/400/400", upvotes: 3, id: 9 }
-	];
+    const { userLocation, newContentLoaded, sort, updateNewContent } = props;
 
-	const { userLocation } = props;
-	const { lat, long } = userLocation;
+    const { lat, long } = userLocation;
+    const sortParam = sort[0];
 
+    const [imageFeed, setImageFeed] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+		const [message, setMessage] = useState('');
+	
+    useEffect(() => {
+        setLoading(true);
+        ImageApi.getLocalImages(sortParam, lat, long)
+            .then((res) => {
+                console.log(res);
+                setImageFeed(res);
+                setLoading(false);
+            })
+    }, [sortParam, lat, long, newContentLoaded]);
 
-	const [imageFeed, setImageFeed] = useState([]);
-	const [isLoading, setLoading] = useState(false);
-	const [message, setMessage] = useState('');
-
-	useEffect(() => {
-			setLoading(true);
-			ImageApi.getLocalImages('top', lat, long)
-					.then((res) => {
-							console.log(res);
-							setImageFeed(res);
-							setLoading(false);
-					})
-	}, [lat, long]);
-
-	const debounce = (func, delay) => {
-		console.log({ func }, { delay });
-		let debounceTimer;
-		return () => {
-			const context = this;
-			const args = arguments;
-			clearTimeout(debounceTimer);
-			debounceTimer = setTimeout(() => func.apply(context, args), delay);
-		};
-	};
+    const debounce = (func, delay) => {
+        console.log({ func }, { delay });
+        let debounceTimer;
+        return () => {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+    };
 
 	const incrementUpvotes = async id => {
 		if (KarmaService.getKarma() < 1) {
@@ -76,11 +61,10 @@ export default function DisplayFeed(props) {
 		} else {
 			setMessage('Error: Please refresh page');
 		}
-		
-		console.log('after', currKarma);
 
 		// handleDebounce(id, currKarma);
 	};
+
     const generateJSX = () => {
         if (isLoading) {
 					return (
@@ -90,15 +74,16 @@ export default function DisplayFeed(props) {
         return (
 					<>
             <ul className="img-container">
-							{imageFeed.map(imgObj => (
-								<DisplayItem
-									imgAddress={imgObj.image_url}
-									upvotes={imgObj.karma_total}
-									id={imgObj.id}
-									incrementUpvotes={incrementUpvotes}
-									key={imgObj.id}
-								/>
-							))}
+                {imageFeed.map(imgObj => (
+                    <DisplayItem
+                        imgAddress={imgObj.image_url}
+                        upvotes={imgObj.karma_total}
+                        id={imgObj.id}
+                        incrementUpvotes={incrementUpvotes}
+                        key={imgObj.id}
+                    />
+                ))}
+
             </ul>
 						{message && <div className='DisplayFeed__div notificationsContainer'>{message}</div>}
 					</>
