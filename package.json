@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/react": "^16.9.13",
     "react": "^16.12.0",
+    "react-axios": "^2.0.3",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
   },
@@ -13,8 +14,8 @@
     "prebuild": "CI=true react-scripts test --colors",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject", 
-    "predeploy": "npm run build", 
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
     "deploy": "now --prod ./build"
   },
   "eslintConfig": {

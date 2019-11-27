@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import DisplayItem from "./Display-item/DisplayItem";
-import imageApi from "../services/image-api-service";
-import "./DisplayFeed.css";
+import React, { useState, useEffect } from 'react';
+import DisplayItem from './Display-item/DisplayItem';
+import ImageApi from '../services/image-api-service';
+import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
 	const filler = [
@@ -20,14 +20,22 @@ export default function DisplayFeed(props) {
 		{ imgAddress: "https://picsum.photos/id/1031/400/400", upvotes: 3, id: 9 }
 	];
 
-	const [imageFeed, setImageFeed] = useState(filler);
-	// const [userPos, setUserPos] = useState({});
-	const [isLoading, setLoading] = useState(false);
+	const { userLocation } = props;
+	const { lat, long } = userLocation;
 
-	// useEffect(() => {
-	//     navigator.geolocation.getCurrentPosition(setUserPos);
 
-	// }, []);
+	const [imageFeed, setImageFeed] = useState([]);
+	const [isLoading, setLoading] = useState(true);
+
+	useEffect(() => {
+			setLoading(true);
+			ImageApi.getLocalImages('top', lat, long)
+					.then((res) => {
+							console.log(res);
+							setImageFeed(res);
+							setLoading(false);
+					})
+	}, [lat, long]);
 
 	const debounce = (func, delay) => {
 		console.log({ func }, { delay });
@@ -48,25 +56,37 @@ export default function DisplayFeed(props) {
 		const index = tempImageFeed.indexOf(image);
 		let currKarma = tempImageFeed[index].upvotes++;
 		setImageFeed(tempImageFeed);
-		imageApi.patchImageKarma(id, currKarma);
+		ImageApi.patchImageKarma(id, currKarma);
 		console.log(id, currKarma);
 
 		// handleDebounce(id, currKarma);
 	};
+    const generateJSX = () => {
+        if (isLoading) {
+            return (
+                <div className="loader"></div>
+            )
+        }
+        return (
+            <ul className="img-container">
+								
+							{imageFeed.map(imgObj => (
+								<DisplayItem
+									imgAddress={imgObj.imgAddress}
+									upvotes={imgObj.upvotes}
+									id={imgObj.id}
+									incrementUpvotes={incrementUpvotes}
+									key={imgObj.id}
+								/>
+							))}
+			
+            </ul>
+        )
+    }
 
-	return (
-		<section className='display-feed'>
-			<ul className='img-container'>
-				{imageFeed.map(imgObj => (
-					<DisplayItem
-						imgAddress={imgObj.imgAddress}
-						upvotes={imgObj.upvotes}
-						id={imgObj.id}
-						incrementUpvotes={incrementUpvotes}
-						key={imgObj.id}
-					/>
-				))}
-			</ul>
-		</section>
-	);
+    return (
+        <section className="display-feed">
+            {generateJSX()}
+        </section>
+    )
 }
