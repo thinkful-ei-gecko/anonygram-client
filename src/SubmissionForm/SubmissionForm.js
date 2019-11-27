@@ -35,10 +35,13 @@ class SubmissionFrom extends Component {
       .catch((error) => {});
   };
 
+  resetState = () => {
+    this.setState({image: null})
+  }
+
   render() {
-    
     return (
-      <form encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
+      <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
         <input
           style={{ display: 'none' }}
           type="file"
@@ -46,16 +49,19 @@ class SubmissionFrom extends Component {
           name="someImage"
           ref={(imageInput) => (this.imageInput = imageInput)}
         />
-        <button type="button"
-
-          className="SubmissionForm__button"
-          onClick={() => this.imageInput.click()}
-        >
-          +
-        </button>
-        <button type="submit" value="Upload">
-          Upload
-        </button>
+        {
+          (!this.state.image) 
+          ? <button type="button"
+              className="SubmissionForm__button"
+              onClick={() => this.imageInput.click()}
+          >+</button>
+          : (
+            <>
+              <button className='SubmissionForm__button' type="reset" onClick={() => this.resetState()}>Cancel</button>
+              <button className='SubmissionForm__button' type="submit" value="Upload">Upload</button>
+            </>
+          )
+        }
       </form>
     );
   }
