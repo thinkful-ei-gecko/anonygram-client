@@ -20,6 +20,11 @@ class SubmissionFrom extends Component {
     e.preventDefault();
     const formData = new FormData();
     formData.append('someImage', this.state.image);
+    formData.set('latitude', this.props.userLocation.lat)
+    formData.set('longitude', this.props.userLocation.long)
+    for (var value of formData.values()) { 
+      console.log(value); }
+    //console.log(formData.values());
     fetch(`${config.API_ENDPOINT}`, {
       method: 'POST',
       body: formData,
@@ -31,6 +36,7 @@ class SubmissionFrom extends Component {
   };
 
   render() {
+    
     return (
       <form encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
         <input
@@ -40,7 +46,8 @@ class SubmissionFrom extends Component {
           name="someImage"
           ref={(imageInput) => (this.imageInput = imageInput)}
         />
-        <button
+        <button type="button"
+
           className="SubmissionForm__button"
           onClick={() => this.imageInput.click()}
         >
