@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import SubmissionFrom from './SubmissionFrom/SubmissionForm';
+import SubmissionForm from './SubmissionForm/SubmissionForm';
 import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
 import NavBar from './NavBar/NavBar';
@@ -31,7 +31,7 @@ class App extends Component {
         </header>
         <NavBar />
         <DisplayFeed userLocation={this.state.userLocation} />
-        <SubmissionFrom />
+        <SubmissionForm userLocation={this.state.userLocation}/>
       </div>
     );
   }
