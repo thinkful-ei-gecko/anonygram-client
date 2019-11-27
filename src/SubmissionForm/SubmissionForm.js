@@ -35,6 +35,10 @@ class SubmissionFrom extends Component {
       .catch((error) => {});
   };
 
+  resetState = () => {
+    this.setState({image: null})
+  }
+
   render() {
     return (
       <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
@@ -53,11 +57,10 @@ class SubmissionFrom extends Component {
           >+</button>
           : (
             <>
-              <button className='SubmissionForm__button' type="reset">Cancel</button>
+              <button className='SubmissionForm__button' type="reset" onClick={() => this.resetState()}>Cancel</button>
               <button className='SubmissionForm__button' type="submit" value="Upload">Upload</button>
             </>
           )
-
         }
       </form>
     );
