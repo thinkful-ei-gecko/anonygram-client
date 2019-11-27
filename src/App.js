@@ -11,7 +11,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    karmaService.setNewKarma();
+    //Add karma to localStorage if it doesn't exist there yet.
+    if (!karmaService.getKarma() && karmaService.getKarma() !== 0) {
+      karmaService.setNewKarma();
+    }
     navigator.geolocation.getCurrentPosition(this.setPosition);
   }
 
