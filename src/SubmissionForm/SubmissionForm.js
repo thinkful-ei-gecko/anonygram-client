@@ -7,12 +7,14 @@ class SubmissionFrom extends Component {
     super(props);
     this.state = {
       image: null,
+      nsfwDetected: false,
     };
   }
 
   imageSelectHandler = (e) => {
     this.setState({
       image: e.target.files[0],
+      nsfwDetected: false,
     });
   };
 
@@ -22,15 +24,19 @@ class SubmissionFrom extends Component {
     formData.append('someImage', this.state.image);
     formData.set('latitude', this.props.userLocation.lat)
     formData.set('longitude', this.props.userLocation.long)
-    for (var value of formData.values()) { 
-      console.log(value); }
+    for (var value of formData.values()) {
+      console.log(value);
+    }
     fetch(`${config.API_ENDPOINT}`, {
       method: 'POST',
       body: formData,
     })
       .then((res) => {
         this.props.updateNewContent();
-        console.log(res);
+        console.log(res.status);
+        if (res.status === 400) {
+          this.setState({ nsfwDetected: true });
+        }
         this.setState({ image: null })
       })
       .catch((error) => {
@@ -39,33 +45,37 @@ class SubmissionFrom extends Component {
   };
 
   resetState = () => {
-    this.setState({image: null})
+    this.setState({ image: null })
   }
 
   render() {
+    const { nsfwDetected } = this.state; 
     return (
-      <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
-        <input
-          style={{ display: 'none' }}
-          type="file"
-          onChange={this.imageSelectHandler}
-          name="someImage"
-          ref={(imageInput) => (this.imageInput = imageInput)}
-        />
-        {
-          (!this.state.image) 
-          ? <button type="button"
-              className="SubmissionForm__button"
-              onClick={() => this.imageInput.click()}
-          >+</button>
-          : (
-            <>
-              <button className='SubmissionForm__button' type="reset" onClick={() => this.resetState()}>Cancel</button>
-              <button className='SubmissionForm__button' type="submit" value="Upload">Upload</button>
-            </>
-          )
-        }
-      </form>
+      <>
+      <div className="nsfw-detected">{nsfwDetected ? 'Sorry, that content is not permitted' : ''}</div>
+        <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
+          <input
+            style={{ display: 'none' }}
+            type="file"
+            onChange={this.imageSelectHandler}
+            name="someImage"
+            ref={(imageInput) => (this.imageInput = imageInput)}
+          />
+          {
+            (!this.state.image)
+              ? <button type="button"
+                className="SubmissionForm__button"
+                onClick={() => this.imageInput.click()}
+              >+</button>
+              : (
+                <>
+                  <button className='SubmissionForm__button' type="reset" onClick={() => this.resetState()}>Cancel</button>
+                  <button className='SubmissionForm__button' type="submit" value="Upload">Upload</button>
+                </>
+              )
+          }
+        </form>
+      </>
     );
   }
 }
