@@ -4,23 +4,7 @@ import ImageApi from '../services/image-api-service';
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
-    const filler = [
-        { imgAddress: "https://picsum.photos/id/1039/400/400", upvotes: 99, id: 1 },
-        {
-            imgAddress: "https://picsum.photos/id/1038/400/400",
-            upvotes: 200,
-            id: 2
-        },
-        { imgAddress: "https://picsum.photos/id/1037/400/400", upvotes: 12, id: 3 },
-        { imgAddress: "https://picsum.photos/id/1036/400/400", upvotes: 33, id: 4 },
-        { imgAddress: "https://picsum.photos/id/1035/400/400", upvotes: 55, id: 5 },
-        { imgAddress: "https://picsum.photos/id/1044/400/400", upvotes: 44, id: 6 },
-        { imgAddress: "https://picsum.photos/id/1033/400/400", upvotes: 88, id: 7 },
-        { imgAddress: "https://picsum.photos/id/1032/400/400", upvotes: 11, id: 8 },
-        { imgAddress: "https://picsum.photos/id/1031/400/400", upvotes: 3, id: 9 }
-    ];
-
-    const { userLocation } = props;
+    const { userLocation, newContentLoaded, updateNewContent } = props;
     const { lat, long } = userLocation;
 
 
@@ -35,7 +19,7 @@ export default function DisplayFeed(props) {
                 setImageFeed(res);
                 setLoading(false);
             })
-    }, [lat, long]);
+    }, [lat, long, newContentLoaded]);
 
     const debounce = (func, delay) => {
         console.log({ func }, { delay });

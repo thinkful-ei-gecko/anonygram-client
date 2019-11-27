@@ -29,6 +29,7 @@ class SubmissionFrom extends Component {
       body: formData,
     })
       .then((res) => {
+        this.props.updateNewContent();
         console.log(res);
       })
       .catch((error) => {

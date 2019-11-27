@@ -8,6 +8,8 @@ import NavBar from './NavBar/NavBar';
 class App extends Component {
   state = {
     userLocation: {},
+    newContentLoaded: false,
+    sort: 'new',
   }
 
   componentDidMount() {
@@ -21,6 +23,15 @@ class App extends Component {
     const posObj = { lat, long }
     this.setState({ userLocation: posObj });
   }
+
+  setNewContentLoaded = () => {
+    let temp = !this.state.newContentLoaded;
+    this.setState({ newContentLoaded: temp })
+  }
+
+  setSort = (val) => {
+    this.setState({ sort: val });
+  }
  
   render(){
     return (
@@ -30,8 +41,16 @@ class App extends Component {
           <h1>Anonygram</h1>
         </header>
         <NavBar />
-        <DisplayFeed userLocation={this.state.userLocation} />
-        <SubmissionForm userLocation={this.state.userLocation}/>
+        <DisplayFeed 
+          userLocation={this.state.userLocation} 
+          newContentLoaded={this.state.newContentLoaded}
+          updateNewContent={this.setNewContentLoaded}
+        />
+        <SubmissionForm 
+          userLocation={this.state.userLocation} 
+          newContentLoaded={this.state.newContentLoaded} 
+          updateNewContent={this.setNewContentLoaded} 
+        />
       </div>
     );
   }
