@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className='App-header'>
-          <img className='App-logo' src='/assets/icon.png' alt='logo'/>{' '}
+          <img className='App-logo' src='images/icon.png' alt='logo'/>{' '}
           <h1>Anonygram</h1>
         </header>
         <NavBar />
