@@ -44,7 +44,7 @@ class SubmissionFrom extends Component{
 
     render(){
         return(
-        <form onSubmit = {this.onSubmitImageUploader}>
+        <form className='SubmissionForm' onSubmit = {this.onSubmitImageUploader}>
           <input style = {{display: 'none'}} type="file" 
            onChange={this.imageSelectedHandler}
            name="someImage"
