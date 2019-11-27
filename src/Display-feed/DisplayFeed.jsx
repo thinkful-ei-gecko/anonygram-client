@@ -4,40 +4,63 @@ import ImageApi from '../services/image-api-service';
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
+	const filler = [
+		{ imgAddress: "https://picsum.photos/id/1039/400/400", upvotes: 99, id: 1 },
+		{
+			imgAddress: "https://picsum.photos/id/1038/400/400",
+			upvotes: 200,
+			id: 2
+		},
+		{ imgAddress: "https://picsum.photos/id/1037/400/400", upvotes: 12, id: 3 },
+		{ imgAddress: "https://picsum.photos/id/1036/400/400", upvotes: 33, id: 4 },
+		{ imgAddress: "https://picsum.photos/id/1035/400/400", upvotes: 55, id: 5 },
+		{ imgAddress: "https://picsum.photos/id/1044/400/400", upvotes: 44, id: 6 },
+		{ imgAddress: "https://picsum.photos/id/1033/400/400", upvotes: 88, id: 7 },
+		{ imgAddress: "https://picsum.photos/id/1032/400/400", upvotes: 11, id: 8 },
+		{ imgAddress: "https://picsum.photos/id/1031/400/400", upvotes: 3, id: 9 }
+	];
 
-    const { userLocation } = props;
-    const { lat, long } = userLocation;
+	const { userLocation } = props;
+	const { lat, long } = userLocation;
 
 
-    const [imageFeed, setImageFeed] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+	const [imageFeed, setImageFeed] = useState([]);
+	const [isLoading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setLoading(true);
-        ImageApi.getLocalImages('top', lat, long)
-            .then((res) => {
-                console.log(res);
-                setImageFeed(res);
-                setLoading(false);
-            })
-    }, [lat, long]);
+	useEffect(() => {
+			setLoading(true);
+			ImageApi.getLocalImages('top', lat, long)
+					.then((res) => {
+							console.log(res);
+							setImageFeed(res);
+							setLoading(false);
+					})
+	}, [lat, long]);
 
-    const incrementUpvotes = (address) => {
+	const debounce = (func, delay) => {
+		console.log({ func }, { delay });
+		let debounceTimer;
+		return () => {
+			const context = this;
+			const args = arguments;
+			clearTimeout(debounceTimer);
+			debounceTimer = setTimeout(() => func.apply(context, args), delay);
+		};
+	};
 
-        // will each image have a unique ID? 
-        // Or should we identify them by their imgAddress?
-        // PUT to server to increment upvotes -- coordinate with James
-        // If user can upvote multiple time, we should probably add a debounce to the button so we only post once users finish clicking -- ignore, come back to later
-        // will need to check number of times upvote clicked and compare against local storage
-        // Do we want to display the counter incrementing on each click?
+	const incrementUpvotes = id => {
+		// const handleDebounce = debounce(ImageApi.patchImageKarma, 3000);
 
-        // Will we need to re-insert the image into imageFeed?
-        // If we do, use setImageFeed
+		const tempImageFeed = imageFeed.map(imgObj => imgObj);
+		const image = tempImageFeed.find(imgObj => imgObj.id === id);
+		const index = tempImageFeed.indexOf(image);
+		let currKarma = tempImageFeed[index].karma_total++;
+		setImageFeed(tempImageFeed);
+		ImageApi.patchImageKarma(id, currKarma);
+		// console.log(id, currKarma);
 
-        const image = imageFeed.find((imgObj) => imgObj.imgAddress === address);
-
-    }
-
+		// handleDebounce(id, currKarma);
+	};
     const generateJSX = () => {
         if (isLoading) {
             return (
@@ -46,9 +69,17 @@ export default function DisplayFeed(props) {
         }
         return (
             <ul className="img-container">
-                {imageFeed.map((imgObj, index) => (
-                    <DisplayItem imgAddress={imgObj.image_url} upvotes={imgObj.karma_total} key={imgObj.id} />
-                ))}
+								
+							{imageFeed.map(imgObj => (
+								<DisplayItem
+									imgAddress={imgObj.image_url}
+									upvotes={imgObj.karma_total}
+									id={imgObj.id}
+									incrementUpvotes={incrementUpvotes}
+									key={imgObj.id}
+								/>
+							))}
+			
             </ul>
         )
     }
