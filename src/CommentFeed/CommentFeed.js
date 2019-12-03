@@ -3,11 +3,17 @@ import randomizer from '../helpers/randomizer';
 import Comment from './Comment/Comment';
 import './CommentFeed.css';
 
+import moment from 'moment';
+
 export default class CommentFeed extends Component {
 
   state = {
     usernames: {},
     incrementor: -1,
+  }
+
+  processTimestamp(timestamp) {
+    return moment(timestamp).fromNow();
   }
 
   componentDidMount() {
@@ -22,12 +28,12 @@ export default class CommentFeed extends Component {
     return (
       <div>
         {comments.map(commentObj => {
-          const { userId, id, text } = commentObj;
-          return <Comment key={id} text={text} username={this.state.usernames[userId]} />;
+          const { timestamp, userId, id, text } = commentObj;
+          return <Comment key={id} text={text} username={this.state.usernames[userId]} timestamp={this.processTimestamp(timestamp)} />;
         })}
-        <form>
-          <input />
-          <button>Post</button>
+        <form className='CommentFeed__form'>
+          <input type='text' className='CommentFeed__input' placeholder='Add a comment...' />
+          <button className='CommentFeed__button'>Post</button>
         </form>
       </div>
     )
