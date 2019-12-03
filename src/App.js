@@ -13,25 +13,25 @@ const photoObj = {
   karma_total: 20,
   comments: [
     {
-      timestamp: Date(),
+      timestamp: new Date(),
       userId: 1, 
       id: 1, 
       text: 'i am so coolasldkflskjdflksjdflksjdlfkjsdlfkjsldkfjslkdfjlskdjflskdjfsldkjflksdjflskjdf'
     }, 
     {
-      timestamp: Date(),
+      timestamp: new Date(),
       userId: 2, 
       id: 2, 
       text: 'lalala'
     }, 
     {
-      timestamp: Date(),
+      timestamp: new Date(),
       userId: 1, 
       id: 3, 
       text: 'testing and it feels so good'
     }, 
     {
-      timestamp: Date(),
+      timestamp: new Date(),
       userId: 3, 
       id: 4, 
       text: 'dslfjklkfjlsdkjf'

@@ -25,8 +25,8 @@ const ImageApi = {
       })
       .catch(err => console.log("Error", err));
   }, 
-  getImageObj(imageId) {
-    return fetch(`${config.API_ENDPOINT}/${imageId}`, {
+  getImage(imageId) {
+    return fetch(`${config.API_ENDPOINT}/comments/${imageId}`, {
     })
       .then((res) => 
         (!res.ok)
@@ -34,14 +34,14 @@ const ImageApi = {
           : res.json()
       )
   },
-  postImageComment(imageId, userId, commentText) {
-    return fetch(`${config.API_ENDPOINT}/${imageId}/comments`, {
+  postImageComment(newComment) {
+    return fetch(`${config.API_ENDPOINT}/comments/${id}`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json"
 			},
-			body: JSON.stringify({ userId, text: commentText })
-    })  
+			body: JSON.stringify({ comment_timestamp: new Date(), ...newComment})
+    })
       .then((res) => {
         return (!res.ok)
           ? res.json().then((e) => Promise.reject(e))
