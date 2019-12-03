@@ -4,6 +4,7 @@ import SubmissionForm from './SubmissionForm/SubmissionForm';
 import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
 import NavBar from './NavBar/NavBar';
+import MapView from './Components/MapView/MapView';
 
 class App extends Component {
   state = {
@@ -44,7 +45,8 @@ class App extends Component {
           <img className='App-logo' src='images/icon.png' alt='logo'/>{' '}
           <h1>Anonygram</h1>
         </header>
-        <NavBar setSort={this.setSort} />
+        <MapView userLocation={userLocation} />
+        {/* <NavBar setSort={this.setSort} />
         <DisplayFeed 
           sort={sort}
           userLocation={userLocation} 
@@ -55,7 +57,7 @@ class App extends Component {
           userLocation={userLocation} 
           newContentLoaded={newContentLoaded} 
           updateNewContent={this.setNewContentLoaded} 
-        />
+        /> */}
       </div>
     );
   }
