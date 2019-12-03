@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
+import KarmaService from '../services/karma-service';
 import ImageApi from '../services/image-api-service';
+
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
@@ -11,7 +13,8 @@ export default function DisplayFeed(props) {
 
     const [imageFeed, setImageFeed] = useState([]);
     const [isLoading, setLoading] = useState(false);
-
+		const [message, setMessage] = useState('');
+	
     useEffect(() => {
         setLoading(true);
         ImageApi.getLocalImages(sortParam, lat, long)
@@ -33,26 +36,43 @@ export default function DisplayFeed(props) {
         };
     };
 
-    const incrementUpvotes = id => {
-        // const handleDebounce = debounce(ImageApi.patchImageKarma, 3000);
+	const incrementUpvotes = async id => {
+		if (KarmaService.getKarma() < 1) {
+			setMessage("Looks like you're out of karma. You'll get some more soon!")
+			return; 
+		}
+		// const handleDebounce = debounce(ImageApi.patchImageKarma, 3000);
 
-        const tempImageFeed = imageFeed.map(imgObj => imgObj);
-        const image = tempImageFeed.find(imgObj => imgObj.id === id);
-        const index = tempImageFeed.indexOf(image);
-        let currKarma = tempImageFeed[index].karma_total++;
-        setImageFeed(tempImageFeed);
-        ImageApi.patchImageKarma(id, currKarma);
-        // console.log(id, currKarma);
+		//update the item in a deep copy of the array. you will need to update the state with a copy of the array photos provided
+		const tempImageFeed = imageFeed.map(imgObj => imgObj);
+		const image = tempImageFeed.find(imgObj => imgObj.id === id);
+		const index = tempImageFeed.indexOf(image);
+		tempImageFeed[index].karma_total++;
+		let currKarma = tempImageFeed[index].karma_total;
 
-        // handleDebounce(id, currKarma);
-    };
+		//set the copy to the state's value
+		setImageFeed(tempImageFeed);
+		
+		//if the total matches ther servers, decrement the karma, otherwise there's an error, so take any karma.
+		const res = await ImageApi.patchImageKarma(id, currKarma)
+		
+		if (res.karma_total === currKarma) {
+			KarmaService.decrementKarma()
+		} else {
+			setMessage('Error: Please refresh page');
+		}
+
+		// handleDebounce(id, currKarma);
+	};
+
     const generateJSX = () => {
         if (isLoading) {
-            return (
-                <div className="loader"></div>
-            )
+					return (
+							<div className="loader"></div>
+					)
         }
         return (
+					<>
             <ul className="img-container">
                 {imageFeed.map(imgObj => (
                     <DisplayItem
@@ -65,6 +85,8 @@ export default function DisplayFeed(props) {
                 ))}
 
             </ul>
+						{message && <div className='DisplayFeed__div notificationsContainer'>{message}</div>}
+					</>
         )
     }
 

@@ -11,7 +11,7 @@ const ImageApi = {
       )
   },
   patchImageKarma(id, karma_total) {
-    fetch(`${config.API_ENDPOINT}/${id}`, {
+    return fetch(`${config.API_ENDPOINT}/${id}`, {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json"
@@ -19,7 +19,7 @@ const ImageApi = {
 			body: JSON.stringify({karma_total: karma_total})
     })  
       .then((res) => {
-        (!res.ok)
+        return (!res.ok)
           ? res.json().then((e) => Promise.reject(e))
           : res.json();
       })
