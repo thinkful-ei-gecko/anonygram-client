@@ -17,7 +17,7 @@ export default class CommentFeed extends Component {
   }
 
   componentDidMount() {
-    const newUsernames = randomizer.getRandomUsernames(this.props.comments);
+    const newUsernames = randomizer.getAnonUsernames(this.props.comments);
     this.setState({ usernames: newUsernames });
   };
 

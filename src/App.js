@@ -20,7 +20,7 @@ const photoObj = {
     }, 
     {
       timestamp: Date(),
-      userId: 1, 
+      userId: 2, 
       id: 2, 
       text: 'lalala'
     }, 
@@ -29,6 +29,12 @@ const photoObj = {
       userId: 1, 
       id: 3, 
       text: 'testing and it feels so good'
+    }, 
+    {
+      timestamp: Date(),
+      userId: 3, 
+      id: 4, 
+      text: 'dslfjklkfjlsdkjf'
     }, 
   ]
 }
