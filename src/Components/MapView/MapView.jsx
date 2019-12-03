@@ -91,7 +91,7 @@ function MapView(props) {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBb2utrjFRSCxMZmnnMJB0v7SiBhCwujN8'
+  apiKey: ''
 })(MapView);
 
 /*
