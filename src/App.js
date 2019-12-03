@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
+import { Route , Link } from 'react-router-dom';
 import './App.css';
 import SubmissionForm from './SubmissionForm/SubmissionForm';
 import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
 import NavBar from './NavBar/NavBar';
+import Login from './Login/Login';
+import Register from './Register/Register';
+
 
 class App extends Component {
   state = {
@@ -43,7 +47,14 @@ class App extends Component {
         <header className='App-header'>
           <img className='App-logo' src='images/icon.png' alt='logo'/>{' '}
           <h1>Anonygram</h1>
+          <Link to="/login" className="nav-link" >Login</Link> |
+          <Link to="/register" className="nav-link" >Register</Link>
+          
         </header>
+        <Route exact path='/login' component={Login}/> 
+        <Route exact path='/register'component={Register}/> 
+        
+
         <NavBar setSort={this.setSort} />
         <DisplayFeed 
           sort={sort}

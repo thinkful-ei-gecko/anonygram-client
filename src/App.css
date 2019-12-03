@@ -26,3 +26,7 @@
 .App-link {
   color: #09d3ac;
 }
+
+.nav-link {  
+  float: right;
+}
