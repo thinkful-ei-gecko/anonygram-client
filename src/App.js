@@ -52,12 +52,12 @@ class App extends Component {
           userLocation={userLocation} 
           newContentLoaded={newContentLoaded}
           updateNewContent={this.setNewContentLoaded}
-        />
+        /> */}
         <SubmissionForm 
           userLocation={userLocation} 
           newContentLoaded={newContentLoaded} 
           updateNewContent={this.setNewContentLoaded} 
-        /> */}
+        />
       </div>
     );
   }
