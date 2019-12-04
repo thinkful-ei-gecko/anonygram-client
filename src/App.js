@@ -9,11 +9,13 @@ import Login from './Login/Login';
 import Register from './Register/Register';
 
 
+
 class App extends Component {
   state = {
     userLocation: {},
     newContentLoaded: false,
     sort: ['new', 'top'],
+    user: null
   }
 
   componentDidMount() {
@@ -41,6 +43,14 @@ class App extends Component {
     clone.reverse();
     this.setState({ sort: clone });
   }
+
+  loginUser = (username, password) => {
+    this.setState({
+      user: {username, password}
+    })
+  }
+
+
  
   render(){
     const { sort, userLocation, newContentLoaded, } = this.state;
@@ -54,9 +64,9 @@ class App extends Component {
           <Link to="/register" className="nav-link" >Register</Link>
           
         </header>
-        <Route exact path='/login' component={Login}/> 
-        <Route exact path='/register'component={Register}/> 
-        
+        <Route exact path='/login' component={Login} loginUser = {this.loginUser} /> 
+        <Route exact path='/register'component={Register} loginUser = {this.loginUser}/> 
+       
 
         <NavBar setSort={this.setSort} />
         <DisplayFeed 

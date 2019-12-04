@@ -5,17 +5,18 @@ import './Login.css';
 
 class Login extends Component {
 
+
   render() {
     return (
       <section className="login-page">
         <h2>Login</h2>
-        <form className='LoginForm'>
+        <form method="get" className='LoginForm'>
         <div>
           <label htmlFor='login-username-input'>
             Username
           </label>
           <input
-            ref={this.firstInput}
+            type="text"
             id='login-username-input'
             name='username'
             required

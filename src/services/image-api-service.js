@@ -2,7 +2,7 @@ import config from '../config';
 
 const ImageApi = {
   getLocalImages(sort, lat, long) {
-    return fetch(`${config.API_ENDPOINT}?sort=${sort}&lat=${lat}&lon=${long}`, {
+    return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}`, {
     })
       .then((res) => 
         (!res.ok)
@@ -11,7 +11,7 @@ const ImageApi = {
       )
   },
   patchImageKarma(id, karma_total) {
-    return fetch(`${config.API_ENDPOINT}/${id}`, {
+    return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json"
