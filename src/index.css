@@ -21,3 +21,11 @@ main: #afbdc4
 light: #e1eff7
 dark: #808d94
 */
+
+.bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}

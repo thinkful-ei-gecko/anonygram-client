@@ -10,8 +10,8 @@ const ImageApi = {
           : res.json()
       )
   },
-  patchImageKarma(id, karma_total) {
-    return fetch(`${config.API_ENDPOINT}/${id}`, {
+  patchImageKarma(imageId, karma_total) {
+    return fetch(`${config.API_ENDPOINT}/${imageId}`, {
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json"
@@ -24,8 +24,31 @@ const ImageApi = {
           : res.json();
       })
       .catch(err => console.log("Error", err));
-
-  }
+  }, 
+  getImage(imageId) {
+    return fetch(`${config.API_ENDPOINT}/comments/${imageId}`, {
+    })
+      .then((res) => 
+        (!res.ok)
+          ? res.json().then((e) => Promise.reject(e))
+          : res.json()
+      )
+  },
+  postImageComment(newComment) {
+    return fetch(`${config.API_ENDPOINT}/comments/${id}`, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json"
+			},
+			body: JSON.stringify({ comment_timestamp: new Date(), ...newComment})
+    })
+      .then((res) => {
+        return (!res.ok)
+          ? res.json().then((e) => Promise.reject(e))
+          : res.json();
+      })
+      .catch(err => console.log("Error", err));
+  },
 }
 
 export default ImageApi;
