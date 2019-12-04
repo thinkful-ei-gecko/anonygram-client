@@ -72,21 +72,20 @@ export default function DisplayFeed(props) {
 					)
         }
         return (
-					<>
-            <ul className="img-container">
-                {imageFeed.map(imgObj => (
-                    <DisplayItem
-                        imgAddress={imgObj.image_url}
-                        upvotes={imgObj.karma_total}
-                        id={imgObj.id}
-                        incrementUpvotes={incrementUpvotes}
-                        key={imgObj.id}
-                    />
-                ))}
-
-            </ul>
-						{message && <div className='DisplayFeed__div notificationsContainer'>{message}</div>}
-					</>
+            <>
+                <ul className="img-container">
+                    {imageFeed.map(imgObj => (
+                        <DisplayItem
+                            imgAddress={imgObj.image_url}
+                            upvotes={imgObj.karma_total}
+                            id={imgObj.id}
+                            incrementUpvotes={incrementUpvotes}
+                            key={imgObj.id}
+                        />
+                    ))}
+                </ul>
+                {message && <div className='DisplayFeed__div notificationsContainer'>{message}</div>}
+            </>
         )
     }
 

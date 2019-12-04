@@ -1,0 +1,15 @@
+.CommentFeed__form {
+  margin: 1em;
+  height: 3em;
+}
+
+.CommentFeed__input {
+  width: 80%;
+  height: 100%;
+  padding: 1em;
+}
+
+.CommentFeed__button {
+  width: 20%;
+  height: 100%;
+}
