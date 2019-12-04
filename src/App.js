@@ -47,8 +47,8 @@ class App extends Component {
     userLocation: {},
     newContentLoaded: false,
     sort: ['new', 'top'],
-    user: null
-    //photoObj: photoObj,
+    user: null,
+    photoObj: photoObj,
   }
 
   componentDidMount() {
@@ -84,17 +84,17 @@ class App extends Component {
   }
 
 
-  // renderMainRoutes = () => {
-  //   const { sort, userLocation, newContentLoaded, photoObj, } = this.state;
-  //   return (
-  //     <>
-  //       <Route exact path='/' render={() => <DisplayFeed sort={sort} userLocation={userLocation} newContentLoaded={newContentLoaded} updateNewContent={this.setNewContentLoaded} />}
-  //       />
+  renderMainRoutes = () => {
+    const { sort, userLocation, newContentLoaded, photoObj, } = this.state;
+    return (
+      <>
+        <Route exact path='/' render={() => <DisplayFeed sort={sort} userLocation={userLocation} newContentLoaded={newContentLoaded} updateNewContent={this.setNewContentLoaded} />}
+        />
 
-  //       <Route path={`/${photoObj.id}`} render={() => <DisplaySingle photoObj={photoObj}/>} />
-  //     </>
-  //   )
-  // }
+        <Route path={`/${photoObj.id}`} render={() => <DisplaySingle photoObj={photoObj}/>} />
+      </>
+    )
+  }
  
   render(){
     const { sort, userLocation, newContentLoaded, } = this.state;
@@ -113,7 +113,7 @@ class App extends Component {
        
 
         <NavBar setSort={this.setSort} />
-        <DisplaySingle photoObj={this.state.photoObj}/>
+        {/* <DisplaySingle photoObj={this.state.photoObj}/> */}
 
         {/* {(this.state.photoObj)
           ? (
@@ -128,7 +128,7 @@ class App extends Component {
             <DisplaySingle photoObj={this.state.photoObj}/>
           )
         } */}
-        {/* {this.renderMainRoutes()} */}
+        {this.renderMainRoutes()}
         <SubmissionForm 
           userLocation={userLocation} 
           newContentLoaded={newContentLoaded} 

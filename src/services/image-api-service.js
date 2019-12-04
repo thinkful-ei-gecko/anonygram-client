@@ -10,13 +10,8 @@ const ImageApi = {
           : res.json()
       )
   },
-<<<<<<< HEAD
   patchImageKarma(id, karma_total) {
     return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
-=======
-  patchImageKarma(imageId, karma_total) {
-    return fetch(`${config.API_ENDPOINT}/${imageId}`, {
->>>>>>> a1c47d02ffa669724f42b3d5c791c77525875092
 			method: "PATCH",
 			headers: {
 				"content-type": "application/json"
@@ -39,7 +34,7 @@ const ImageApi = {
           : res.json()
       )
   },
-  postImageComment(newComment) {
+  postImageComment(id, newComment) {
     return fetch(`${config.API_ENDPOINT}/comments/${id}`, {
 			method: "POST",
 			headers: {

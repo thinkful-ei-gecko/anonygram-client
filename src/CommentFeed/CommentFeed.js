@@ -20,11 +20,11 @@ export default class CommentFeed extends Component {
   handleSubmit = (e) => {
     const commentText = e.target.value; 
     const newComment = {
-      user_id: ____userId___, 
+      user_id: 'some-uuid-here', 
       comment_text: commentText
     }
 
-    ImageApi.postImageComment(this.props.id, ____userId___, commentText)
+    ImageApi.postImageComment(this.props.id, newComment.user_id, newComment.commentText)
       .then(() => {
         this.context.comments.push(newComment);
       })

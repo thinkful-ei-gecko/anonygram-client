@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-dom';
+import { Link } from 'react-router-dom';
 import './DisplayItem.css';
 
 export default function DisplayItem(props) {
