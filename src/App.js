@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import { Route, Switch } from 'react-dom';
+import { Route , Link } from 'react-router-dom';
 import './App.css';
 import SubmissionForm from './SubmissionForm/SubmissionForm';
 import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
 import DisplaySingle from './DisplaySingle/DisplaySingle';
 import NavBar from './NavBar/NavBar';
+import Login from './Login/Login';
+import Register from './Register/Register';
+
 
 const photoObj = {
   id: 1,
@@ -93,7 +96,14 @@ class App extends Component {
         <header className='App-header'>
           {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
           <h1>Anonygram</h1>
+          <Link to="/login" className="nav-link" >Login</Link> |
+          <Link to="/register" className="nav-link" >Register</Link>
+          
         </header>
+        <Route exact path='/login' component={Login}/> 
+        <Route exact path='/register'component={Register}/> 
+        
+
         <NavBar setSort={this.setSort} />
         <DisplaySingle photoObj={this.state.photoObj}/>
 
