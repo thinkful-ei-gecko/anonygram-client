@@ -62,7 +62,6 @@ function MapView(props) {
   const handleMarkerClick = (markerImg) => {
     setDisplayModal(true);
     setModalImage(markerImg);
-    console.log(config)
   };
 
   const handleClose = () => {
