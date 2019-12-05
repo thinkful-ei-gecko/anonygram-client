@@ -23,7 +23,7 @@ class Login extends Component {
       .then(res => {
         username.value = ''
         password.value = ''
-        this.context.processLogin(res.authToken)
+        this.context.processLogin(res.anonygramAuthToken)
       })
       .catch(res => {
         this.setState({ error: res.error })

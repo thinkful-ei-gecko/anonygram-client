@@ -1,4 +1,5 @@
 import config from '../config';
+import TokenService from './token-service'
 
 const ImageApi = {
   getLocalImages(sort, lat, long) {
@@ -15,6 +16,7 @@ const ImageApi = {
     return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
 			method: "PATCH",
 			headers: {
+        "Authorization": `Bearer ${TokenService.getAuthToken()}`,
 				"content-type": "application/json"
 			},
 			body: JSON.stringify({karma_total: karma_total})
