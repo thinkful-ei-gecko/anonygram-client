@@ -6,6 +6,7 @@ import karmaService from './services/karma-service';
 import DisplayFeed from './Display-feed/DisplayFeed';
 import DisplaySingle from './DisplaySingle/DisplaySingle';
 import NavBar from './NavBar/NavBar';
+import MapView from './Components/MapView/MapView';
 import Login from './Login/Login';
 import Register from './Register/Register';
 
@@ -108,6 +109,7 @@ class App extends Component {
           <Link to="/register" className="nav-link" >Register</Link>
           
         </header>
+
         <Route exact path='/login' component={Login} loginUser = {this.loginUser} /> 
         <Route exact path='/register'component={Register} loginUser = {this.loginUser}/> 
        
@@ -129,6 +131,7 @@ class App extends Component {
           )
         } */}
         {this.renderMainRoutes()}
+
         <SubmissionForm 
           userLocation={userLocation} 
           newContentLoaded={newContentLoaded} 
