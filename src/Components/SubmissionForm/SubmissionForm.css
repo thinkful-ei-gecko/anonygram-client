@@ -2,7 +2,8 @@
   width: 100vw;
   position: sticky;
   position: -webkit-sticky;
-  bottom: 0; left: 0;
+  bottom: 0;
+  left: 0;
   background-color: #03a9f4;
 }
 
@@ -11,4 +12,22 @@
   width: 100%;
   padding: 1em;
   border: none;
+}
+
+.SubmissionForm__drag--active {
+  padding: 1em;
+  border: 5px dashed rgb(93, 194, 93);
+  background-color: rgb(150, 196, 150);
+  opacity: 50;
+  color: white;
+}
+
+.SubmissionForm__drag {
+  display: none;
+}
+
+@media screen and (min-width: 100em) {
+  .SubmissionForm__drag {
+    display: unset;
+  }
 }
