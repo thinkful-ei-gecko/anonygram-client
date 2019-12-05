@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import CommentFeed from '../CommentFeed/CommentFeed';
 import CommentApi from '../../services/comment-api-service';
 import ImageContext from '../../contexts/ImageContext';
@@ -10,6 +11,10 @@ export default class DisplaySingle extends Component {
     image: {}, 
     comments: [], 
     loading: false, 
+  }
+
+  convertTime = (timestamp) => {
+    return moment((new Date(timestamp)).toString()).fromNow();
   }
 
   componentDidMount = () => {
@@ -40,7 +45,7 @@ export default class DisplaySingle extends Component {
       return (
         <div className='DisplaySingle'>
           <img src={image_url} alt={image_text}/>
-          <div>{create_timestamp}</div>
+          <div>{this.convertTime(create_timestamp)}</div>
           <div>{karma_total}</div>
           <p>{image_text}</p>
           {this.state.comments && <CommentFeed id={this.state.image.id} comments={this.state.comments}/>}
