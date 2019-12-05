@@ -4,7 +4,6 @@ import './Comment.css';
 export default function Comment (props) {
   const { username, text, timestamp } = props;
 
-  console.log(timestamp)
   return (
     <div className='Comment'>
       {/* <hr></hr> */}

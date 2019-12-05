@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './SubmissionForm.css';
 
 
-import config from '../config';
+import config from '../../config';
 
 class SubmissionFrom extends Component {
   constructor(props) {
@@ -64,6 +64,7 @@ class SubmissionFrom extends Component {
           <input
             style={{ display: 'none' }}
             type="file"
+            accept="image/*"
             onChange={this.imageSelectHandler}
             name="someImage"
             ref={(imageInput) => (this.imageInput = imageInput)}

@@ -1,8 +1,8 @@
 import config from '../config';
 
-const ImageApi = {
-  getLocalImages(sort, lat, long) {
-    return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}`, {
+const CommentApi = {
+  getComments(imageId) {
+    return fetch(`${config.API_ENDPOINT}/api/comments/${imageId}`, {
     })
       .then((res) => 
         (!res.ok)
@@ -10,15 +10,14 @@ const ImageApi = {
           : res.json()
       )
   },
-
-  patchImageKarma(id, karma_total) {
-    return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
-			method: "PATCH",
+  postComment(imageId, comment_text, user_id) {
+    return fetch(`${config.API_ENDPOINT}/api/comments/${imageId}`, {
+			method: "POST",
 			headers: {
 				"content-type": "application/json"
 			},
-			body: JSON.stringify({karma_total: karma_total})
-    })  
+			body: JSON.stringify({ comment_text, user_id })
+    })
       .then((res) => {
         return (!res.ok)
           ? res.json().then((e) => Promise.reject(e))
@@ -28,4 +27,4 @@ const ImageApi = {
   },
 }
 
-export default ImageApi;
+export default CommentApi;
