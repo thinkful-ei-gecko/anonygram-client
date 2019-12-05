@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import AuthApiService from '../../services/auth-api-service'
-
 import './Login.css';
 
 class Login extends Component {
-  constructor(){
-    super();
-    this.state = {
-      user: [],
-      error: null
-    };
-  }
-
-  // static defaultProps = {
-  //   onLoginSuccess: () => { }
-  // }
-
   static contextType = UserContext;
-
+  
+  state = {
+      error: null
+  }
+  
   handleSubmit = e => {
     e.preventDefault()
     const { username, password } = e.target
@@ -33,7 +24,6 @@ class Login extends Component {
         username.value = ''
         password.value = ''
         this.context.processLogin(res.authToken)
-        // this.props.onLoginSuccess()
       })
       .catch(res => {
         this.setState({ error: res.error })
@@ -41,10 +31,14 @@ class Login extends Component {
   }
 
   render() {
+    const { error } = this.state
     return (
       <section className="login-page">
         <h2>Login</h2>
         <form method="get" className='LoginForm' onSubmit = {e => this.handleSubmit(e)}>
+        <div role='alert'>
+          {error && <p>{error}</p>}
+        </div>
         <div>
           <label htmlFor='login-username-input'>
             Username

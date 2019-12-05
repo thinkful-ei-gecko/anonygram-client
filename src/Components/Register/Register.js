@@ -9,8 +9,6 @@ class Register extends Component {
     error: null
   }
 
-
-
   submitForm = (e, history) => {
     e.preventDefault()
     const { username, password } = e.target
@@ -29,7 +27,6 @@ class Register extends Component {
   }
 
   render() {
-    console.log(this.error)
     const { error } = this.state
     return (
       <section className="register-page">
