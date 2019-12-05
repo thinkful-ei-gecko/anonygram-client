@@ -64,6 +64,9 @@ class SubmissionForm extends Component {
       .then(() => {
         if (!this.state.nsfwDetected) {
           // redirect so the feed will refresh with the new, posted image
+          
+          // TODO - replace with a request and state update rather than
+          // refreshing the feed
           this.props.history.go('/')}
       })
       .catch(error => {
