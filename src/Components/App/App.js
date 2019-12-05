@@ -123,9 +123,18 @@ export default class App extends Component {
         <div className="loader"></div>
       )
     } else {
+      const { userLocation, newContentLoaded, } = this.state;
       return (
         <>
           <Route exact path='/' render={() => <DisplayFeed />} />
+          <Route exact path='/' render={routeProps => 
+          <SubmissionForm 
+            {...routeProps}
+            userLocation={userLocation} 
+            newContentLoaded={newContentLoaded} 
+            updateNewContent={this.setNewContentLoaded} 
+          />}
+          />
           {/* This next conditional prevents 'DisplaySingle' from rendering before it has what it needs (ComponentDidMount requires this.context.images to be ready, which won't be ready until 'this.state.images' is (you can't access context here)) */}
           {(this.state.images.length !== 0) 
             ? <Route path={`/p/:submissionId`} render={(routeProps) => <DisplaySingle submissionId={routeProps.match.params.submissionId} />} />
@@ -152,8 +161,6 @@ export default class App extends Component {
       clearError: this.clearError,
     }
 
-    const { userLocation, newContentLoaded, } = this.state;
-
     return (
       <ImageContext.Provider value={value}>
         <div className="App">
@@ -165,11 +172,6 @@ export default class App extends Component {
           </header>
           {this.renderNavRoutes()}
           {this.renderMainRoutes()}
-          <SubmissionForm 
-            userLocation={userLocation} 
-            newContentLoaded={newContentLoaded} 
-            updateNewContent={this.setNewContentLoaded} 
-          />
         </div>
       </ImageContext.Provider>
     );
