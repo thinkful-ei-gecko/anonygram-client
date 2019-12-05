@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
 import randomizer from '../helpers/randomizer';
 import Comment from './Comment/Comment';
-import ImageApi from '../services/image-api-service';
+// import CommentApi from '../services/comment-api-service';
 import './CommentFeed.css';
 
 import moment from 'moment';
 
 export default class CommentFeed extends Component {
-
   state = {
-    usernames: {},
-    incrementor: -1,
+    usernames: [],
   }
-
+  
   processTimestamp(timestamp) {
     return moment(timestamp).fromNow();
   }
 
-  handleSubmit = (e) => {
-    const commentText = e.target.value; 
-    const newComment = {
-      user_id: ____userId___, 
-      comment_text: commentText
-    }
+  // handleSubmit = (e) => {
+    // const commentText = e.target.value; 
 
-    ImageApi.postImageComment(this.props.id, ____userId___, commentText)
-      .then(() => {
-        this.context.comments.push(newComment);
-      })
-  }
+    // CommentApi.postImageComment(this.props.id, commentText, ____userId___)
+    //   .then(res => {
+    //     this.props.setCommentsByPush(res);
+    //   })
+  // }
 
   componentDidMount() {
     const newUsernames = randomizer.getAnonUsernames(this.props.comments);
@@ -37,13 +31,13 @@ export default class CommentFeed extends Component {
 
   render() {
     const { comments } = this.props;
-    console.log(this.state.usernames)
-    console.log(this.state.usernames[1])
+    
     return (
       <div>
         {comments.map(commentObj => {
-          const { timestamp, userId, id, text } = commentObj;
-          return <Comment key={id} text={text} username={this.state.usernames[userId]} timestamp={this.processTimestamp(timestamp)} />;
+          const { comment_timestamp, user_id, comment_id, comment_text } = commentObj;
+
+          return <Comment key={comment_id} text={comment_text} username={this.state.usernames[user_id]} timestamp={this.processTimestamp(comment_timestamp)} />;
         })}
         <form onSubmit={(e) => this.handleSubmit(e)} className='CommentFeed__form'>
           <input type='text' className='CommentFeed__input' placeholder='Add a comment...' />

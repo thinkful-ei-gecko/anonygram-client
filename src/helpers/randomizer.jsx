@@ -40,16 +40,15 @@ const randomizer = {
     return username;
   },
 
-  getAnonUsernames(usernames) {
+  getAnonUsernames(arrOfComments) {
     //Make an array with only userIds (no duplicates)
     const userIds = [];
-    usernames.map(username => {
-      const currUserId = username.userId;
+    arrOfComments.map(comment => {
+      const currUserId = comment.userId;
       if (!userIds.includes(currUserId)) {
         userIds.push(currUserId)
       }
     })
-    console.log(userIds)
 
     //Make an object; assign usernames (value) for each userId (key) in array
     const newUsernames = {};
