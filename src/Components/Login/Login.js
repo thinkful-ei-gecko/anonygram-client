@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import AuthApiService from '../../services/auth-api-service'
 import './Login.css';
+import config from '../../config'
 
 class Login extends Component {
   static contextType = UserContext;
@@ -10,7 +11,7 @@ class Login extends Component {
       error: null
   }
   
-  handleSubmit = e => {
+  handleSubmit = (e,history) => {
     e.preventDefault()
     const { username, password } = e.target
 
@@ -24,6 +25,7 @@ class Login extends Component {
         username.value = ''
         password.value = ''
         this.context.processLogin(res.anonygramAuthToken)
+        history.push(``)
       })
       .catch(res => {
         this.setState({ error: res.error })
