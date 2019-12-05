@@ -64,6 +64,7 @@ class SubmissionFrom extends Component {
           <input
             style={{ display: 'none' }}
             type="file"
+            accept="image/*"
             onChange={this.imageSelectHandler}
             name="someImage"
             ref={(imageInput) => (this.imageInput = imageInput)}
