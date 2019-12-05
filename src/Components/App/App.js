@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import { Route , Link } from 'react-router-dom';
 import './App.css';
-import SubmissionForm from './SubmissionForm/SubmissionForm';
-import karmaService from './services/karma-service';
-import DisplayFeed from './Display-feed/DisplayFeed';
-import DisplaySingle from './DisplaySingle/DisplaySingle';
-import NavBar from './NavBar/NavBar';
-import MapView from './Components/MapView/MapView';
-import Login from './Login/Login';
-import Register from './Register/Register';
+import SubmissionForm from '../SubmissionForm/SubmissionForm';
+import karmaService from '../../services/karma-service';
+import DisplayFeed from '../Display-feed/DisplayFeed';
+import DisplaySingle from '../DisplaySingle/DisplaySingle';
+import NavBar from '../NavBar/NavBar';
+import MapView from '../MapView/MapView';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 
 const photoObj = {

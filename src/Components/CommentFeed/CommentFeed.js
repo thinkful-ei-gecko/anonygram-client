@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import randomizer from '../helpers/randomizer';
 import Comment from './Comment/Comment';
-import ImageApi from '../services/image-api-service';
+import ImageApi from '../../services/image-api-service';
 import './CommentFeed.css';
 
 import moment from 'moment';

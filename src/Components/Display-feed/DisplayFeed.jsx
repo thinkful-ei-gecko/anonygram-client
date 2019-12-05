@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
-import KarmaService from '../services/karma-service';
-import ImageApi from '../services/image-api-service';
+import KarmaService from '../../services/karma-service';
+import ImageApi from '../../services/image-api-service';
 
 import './DisplayFeed.css';
 
