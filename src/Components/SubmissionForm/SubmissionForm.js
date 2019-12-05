@@ -67,6 +67,8 @@ class SubmissionFrom extends Component {
 
     return (
       <div>
+        {/* Display loading spinner if loading */}	 
+        {this.state.loading && <div className='loader'></div>}
         <section className="nsfw-detected">
           {nsfwDetected ? 'Sorry, that content is not permitted' : ''}
         </section>
