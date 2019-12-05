@@ -11,6 +11,7 @@ class SubmissionFrom extends Component {
     this.state = {
       image: null,
       nsfwDetected: false,
+      loading: false,
     };
   }
 
@@ -23,6 +24,9 @@ class SubmissionFrom extends Component {
 
   onSubmitImageUploader = (e) => {
     e.preventDefault();
+
+    //Start loading spinner
+    this.setState({ loading: true });
     const formData = new FormData();
     formData.append('someImage', this.state.image);
     formData.set('latitude', this.props.userLocation.lat)
@@ -35,6 +39,8 @@ class SubmissionFrom extends Component {
       body: formData,
     })
       .then((res) => {
+        //Remove loading spinner
+        this.setState({ loading: false });
         this.props.updateNewContent();
         console.log(res.status);
         if (res.status === 400) {
@@ -54,12 +60,13 @@ class SubmissionFrom extends Component {
 
   render() {
     const { nsfwDetected } = this.state; 
-    return (
-     
+    return ( 
       <div>
-      <section className="nsfw-detected">{nsfwDetected ? 'Sorry, that content is not permitted' : ''}    
-      </section>
-      <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
+        {/* Display loading spinner if loading */}
+        {this.state.loading && <div className='loader'></div>}
+        <section className="nsfw-detected">{nsfwDetected ? 'Sorry, that content is not permitted' : ''}    
+        </section>
+        <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
           
           <input
             style={{ display: 'none' }}

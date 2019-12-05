@@ -117,6 +117,7 @@ export default class App extends Component {
   }
 
   renderMainRoutes = () => {
+    // Display loading spinner if loading
     if (this.state.loading) {
       return (
         <div className="loader"></div>

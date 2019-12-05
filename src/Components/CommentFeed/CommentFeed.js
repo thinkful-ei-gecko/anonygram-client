@@ -41,7 +41,7 @@ export default class CommentFeed extends Component {
           return <Comment key={comment_id} text={comment_text} username={this.state.usernames[user_id]} timestamp={this.processTimestamp(comment_timestamp)} />;
         })}
         <form onSubmit={(e) => this.handleSubmit(e)} className='CommentFeed__form'>
-          <label htmlFor='newComment'>Add a Comment</label>
+          {/* <label htmlFor='newComment'>Add a Comment</label> */}
           <input type='text' onChange={e => this.setState({ newComment: e.target.value})} id='newComment' className='CommentFeed__input' placeholder='Add a comment...' />
           <button type='submit' className='CommentFeed__button'>Post</button>
         </form>
