@@ -1,49 +1,44 @@
 import React, { Component } from 'react'
-import config from '../../config'
+import AuthApiService from '../../services/auth-api-service'
  
 import './Register.css';
 
 class Register extends Component {
-  constructor(){
-    super();
-    this.state = {
-      user: []
-    };
+
+  state = {
+    error: null
   }
+
+
 
   submitForm = (e, history) => {
-    e.preventDefault();
-    let username = e.target.username.value;
-    let password = e.target.password.value;
-    let isValid = e.target.isValid.value;
-    let newUser = {  username: username, password: password, isValid: isValid}
-    this.setState({
-      user : [newUser]
-    },
-    () => {
-      fetch(`${config.API_ENDPOINT}/api/users/`, {
-        method: 'POST',
-        headers: {
-          "Content-Type":"application/json"
-          },
-        body: JSON.stringify(newUser)
-      }).then(
-        res => res.json());
-        //history.push(`/login`);
-      }
-    );
+    e.preventDefault()
+    const { username, password } = e.target
+    AuthApiService.postUser({
+      username: username.value,
+      password: password.value,
+    })
+      .then(user => {
+        username.value = ''
+        password.value = ''
+        this.history('/login')
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
   }
 
-
-
-
-
   render() {
+    console.log(this.error)
+    const { error } = this.state
     return (
       <section className="register-page">
         <h2>Register</h2>
         <form method="post" onSubmit = {e => this.submitForm(e)}>
         <div>
+          <div role='alert'>
+            {error && <p>{error}</p>}
+          </div>
           <label htmlFor='registration-username-input'>
             Choose a username
           </label>
