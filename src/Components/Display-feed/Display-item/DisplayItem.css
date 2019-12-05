@@ -24,6 +24,7 @@
 
 .upvote-button {
     position: absolute;
+    z-index: auto;
     bottom: 8px;
     right: 30px;
     border: none;

@@ -43,7 +43,7 @@ export default function DisplayFeed(props) {
 		//if the total matches ther servers, decrement the karma, otherwise there's an error, so take any karma.
 		const res = await ImageApi.patchImageKarma(id, currKarma)
 		
-		if (res.karma_total === currKarma) {
+		if (res && res.karma_total === currKarma) {
 			KarmaService.decrementKarma()
 		} else {
 			setMessage('Error: Please refresh page');

@@ -3,12 +3,24 @@
   margin: 0;
   padding: 0;
 }
+
+.loader {
+  margin-top: 8em;
+}
 .App {
   text-align: center;
 }
 
 .App-logo {
   height: 2em;
+}
+
+.App__heading-container {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
 }
 
 .App-header {

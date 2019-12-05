@@ -164,13 +164,15 @@ export default class App extends Component {
     return (
       <ImageContext.Provider value={value}>
         <div className="App">
-          <header className='App-header'>
-            {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
-            <Link to='/' className='resetStyles'><h1>Anonygram</h1></Link>{' '}
-            <Link to="/login" className="nav-link resetStyles" >Login</Link> |
-            <Link to="/register" className="nav-link resetStyles" >Register</Link>
-          </header>
-          {this.renderNavRoutes()}
+          <div className="App__heading-container">
+            <header className='App-header'>
+              {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
+              <Link to='/' className='resetStyles'><h1>Anonygram</h1></Link>{' '}
+              <Link to="/login" className="nav-link resetStyles" >Login</Link> |
+              <Link to="/register" className="nav-link resetStyles" >Register</Link>
+            </header>
+            {this.renderNavRoutes()}
+          </div>
           {this.renderMainRoutes()}
         </div>
       </ImageContext.Provider>
