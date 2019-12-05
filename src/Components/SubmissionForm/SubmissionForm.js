@@ -78,7 +78,7 @@ class SubmissionForm extends Component {
     const { nsfwDetected } = this.state;
 
     return (
-      <div>
+      <div className="SubmissionForm">
         {/* Display loading spinner if loading */}	 
         {this.state.loading && <div className='loader'></div>}
         <section className="nsfw-detected">
@@ -92,7 +92,7 @@ class SubmissionForm extends Component {
           {({ getRootProps, getInputProps, isDragActive }) => (
             <form
               {...getRootProps()}
-              className="SubmissionForm"
+              className="SubmissionForm__form"
               encType="multipart/form-data"
               onSubmit={this.onSubmitImageUploader}
             >

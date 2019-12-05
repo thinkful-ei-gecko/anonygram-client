@@ -1,4 +1,9 @@
 .SubmissionForm {
+  position: fixed;
+  bottom: 0;
+}
+
+.SubmissionForm__form {
   width: 100vw;
   position: sticky;
   position: -webkit-sticky;
