@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+
 import './SubmissionForm.css';
+
+
 import config from '../config';
 
 class SubmissionFrom extends Component {
@@ -27,7 +30,7 @@ class SubmissionFrom extends Component {
     for (var value of formData.values()) {
       console.log(value);
     }
-    fetch(`${config.API_ENDPOINT}`, {
+    fetch(`${config.API_ENDPOINT}/api/images`, {
       method: 'POST',
       body: formData,
     })
@@ -48,12 +51,16 @@ class SubmissionFrom extends Component {
     this.setState({ image: null })
   }
 
+
   render() {
     const { nsfwDetected } = this.state; 
     return (
-      <>
-      <div className="nsfw-detected">{nsfwDetected ? 'Sorry, that content is not permitted' : ''}</div>
-        <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
+     
+      <div>
+      <section className="nsfw-detected">{nsfwDetected ? 'Sorry, that content is not permitted' : ''}    
+      </section>
+      <form className='SubmissionForm' encType="multipart/form-data" onSubmit={this.onSubmitImageUploader}>
+          
           <input
             style={{ display: 'none' }}
             type="file"
@@ -74,8 +81,9 @@ class SubmissionFrom extends Component {
                 </>
               )
           }
+
         </form>
-      </>
+      </div>  
     );
   }
 }

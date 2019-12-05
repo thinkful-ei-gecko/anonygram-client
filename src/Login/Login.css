@@ -1,0 +1,41 @@
+.login-page {
+    border: 1px solid black;
+    background: white;
+    padding: 20px;
+    margin: 20px;
+}
+
+img{
+    height: 200px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color:  #03a9f4;
+    color: black;
+    letter-spacing: 3px;
+    font-weight: bold;
+    padding:14px 20px;
+    margin: 8px 0;
+    border: none;
+    width: 100%;
+}
+button:hover{
+    opacity: 0.8;
+}
+
+
+
+@media screen and (min-width: 730px){
+    .login-page{
+        margin: auto;
+        max-width: 550px;
+    }
+}

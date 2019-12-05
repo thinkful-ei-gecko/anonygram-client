@@ -1,5 +1,15 @@
 .display-feed {
-    margin-bottom: 1em;
+    margin: 1em 0;
+}
+
+.notificationsContainer {
+    background-color: lightcoral;
+    height: 2em;
+    width: 80%;
+    margin: 0 auto;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 3em;
 }
 
 .img-container {
