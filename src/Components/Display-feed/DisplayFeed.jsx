@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
-import ImageContext from '../contexts/ImageContext';
-import KarmaService from '../services/karma-service';
-import ImageApi from '../services/image-api-service';
+import ImageContext from '../../contexts/ImageContext';
+import KarmaService from '../../services/karma-service';
+import ImageApi from '../../services/image-api-service';
 
 import './DisplayFeed.css';
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CommentFeed from '../CommentFeed/CommentFeed';
-import CommentApi from '../services/comment-api-service';
-import ImageContext from '../contexts/ImageContext';
+import CommentApi from '../../services/comment-api-service';
+import ImageContext from '../../contexts/ImageContext';
 
 export default class DisplaySingle extends Component {
   static contextType = ImageContext; 

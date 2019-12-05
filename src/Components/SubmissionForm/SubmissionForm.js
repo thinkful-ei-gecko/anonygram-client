@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './SubmissionForm.css';
 
 
-import config from '../config';
+import config from '../../config';
 
 class SubmissionFrom extends Component {
   constructor(props) {

@@ -3,15 +3,16 @@
 *******************************************************************/
 import React, { Component } from 'react';
 import { Route , Link } from 'react-router-dom';
-import SubmissionForm from './SubmissionForm/SubmissionForm';
-import karmaService from './services/karma-service';
-import DisplayFeed from './Display-feed/DisplayFeed';
-import DisplaySingle from './DisplaySingle/DisplaySingle';
-import NavBar from './NavBar/NavBar';
-import Login from './Login/Login';
-import Register from './Register/Register';
-import ImageApi from './services/image-api-service';
-import ImageContext from './contexts/ImageContext';
+import SubmissionForm from '../SubmissionForm/SubmissionForm';
+import karmaService from '../../services/karma-service';
+import DisplayFeed from '../Display-feed/DisplayFeed';
+import DisplaySingle from '../DisplaySingle/DisplaySingle';
+import NavBar from '../NavBar/NavBar';
+import MapView from '../MapView/MapView';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import ImageApi from '../../services/image-api-service';
+import ImageContext from '../../contexts/ImageContext';
 import './App.css';
 
 export default class App extends Component {
