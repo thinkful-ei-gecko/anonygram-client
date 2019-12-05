@@ -66,6 +66,7 @@ export default function DisplayFeed(props) {
                     {context.images.map(imgObj => (
                         <DisplayItem
                             imgAddress={imgObj.image_url}
+                            imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
                             incrementUpvotes={incrementUpvotes}
