@@ -43,7 +43,7 @@ export default class DisplaySingle extends Component {
           <div>{create_timestamp}</div>
           <div>{karma_total}</div>
           <p>{image_text}</p>
-          {this.state.comments && <CommentFeed comments={this.state.comments}/>}
+          {this.state.comments && <CommentFeed id={this.state.image.id} comments={this.state.comments}/>}
         </div>
       )
     }

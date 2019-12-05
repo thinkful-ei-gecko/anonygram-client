@@ -11,7 +11,7 @@ const CommentApi = {
       )
   },
   postComment(imageId, comment_text, user_id) {
-    return fetch(`${config.API_ENDPOINT}/comments/${imageId}`, {
+    return fetch(`${config.API_ENDPOINT}/api/comments/${imageId}`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json"

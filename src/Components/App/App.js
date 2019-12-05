@@ -125,7 +125,6 @@ export default class App extends Component {
       return (
         <>
           <Route exact path='/' render={() => <DisplayFeed />} />
-
           {/* This next conditional prevents 'DisplaySingle' from rendering before it has what it needs (ComponentDidMount requires this.context.images to be ready, which won't be ready until 'this.state.images' is (you can't access context here)) */}
           {(this.state.images.length !== 0) 
             ? <Route path={`/p/:submissionId`} render={(routeProps) => <DisplaySingle submissionId={routeProps.match.params.submissionId} />} />
