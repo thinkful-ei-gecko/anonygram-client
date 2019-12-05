@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import config from '../config';
-
+import config from '../config'
+ 
 import './Register.css';
 
 class Register extends Component {
@@ -21,17 +21,21 @@ class Register extends Component {
       user : [newUser]
     },
     () => {
-      fetch(`${config.API_ENDPOINT}/api/users`, {
+      fetch(`${config.API_ENDPOINT}/api/users/`, {
         method: 'POST',
         headers: {
           "Content-Type":"application/json"
           },
         body: JSON.stringify(newUser)
-      }).then(res => {
-        history.push('/dashboard');
-      })
-    });
+      }).then(
+        res => res.json());
+        //history.push(`/login`);
+      }
+    );
   }
+
+
+
 
 
   render() {
@@ -65,14 +69,14 @@ class Register extends Component {
           />
         </div>
         <div>
-          <label htmlFor='registration-password-input'>
+          <label htmlFor='registration-isValid-input'>
             Confirm password </label>
           <input
-            id='registration-password-input'
-            name='isValid'
+            id='registration-isValid-input'
             type='password'
-            placeholder='Validate Password'
-            aria-label='Validate Password'
+            name='isValid'
+            placeholder='password'
+            aria-label='password'
             required
           />
         </div>
