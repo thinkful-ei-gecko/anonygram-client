@@ -28,7 +28,6 @@ export default class App extends Component {
     error: null,
    }
 
-
   /*******************************************************************
     LIFECYCLE FUNCTIONS
   *******************************************************************/
@@ -102,11 +101,6 @@ export default class App extends Component {
     console.error(error)
     this.setState({ error });
   };
-
-  clearError = () => {
-    this.setState({ error: null });
-  };
-
 
   /*******************************************************************
     ROUTES
