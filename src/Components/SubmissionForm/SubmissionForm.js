@@ -3,11 +3,12 @@ import Dropzone from 'react-dropzone';
 import './SubmissionForm.css';
 import config from '../../config';
 
-class SubmissionFrom extends Component {
+class SubmissionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       image: null,
+      image_text: '',
       nsfwDetected: false,
       loading: false,
     };
@@ -17,6 +18,12 @@ class SubmissionFrom extends Component {
     this.setState({
       image: e.target.files[0],
       nsfwDetected: false,
+    });
+  };
+
+  imageTextHandler = e => {
+    this.setState({
+      image_text: e.target.value,
     });
   };
 
@@ -34,6 +41,7 @@ class SubmissionFrom extends Component {
     this.setState({ loading: true });
     const formData = new FormData();
     formData.append('someImage', this.state.image);
+    formData.append('image_text', this.state.image_text);
     formData.set('latitude', this.props.userLocation.lat);
     formData.set('longitude', this.props.userLocation.long);
     for (var value of formData.values()) {
@@ -51,7 +59,11 @@ class SubmissionFrom extends Component {
         if (res.status === 400) {
           this.setState({ nsfwDetected: true });
         }
-        this.setState({ image: null });
+        this.setState({ image: null, image_text: '' });
+      })
+      .then(() => {
+        // redirect so the feed will refresh with the new, posted image
+        this.props.history.go('/')
       })
       .catch(error => {
         console.error(error);
@@ -59,7 +71,7 @@ class SubmissionFrom extends Component {
   };
 
   resetState = () => {
-    this.setState({ image: null });
+    this.setState({ image: null, image_text: '' });
   };
 
   render() {
@@ -114,6 +126,8 @@ class SubmissionFrom extends Component {
                 )
               ) : (
                 <>
+                  <label htmlFor="text">Caption Image</label>
+                  <input id="text" type="text" onChange={this.imageTextHandler}/>
                   <button
                     className="SubmissionForm__button"
                     type="reset"
@@ -138,4 +152,4 @@ class SubmissionFrom extends Component {
   }
 }
 
-export default SubmissionFrom;
+export default SubmissionForm;
