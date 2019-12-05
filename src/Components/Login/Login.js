@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import UserContext from '../../contexts/UserContext';
 import AuthApiService from '../../services/auth-api-service'
 
 import './Login.css';
@@ -11,6 +12,12 @@ class Login extends Component {
       error: null
     };
   }
+
+  // static defaultProps = {
+  //   onLoginSuccess: () => { }
+  // }
+
+  static contextType = UserContext;
 
   handleSubmit = e => {
     e.preventDefault()
@@ -25,6 +32,8 @@ class Login extends Component {
       .then(res => {
         username.value = ''
         password.value = ''
+        this.context.processLogin(res.authToken)
+        // this.props.onLoginSuccess()
       })
       .catch(res => {
         this.setState({ error: res.error })
