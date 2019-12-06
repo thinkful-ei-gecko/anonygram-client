@@ -1,4 +1,5 @@
 import config from '../config';
+import TokenService from './token-service';
 
 const CommentApi = {
   getComments(imageId) {
@@ -14,7 +15,8 @@ const CommentApi = {
     return fetch(`${config.API_ENDPOINT}/api/comments/${imageId}`, {
 			method: "POST",
 			headers: {
-				"content-type": "application/json"
+        'authorization': `Bearer ${TokenService.getAuthToken()}`,
+        "content-type": "application/json"          
 			},
 			body: JSON.stringify({ comment_text, user_id })
     })
