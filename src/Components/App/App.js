@@ -2,7 +2,7 @@
   IMPORTS
 *******************************************************************/
 import React, { Component } from 'react';
-import { Route , Link} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
@@ -170,28 +170,6 @@ export default class App extends Component {
         <div className="App">
           <div className="App__heading-container">
             <Header/>
-              {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
-              <Link to="/" className="resetStyles">
-                <h1>Anonygram</h1>
-              </Link>{' '}
-              {TokenService.hasAuthToken() ? (
-                <>
-                <Link to="/login" className="nav-link resetStyles" onClick={() => TokenService.clearAuthToken()}>
-                  Logout
-                </Link>
-              <div className="App__karma-total"><ThumbUp/>{' '}{karmaService.getKarma()}</div>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className="nav-link resetStyles">
-                    Login
-                  </Link>
-                  |
-                  <Link to="/register" className="nav-link resetStyles">
-                    Register
-                  </Link>
-                </>
-              )}
             {this.renderNavRoutes()}
           </div>
           {this.renderMainRoutes()}
