@@ -1,9 +1,9 @@
 .display-feed {
     margin: 1em 0;
     padding-top: 3.5em;
-    padding-bottom: 2.3em;
+    padding-bottom: 4em;
 }
-
+/* 
 .notificationsContainer {
     background-color: lightcoral;
     height: 2em;
@@ -12,7 +12,7 @@
     position: sticky;
     position: -webkit-sticky;
     bottom: 3em;
-}
+} */
 
 .img-container {
     margin: 0;
@@ -33,6 +33,9 @@
 }
 
 @media screen and (min-width: 80em) {
+    .display-feed {	
+        padding-bottom: 5em;	
+    }
     .img-container {
         width: 80%;
         margin: 0 auto;

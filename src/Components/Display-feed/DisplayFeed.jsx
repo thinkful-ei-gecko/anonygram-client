@@ -1,29 +1,15 @@
 import React, { useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
+// import AlertContext from '../../contexts/AlertContext';
 
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
     const context = useContext(ImageContext);
-	
-    // const debounce = (func, delay) => {
-    //     console.log({ func }, { delay });
-    //     let debounceTimer;
-    //     return () => {
-    //         const context = this;
-    //         const args = arguments;
-    //         clearTimeout(debounceTimer);
-    //         debounceTimer = setTimeout(() => func.apply(context, args), delay);
-    //     };
-    // };
 
     const generateJSX = () => {
-        {/*if (loading) {
-            return (
-                <div className="loader"></div>
-            )
-        } else*/} if (!context.images) {
+        if (!context.images) {
             return null;
         }
         return (
