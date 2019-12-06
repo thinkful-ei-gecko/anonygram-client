@@ -63,7 +63,7 @@ class SubmissionForm extends Component {
         //Remove loading spinner
         this.setState({ loading: false });
         if (res.status === 400) {
-          this.setState({ nsfwDetected: true });
+          setAlert('Sorry, that content is not permitted');
           return res.json().then((e) => Promise.reject(e))          
         }
         return res.json();
@@ -72,6 +72,7 @@ class SubmissionForm extends Component {
         const newImg = resJson;
         this.props.updateNewContent(newImg);
         this.setState({ image: null, image_text: '', error: null });
+        setAlert(null);
       })
       .catch(e => {
         this.setState({
@@ -90,9 +91,7 @@ class SubmissionForm extends Component {
       <div className="SubmissionForm">
         {/* Display loading spinner if loading */}
         {this.state.loading && <div className="loader"></div>}
-        <section className="nsfw-detected">
-          {this.state.nsfwDetected ? 'Sorry, that content is not permitted' : ''}
-        </section>
+
         {/* 
           component utilizing hooks to detect dropped files 
           while users are on desktop applications
