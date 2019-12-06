@@ -90,15 +90,6 @@ export default class App extends Component {
   };
 
   /*******************************************************************
-    USER FUNCTIONS 
-  *******************************************************************/
-  loginUser = (username, password) => {
-    this.setState({
-      user: { username, password },
-    });
-  };
-
-  /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
   setError = error => {
@@ -114,8 +105,8 @@ export default class App extends Component {
       <>
       <Switch>
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-        <Route exact path='/login' component={Login} loginUser={this.loginUser} /> 
-        <Route exact path='/register'component={Register} loginUser={this.loginUser}/> 
+        <Route exact path='/login' component={Login} /> 
+        <Route exact path='/register'component={Register} /> 
 
       </Switch>
       </>
