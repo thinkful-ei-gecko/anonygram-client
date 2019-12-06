@@ -22,17 +22,15 @@ export default class CommentFeed extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const commentText = e.target.newComment.value; 
+    const commentText = this.state.newComment; 
     CommentApi.postComment(this.props.id, commentText, this.context.user.id)
       .then(res => {
-        console.log(res)
         this.props.setCommentsByPush(res);
         this.setState({ newComment: '' })
       })
   }
 
   componentDidMount() {
-    console.log(this.context.user.id)
     if (this.props.comments.length > 1) {
       this.generateUsernames(this.props.comments)
     }
@@ -66,7 +64,7 @@ export default class CommentFeed extends Component {
           { //Conditionally render for logged in user
             (this.context.user.id !== '') ? (
               <>
-                <input type='text' id='newComment' className='CommentFeed__input' placeholder='Add a comment...' />
+                <input className='CommentFeed__input' onChange={e => this.setState({ newComment: e.target.value })} value={this.state.newComment} type='text' id='newComment' placeholder='Add a comment...' />
                 <button type='submit' className='CommentFeed__button'>Post</button>
               </>
             ) : (

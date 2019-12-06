@@ -90,15 +90,6 @@ export default class App extends Component {
   };
 
   /*******************************************************************
-    USER FUNCTIONS 
-  *******************************************************************/
-  loginUser = (username, password) => {
-    this.setState({
-      user: { username, password },
-    });
-  };
-
-  /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
   setError = error => {
@@ -111,14 +102,12 @@ export default class App extends Component {
   *******************************************************************/
   renderNavRoutes = () => {
     return (
-      <>
       <Switch>
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-        <Route exact path='/login' component={Login} loginUser={this.loginUser} /> 
-        <Route exact path='/register'component={Register} loginUser={this.loginUser}/> 
+        <Route exact path='/login' component={Login} /> 
+        <Route exact path='/register'component={Register} /> 
         <Route render={() => <h2>Page Not Found</h2>} />
       </Switch>
-      </>
     );
   };
 
