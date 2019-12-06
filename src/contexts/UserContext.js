@@ -18,7 +18,7 @@ export default UserContext
 export class UserProvider extends Component {
   constructor(props) {
     super(props)
-    const state = { user: {}, error: null }
+    const state = { user: { id: '', username: '' }, error: null }
 
     const jwtPayload = TokenService.parseAuthToken()
 
@@ -63,8 +63,8 @@ export class UserProvider extends Component {
     TokenService.saveAuthToken(authToken)
     const jwtPayload = TokenService.parseAuthToken()
     this.setUser({
-      id: jwtPayload.user_id,
-      username: jwtPayload.sub,
+      id: jwtPayload.id,
+      username: jwtPayload.username,
     })
     IdleService.regiserIdleTimerResets()
     TokenService.queueCallbackBeforeExpiry(() => {
