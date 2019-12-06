@@ -49,8 +49,8 @@ export default class DisplaySingle extends Component {
       return (
         <div className='DisplaySingle'>
           <img src={image_url} alt={image_text}/>
-          <div>
-            <KeyboardArrowUp fontSize="large" onClick={() => this.context.incrementUpvotes(id)}/>
+          <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
+            <KeyboardArrowUp fontSize="large"/>
             {karma_total}
           </div>
           <div>{this.convertTime(create_timestamp)}</div>

@@ -1,16 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
-import KarmaService from '../../services/karma-service';
-import ImageApi from '../../services/image-api-service';
 
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
     const context = useContext(ImageContext);
-
-    // const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('');
 	
     // const debounce = (func, delay) => {
     //     console.log({ func }, { delay });
@@ -40,12 +35,11 @@ export default function DisplayFeed(props) {
                             imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
-                            incrementUpvotes={this.context.incrementUpvotes}
+                            incrementUpvotes={context.incrementUpvotes}
                             key={imgObj.id}
                         />
                     ))}
                 </ul>
-                {message && <div className='DisplayFeed__div notificationsContainer'>{message}</div>}
             </>
         )
     }

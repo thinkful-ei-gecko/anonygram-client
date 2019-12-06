@@ -108,7 +108,7 @@ export default class App extends Component {
 		let currKarma = tempImageFeed[index].karma_total;
 
 		//set the copy to the context's value
-		this.context.setImages(tempImageFeed)
+		this.setState({ images: tempImageFeed })
 		
 		//if the total matches their servers, decrement the user's karma, otherwise there's an error, so don't take any karma.
     ImageApi.patchImageKarma(id, currKarma)
