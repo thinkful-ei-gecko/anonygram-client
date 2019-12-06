@@ -8,15 +8,13 @@ class Login extends Component {
   static contextType = UserContext;
   
   state = {
-      error: null,
-      isLoggedIn: false,
-      username: ''
+      error: null
   }
   handleLoginSuccess = () => {
     this.props.history.push('/')
   }
   
-  handleSubmit = (e, history) => {
+  handleSubmit = (e) => {
     e.preventDefault()
     const { username, password } = e.target
 
@@ -41,7 +39,6 @@ class Login extends Component {
     const { error } = this.state
     return ( 
       <section className="login-page">
-          {this.state.isLoggedIn  && <p>Welcome {this.state.username}</p>}
         <h2>Login</h2>
         <form method="get" className='LoginForm' onSubmit = {e => this.handleSubmit(e)}>
         <div role='alert'>
