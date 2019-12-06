@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import './SubmissionForm.css';
 import config from '../../config';
+import { AddToPhotos } from '@material-ui/icons';
 
 class SubmissionForm extends Component {
   constructor(props) {
@@ -125,7 +126,7 @@ class SubmissionForm extends Component {
                     className="SubmissionForm__button"
                     onClick={() => this.imageInput.click()}
                   >
-                    +
+                    <AddToPhotos fontSize="large"/>
                   </button>
                 )
               ) : (
