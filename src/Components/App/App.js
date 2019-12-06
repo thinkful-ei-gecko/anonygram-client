@@ -11,6 +11,7 @@ import NavBar from '../NavBar/NavBar';
 import MapView from '../MapView/MapView';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import UserAlert from '../UserAlert/UserAlert';
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import './App.css';
@@ -27,6 +28,7 @@ export default class App extends Component {
     loading: false,
     images: [],
     error: null,
+    alert: null,
    }
 
   /*******************************************************************
@@ -71,6 +73,13 @@ export default class App extends Component {
   setNewContentLoaded = () => {
     let temp = !this.state.newContentLoaded;
     this.setState({ newContentLoaded: temp })
+
+    const { sort, userLocation } = this.state
+    ImageApi.getLocalImages(sort[0], userLocation.lat, userLocation.long)
+    .then((res) => {
+      this.setImages(res);
+      this.setState({ loading: false });
+    })
   }
 
   /*******************************************************************
@@ -84,6 +93,15 @@ export default class App extends Component {
     const clone = [...this.state.sort]
     clone.reverse();
     this.setState({ sort: clone });
+    
+    setTimeout(() => {
+      const { sort, userLocation } = this.state
+      ImageApi.getLocalImages(sort[0], userLocation.lat, userLocation.long)
+      .then((res) => {
+        this.setImages(res);
+        this.setState({ loading: false });
+      }, 100)
+    })
   }
   
   /*******************************************************************
@@ -102,6 +120,17 @@ export default class App extends Component {
     console.error(error)
     this.setState({ error });
   };
+
+  /*******************************************************************
+    ALERT FUNCTIONS
+  *******************************************************************/
+  setAlert = (alert) => {
+    this.setState({ alert });
+  };
+
+  clearAlert = () => {
+    this.setState({ alert: null });
+  }
 
   /*******************************************************************
     ROUTES
@@ -155,10 +184,14 @@ export default class App extends Component {
       sort: this.state.sort,
       user: this.state.user,
       images: this.state.images,
-      setImages: this.setImages,
       error: this.state.error,
+      alert: this.state.alert,
+      setImages: this.setImages,
+      setNewContentLoaded: this.setNewContentLoaded,
       setError: this.setError,
+      setAlert: this.setAlert,
       clearError: this.clearError,
+      clearAlert: this.clearAlert,
     }
 
     return (
@@ -171,6 +204,7 @@ export default class App extends Component {
             <Link to="/register" className="nav-link resetStyles" >Register</Link>
           </header>
           {this.renderNavRoutes()}
+          <UserAlert />
           {this.renderMainRoutes()}
         </div>
       </ImageContext.Provider>

@@ -1,41 +1,49 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import ImageContext from '../../contexts/ImageContext';
 import './SubmissionForm.css';
 import config from '../../config';
 
 class SubmissionForm extends Component {
+
+  static contextType = ImageContext;
+
   constructor(props) {
     super(props);
     this.state = {
       image: null,
       image_text: '',
-      nsfwDetected: false,
       loading: false,
     };
   }
 
-  imageSelectHandler = e => {
+  imageSelectHandler = (e) => {
+    const { clearAlert } = this.context;
+
     this.setState({
       image: e.target.files[0],
-      nsfwDetected: false,
     });
+    clearAlert();
   };
 
-  imageTextHandler = e => {
+  imageTextHandler = (e) => {
     this.setState({
       image_text: e.target.value,
     });
   };
 
-  imageDragHandler = file => {
+  imageDragHandler = (file) => {
+    const { clearAlert } = this.context;
+
     this.setState({
       image: file,
-      nsfwDetected: false,
     });
+    clearAlert();
   };
 
-  onSubmitImageUploader = e => {
+  onSubmitImageUploader = (e) => {
     e.preventDefault();
+    const { setAlert } = this.context;
 
     //Start loading spinner
     this.setState({ loading: true });
@@ -44,9 +52,7 @@ class SubmissionForm extends Component {
     formData.append('image_text', this.state.image_text);
     formData.set('latitude', this.props.userLocation.lat);
     formData.set('longitude', this.props.userLocation.long);
-    for (var value of formData.values()) {
-      console.log(value);
-    }
+
     fetch(`${config.API_ENDPOINT}/api/images`, {
       method: 'POST',
       body: formData,
@@ -55,16 +61,15 @@ class SubmissionForm extends Component {
         //Remove loading spinner
         this.setState({ loading: false });
         this.props.updateNewContent();
-        console.log(res.status);
+
         if (res.status === 400) {
-          this.setState({ nsfwDetected: true });
+          setAlert('Sorry, that content is not permitted');
         }
         this.setState({ image: null, image_text: '' });
       })
-      .then(() => {
-        // redirect so the feed will refresh with the new, posted image
-        this.props.history.go('/')
-      })
+      // .then(() => {
+      //   this.props.updateNewContent();
+      // })
       .catch(error => {
         console.error(error);
       });
@@ -75,15 +80,11 @@ class SubmissionForm extends Component {
   };
 
   render() {
-    const { nsfwDetected } = this.state;
 
     return (
       <div>
         {/* Display loading spinner if loading */}	 
         {this.state.loading && <div className='loader'></div>}
-        <section className="nsfw-detected">
-          {nsfwDetected ? 'Sorry, that content is not permitted' : ''}
-        </section>
         {/* 
           component utilizing hooks to detect dropped files 
           while users are on desktop applications

@@ -1,0 +1,10 @@
+.notifications-container {
+  background-color: lightcoral;
+  height: 2em;
+  width: 80%;
+  margin: 0 auto;
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 3em;
+  text-align: center;
+}
