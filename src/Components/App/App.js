@@ -2,7 +2,7 @@
   IMPORTS
 *******************************************************************/
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
@@ -14,9 +14,7 @@ import Register from '../Register/Register';
 import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
-import TokenService from '../../services/token-service';
 import './App.css';
-import {ThumbUp} from '@material-ui/icons';
 
 export default class App extends Component {
   /*******************************************************************
@@ -26,6 +24,7 @@ export default class App extends Component {
     userLocation: {},
     newContentLoaded: false,
     sort: ['new', 'top'],
+    user: null,
     loading: false,
     images: [],
     error: null,
@@ -182,29 +181,6 @@ export default class App extends Component {
       <ImageContext.Provider value={value}> 
         <div className="App">
           <div className="App__heading-container">
-            <Header>
-              {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
-              <Link to="/" className="resetStyles">
-                <h1>Anonygram</h1>
-              </Link>{' '}
-              {TokenService.hasAuthToken() ? (
-                <>
-                <Link to="/login" className="nav-link resetStyles" onClick={() => TokenService.clearAuthToken()}>
-                  Logout
-                </Link>
-              <div className="App__karma-total"><ThumbUp/>{' '}{karmaService.getKarma()}</div>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className="nav-link resetStyles">
-                    Login
-                  </Link>
-                  |
-                  <Link to="/register" className="nav-link resetStyles">
-                    Register
-                  </Link>
-                </>
-              )}
             <Header/>
             {this.renderNavRoutes()}
           </div>
