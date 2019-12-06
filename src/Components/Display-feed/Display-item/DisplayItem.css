@@ -17,27 +17,27 @@
 
 .upvote-count {
     position: absolute;
-    bottom: 10px;
-    right: 8px;
+    bottom: 5px;
+    right: 13px;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .upvote-button {
     position: absolute;
     z-index: auto;
-    bottom: 8px;
+    bottom: 10px;
     right: 30px;
     border: none;
     border-radius: 3px;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 50px;
     background: grey;
     opacity: .5;
     color: white;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    margin-right: 10px;
 }
 
 .upvote-button:hover,

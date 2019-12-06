@@ -16,6 +16,7 @@ import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import './App.css';
+import TokenService from '../../services/token-service';
 
 export default class App extends Component {
   /*******************************************************************
@@ -73,17 +74,10 @@ export default class App extends Component {
   /*******************************************************************
     LOADING
   *******************************************************************/
-  setNewContentLoaded = () => {
+  setNewContentLoaded = img => {
     let temp = !this.state.newContentLoaded;
-    this.setState({ newContentLoaded: temp })
-
-    const { sort, userLocation } = this.state
-    ImageApi.getLocalImages(sort[0], userLocation.lat, userLocation.long)
-    .then((res) => {
-      this.setImages(res);
-      this.setState({ loading: false });
-    })
-  }
+    this.setState({ newContentLoaded: temp, images: [img, ...this.state.images] });
+  };
 
   /*******************************************************************
     IMAGES
@@ -105,6 +99,14 @@ export default class App extends Component {
     });
   }
 
+  /*******************************************************************
+    USER
+  *******************************************************************/
+  handleLogin = () => {
+    this.setState({
+      user: TokenService.hasAuthToken()
+    })
+  }
   /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
@@ -131,7 +133,7 @@ export default class App extends Component {
     return (
       <Switch>
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-        <Route exact path='/login' component={Login} /> 
+        <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} /> 
         <Route exact path='/register'component={Register} /> 
         <Route render={() => <h2>Page Not Found</h2>} />
       </Switch>
