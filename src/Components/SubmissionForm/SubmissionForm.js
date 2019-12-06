@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import ImageContext from '../../contexts/ImageContext';
 import './SubmissionForm.css';
 import config from '../../config';
+import { AddToPhotos } from '@material-ui/icons';
 
 class SubmissionForm extends Component {
 

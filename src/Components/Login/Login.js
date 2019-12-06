@@ -28,7 +28,7 @@ class Login extends Component {
         username.value = ''
         password.value = ''
         this.context.processLogin(res.anonygramAuthToken);
-        this.props.loginUser();
+        this.props.handleLogin();
         this.handleLoginSuccess();
       })
       .catch(res => {
