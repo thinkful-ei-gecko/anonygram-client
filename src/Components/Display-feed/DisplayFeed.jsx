@@ -23,35 +23,6 @@ export default function DisplayFeed(props) {
     //     };
     // };
 
-	const incrementUpvotes = async id => {
-		if (KarmaService.getKarma() < 1) {
-			setMessage("Looks like you're out of karma. You'll get some more soon!")
-			return; 
-		}
-		// const handleDebounce = debounce(ImageApi.patchImageKarma, 3000);
-
-		//update the item in a deep copy of the array. you will need to update the state with a copy of the array photos provided
-		const tempImageFeed = context.images.map(imgObj => imgObj);
-		const image = tempImageFeed.find(imgObj => imgObj.id === id);
-		const index = tempImageFeed.indexOf(image);
-		tempImageFeed[index].karma_total++;
-		let currKarma = tempImageFeed[index].karma_total;
-
-		//set the copy to the context's value
-		context.setImages(tempImageFeed)
-		
-		//if the total matches ther servers, decrement the karma, otherwise there's an error, so take any karma.
-		const res = await ImageApi.patchImageKarma(id, currKarma)
-		
-		if (res && res.karma_total === currKarma) {
-			KarmaService.decrementKarma()
-		} else {
-			setMessage('Error: Please refresh page');
-		}
-
-		// handleDebounce(id, currKarma);
-	};
-
     const generateJSX = () => {
         {/*if (loading) {
             return (
@@ -69,7 +40,7 @@ export default function DisplayFeed(props) {
                             imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
-                            incrementUpvotes={incrementUpvotes}
+                            incrementUpvotes={this.context.incrementUpvotes}
                             key={imgObj.id}
                         />
                     ))}

@@ -6,6 +6,7 @@ export default React.createContext({
   sort: ['new', 'top'],
   user: null,
   images: [],
+  incrementUpvotes: () => {},
   error: null,
   setError: () => {},
   clearError: () => {},

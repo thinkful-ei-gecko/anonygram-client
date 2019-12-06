@@ -14,6 +14,7 @@ import Register from '../Register/Register';
 import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
+import KarmaService from '../../services/karma-service';
 import './App.css';
 
 export default class App extends Component {
@@ -90,6 +91,39 @@ export default class App extends Component {
   };
 
   /*******************************************************************
+    KARMA
+  *******************************************************************/
+  incrementUpvotes = id => {
+		if (KarmaService.getKarma() < 1) {
+			this.setAlert("Looks like you're out of karma. You'll get some more soon!")
+			return; 
+		}
+		// const handleDebounce = debounce(ImageApi.patchImageKarma, 3000);
+
+		//update the item in a deep copy of the array. you will need to update the state with a copy of the array photos provided
+		const tempImageFeed = this.state.images.map(imgObj => imgObj);
+		const image = tempImageFeed.find(imgObj => imgObj.id === id);
+		const index = tempImageFeed.indexOf(image);
+		tempImageFeed[index].karma_total++;
+		let currKarma = tempImageFeed[index].karma_total;
+
+		//set the copy to the context's value
+		this.context.setImages(tempImageFeed)
+		
+		//if the total matches their servers, decrement the user's karma, otherwise there's an error, so don't take any karma.
+    ImageApi.patchImageKarma(id, currKarma)
+      .then(res => {
+        if (res && res.karma_total === currKarma) {
+          KarmaService.decrementKarma()
+        } else {
+          this.setAlert('Error: Please refresh page');
+        }
+      })
+
+		// handleDebounce(id, currKarma);
+	};
+
+  /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
   setError = error => {
@@ -160,6 +194,7 @@ export default class App extends Component {
       user: this.state.user,
       images: this.state.images,
       setImages: this.setImages,
+      incrementUpvotes: this.incrementUpvotes,
       error: this.state.error,
       setError: this.setError,
       clearError: this.clearError,
