@@ -14,6 +14,7 @@ class SubmissionForm extends Component {
       image: null,
       image_text: '',
       loading: false,
+      error: null
     };
   }
 
@@ -57,18 +58,24 @@ class SubmissionForm extends Component {
       method: 'POST',
       body: formData,
     })
-      .then((res) => {
+      .then(res => {
         //Remove loading spinner
         this.setState({ loading: false });
-        this.props.updateNewContent();
-
         if (res.status === 400) {
-          setAlert('Sorry, that content is not permitted');
+          this.setState({ nsfwDetected: true });
+          return res.json().then((e) => Promise.reject(e))          
         }
-        this.setState({ image: null, image_text: '' });
+        return res.json();
       })
-      .catch(error => {
-        console.error(error);
+      .then(resJson => {
+        const newImg = resJson;
+        this.props.updateNewContent(newImg);
+        this.setState({ image: null, image_text: '', error: null });
+      })
+      .catch(e => {
+        this.setState({
+          error: e.error
+        })
       });
   };
 
@@ -80,8 +87,11 @@ class SubmissionForm extends Component {
 
     return (
       <div className="SubmissionForm">
-        {/* Display loading spinner if loading */}	 
-        {this.state.loading && <div className='loader'></div>}
+        {/* Display loading spinner if loading */}
+        {this.state.loading && <div className="loader"></div>}
+        <section className="nsfw-detected">
+          {this.state.nsfwDetected ? 'Sorry, that content is not permitted' : ''}
+        </section>
         {/* 
           component utilizing hooks to detect dropped files 
           while users are on desktop applications
@@ -119,13 +129,19 @@ class SubmissionForm extends Component {
                     className="SubmissionForm__button"
                     onClick={() => this.imageInput.click()}
                   >
-                    +
+
+                    <AddToPhotos fontSize="large" />
+
                   </button>
                 )
               ) : (
                 <>
                   <label htmlFor="text">Caption Image</label>
-                  <input id="text" type="text" onChange={this.imageTextHandler}/>
+                  <input
+                    id="text"
+                    type="text"
+                    onChange={this.imageTextHandler}
+                  />
                   <button
                     className="SubmissionForm__button"
                     type="reset"

@@ -73,8 +73,9 @@ export default class App extends Component {
   /*******************************************************************
     LOADING
   *******************************************************************/
-  setNewContentLoaded = () => {
+  setNewContentLoaded = img => {
     let temp = !this.state.newContentLoaded;
+<<<<<<< HEAD
     this.setState({ newContentLoaded: temp })
 
     const { sort, userLocation } = this.state
@@ -84,6 +85,10 @@ export default class App extends Component {
       this.setState({ loading: false });
     })
   }
+=======
+    this.setState({ newContentLoaded: temp, images: [img, ...this.state.images] });
+  };
+>>>>>>> get uploader refreshingg feed without hard refreshing app
 
   /*******************************************************************
     IMAGES
