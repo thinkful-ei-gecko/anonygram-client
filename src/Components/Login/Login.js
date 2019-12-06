@@ -10,6 +10,9 @@ class Login extends Component {
   state = {
       error: null
   }
+  handleLoginSuccess = (history) => {
+    history.push('/')
+  }
   
   handleSubmit = (e) => {
     e.preventDefault()
@@ -25,7 +28,7 @@ class Login extends Component {
         username.value = ''
         password.value = ''
         this.context.processLogin(res.anonygramAuthToken)
-  
+        this.handleLoginSuccess();
       })
       .catch(res => {
         this.setState({ error: res.error })

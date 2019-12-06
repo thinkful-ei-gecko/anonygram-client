@@ -8,8 +8,9 @@ class Register extends Component {
   state = {
     error: null
   }
+  
 
-  submitForm = e => {
+  submitForm = (e, history) => {
     e.preventDefault()
     const { username, password } = e.target
     AuthApiService.postUser({
@@ -19,6 +20,7 @@ class Register extends Component {
       .then(user => {
         username.value = ''
         password.value = ''
+       
       })
       .catch(res => {
         this.setState({ error: res.error })
