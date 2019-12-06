@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './DisplayItem.css';
-import { KeyboardArrowUp } from '@material-ui/icons';
 
 export default function DisplayItem(props) {
   const { imgAddress, imgCaption, upvotes, id, incrementUpvotes } = props;
@@ -11,10 +10,14 @@ export default function DisplayItem(props) {
         <img className="display-img" src={imgAddress} alt="anonygram" />
       </Link>
       <div className="upvote-wrapper">
-        <div className="upvote-button">
-        <KeyboardArrowUp fontSize="large" onClick={() => incrementUpvotes(id)}/>
+        <button
+          className="upvote-button"
+          type="button"
+          onClick={() => incrementUpvotes(id)}
+        >
+          ^
+        </button>
         <p className="upvote-count">{upvotes}</p>
-        </div>
       </div>
       {imgCaption && <p>{imgCaption}</p>}
     </li>
