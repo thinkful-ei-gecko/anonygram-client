@@ -67,9 +67,6 @@ class SubmissionForm extends Component {
         }
         this.setState({ image: null, image_text: '' });
       })
-      // .then(() => {
-      //   this.props.updateNewContent();
-      // })
       .catch(error => {
         console.error(error);
       });
@@ -82,7 +79,7 @@ class SubmissionForm extends Component {
   render() {
 
     return (
-      <div>
+      <div className="SubmissionForm">
         {/* Display loading spinner if loading */}	 
         {this.state.loading && <div className='loader'></div>}
         {/* 
@@ -93,7 +90,7 @@ class SubmissionForm extends Component {
           {({ getRootProps, getInputProps, isDragActive }) => (
             <form
               {...getRootProps()}
-              className="SubmissionForm"
+              className="SubmissionForm__form"
               encType="multipart/form-data"
               onSubmit={this.onSubmitImageUploader}
             >

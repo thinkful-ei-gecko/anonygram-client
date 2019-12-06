@@ -3,6 +3,10 @@
   margin: 0;
   padding: 0;
 }
+
+.loader {
+  margin-top: 8em;
+}
 .App {
   text-align: center;
 }
@@ -11,22 +15,18 @@
   height: 2em;
 }
 
-.App-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #03a9f4;
-}
-
-.App-header > h1 {
-  margin: 0;
+.App__heading-container {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
 }
 
 .App-link {
   color: #09d3ac;
 }
 
-.nav-link {  
-  float: right;
+.nav-link {  	
+  float: right;	
 }

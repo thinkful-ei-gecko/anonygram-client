@@ -44,7 +44,7 @@ const randomizer = {
     //Make an array with only userIds (no duplicates)
     const userIds = [];
     arrOfComments.map(comment => {
-      const currUserId = comment.userId;
+      const currUserId = comment.user_id;
       if (!userIds.includes(currUserId)) {
         userIds.push(currUserId)
       }
