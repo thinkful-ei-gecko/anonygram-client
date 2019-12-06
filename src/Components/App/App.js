@@ -2,7 +2,7 @@
   IMPORTS
 *******************************************************************/
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
@@ -11,6 +11,7 @@ import NavBar from '../NavBar/NavBar';
 import MapView from '../MapView/MapView';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import TokenService from '../../services/token-service';
@@ -25,7 +26,6 @@ export default class App extends Component {
     userLocation: {},
     newContentLoaded: false,
     sort: ['new', 'top'],
-    user: null,
     loading: false,
     images: [],
     error: null,
@@ -113,23 +113,12 @@ export default class App extends Component {
   renderNavRoutes = () => {
     return (
       <>
-        <Route
-          exact
-          path="/"
-          render={() => <NavBar setSort={this.setSort} />}
-        />
-        <Route
-          exact
-          path="/login"
-          component={Login}
-          loginUser={this.loginUser}
-        />
-        <Route
-          exact
-          path="/register"
-          component={Register}
-          loginUser={this.loginUser}
-        />
+      <Switch>
+        <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
+        <Route exact path='/login' component={Login} loginUser={this.loginUser} /> 
+        <Route exact path='/register'component={Register} loginUser={this.loginUser}/> 
+
+      </Switch>
       </>
     );
   };
@@ -175,6 +164,7 @@ export default class App extends Component {
     RENDER
   *******************************************************************/
   render = () => {
+
     const value = {
       userLocation: this.state.userLocation,
       newContentLoaded: this.state.newContentLoaded,
@@ -188,10 +178,11 @@ export default class App extends Component {
     };
 
     return (
-      <ImageContext.Provider value={value}>
+     
+      <ImageContext.Provider value={value}> 
         <div className="App">
           <div className="App__heading-container">
-            <header className="App-header">
+            <Header>
               {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
               <Link to="/" className="resetStyles">
                 <h1>Anonygram</h1>
@@ -214,7 +205,7 @@ export default class App extends Component {
                   </Link>
                 </>
               )}
-            </header>
+            <Header/>
             {this.renderNavRoutes()}
           </div>
           {this.renderMainRoutes()}

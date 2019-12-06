@@ -9,7 +9,11 @@ class Register extends Component {
     error: null
   }
 
-  submitForm = (e, history) => {
+  handleRegisterSuccess = () => {
+    this.props.history.push('/login')
+  }
+
+  submitForm = (e) => {
     e.preventDefault()
     const { username, password } = e.target
     AuthApiService.postUser({
@@ -19,7 +23,7 @@ class Register extends Component {
       .then(user => {
         username.value = ''
         password.value = ''
-        this.history('/login')
+        this.handleRegisterSuccess();
       })
       .catch(res => {
         this.setState({ error: res.error })
