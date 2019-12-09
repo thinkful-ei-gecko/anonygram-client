@@ -181,6 +181,8 @@ export default class App extends Component {
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
         <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} /> 
         <Route exact path='/register'component={Register} /> 
+        <Route exact path='/local-map' render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} /> } />
+        <Route exact path={`/p/:submissionId`} render={routeProps => ( <DisplaySingle submissionId={routeProps.match.params.submissionId}/>)}/>
         <Route render={() => <h2>Page Not Found</h2>} />
       </Switch>
     );
