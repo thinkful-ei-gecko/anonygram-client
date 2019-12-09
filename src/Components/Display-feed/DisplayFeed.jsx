@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
-// import AlertContext from '../../contexts/AlertContext';
 
 import './DisplayFeed.css';
 
@@ -25,7 +24,7 @@ export default function DisplayFeed(props) {
                             imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
-                            incrementUpvotes={context.incrementUpvotes}
+                            handleUpvote={context.handleUpvote}
                             key={imgObj.id}
                         />
                     ))}

@@ -7,14 +7,14 @@ import KarmaService from '../../services/karma-service';
 
 class Login extends Component {
   static contextType = UserContext;
-  
+
   state = {
-      error: null
+    error: null
   }
   handleLoginSuccess = () => {
     this.props.history.push('/')
   }
-  
+
   handleSubmit = (e) => {
     e.preventDefault()
     const { username, password } = e.target
@@ -39,39 +39,41 @@ class Login extends Component {
 
   render() {
     const { error } = this.state
-    return ( 
+    return (
       <section className="login-page">
-        <h2>Login</h2>
-        <form method="get" className='LoginForm' onSubmit = {e => this.handleSubmit(e)}>
-        <div role='alert'>
-          {error && <p>{error}</p>}
-        </div>
-        <div>
-          <label htmlFor='login-username-input'>
-            Username
+        <div className="flex-container">
+          <h2>Login</h2>
+          <form method="get" className='LoginForm' onSubmit={e => this.handleSubmit(e)}>
+            <div role='alert'>
+              {error && <p>{error}</p>}
+            </div>
+            <div>
+              <label htmlFor='login-username-input'>
+                Username
           </label>
-          <input
-            type="text"
-            id='login-username-input'
-            name='username'
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='login-password-input'>
-            Password
+              <input
+                type="text"
+                id='login-username-input'
+                name='username'
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor='login-password-input'>
+                Password
           </label>
-          <input
-            id='login-password-input'
-            name='password'
-            type='password'
-            required
-          />
-        </div>
-        <button type='submit'>
-          Login
+              <input
+                id='login-password-input'
+                name='password'
+                type='password'
+                required
+              />
+            </div>
+            <button type='submit'>
+              Login
         </button>
-      </form>  
+          </form>
+        </div>
       </section>
     );
   }

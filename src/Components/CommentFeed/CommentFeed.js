@@ -42,7 +42,7 @@ export default class CommentFeed extends Component {
   }
 
   render() {
-    const { comments } = this.props;
+    const { comments, userLoggedIn } = this.props;
 
     //If you're posting the first comment, then generateUsernames didn't run on mount. Run it here. ComponentDidMount edited to be >1 so that generateUsernames doesn't run twice if there is one comment to begin with
     (this.props.comments.length === 1) && this.generateUsernames(this.props.comments);
@@ -62,7 +62,7 @@ export default class CommentFeed extends Component {
         <form onSubmit={(e) => this.handleSubmit(e)} className='CommentFeed__form'>
           {/* <label htmlFor='newComment'>Add a Comment</label> */}
           { //Conditionally render for logged in user
-            (this.context.user.id !== '') ? (
+            userLoggedIn ? (
               <>
                 <input className='CommentFeed__input' onChange={e => this.setState({ newComment: e.target.value })} value={this.state.newComment} type='text' id='newComment' placeholder='Add a comment...' />
                 <button type='submit' className='CommentFeed__button'>Post</button>
@@ -70,7 +70,7 @@ export default class CommentFeed extends Component {
             ) : (
               <>
                 <label htmlFor='newComment'>You must be logged in to post a comment. Log in <Link to='/login'>here</Link>.</label>
-                <input type='text' id='newComment' className='CommentFeed__input' placeholder='' />
+                <input type='text' id='newComment' className='CommentFeed__input' placeholder='' disabled />
                 <button type='submit' className='CommentFeed__button' disabled>Post</button>
               </>
             )

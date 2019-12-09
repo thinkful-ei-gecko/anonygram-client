@@ -37,6 +37,7 @@ class Header extends Component {
             >
               Logout
             </Link>
+            |
             <div className="App__karma-total">
               <ThumbUp /> {KarmaService.getKarma()}
             </div>
