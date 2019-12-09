@@ -6,7 +6,7 @@ import config from '../../config';
 
 function MapView(props) {
 
-  const { userLocation } = props;
+  const { userLocation, setView } = props;
   const { lat, long } = userLocation;
 
   const [imageFeed, setImageFeed] = useState([]);
@@ -30,6 +30,7 @@ function MapView(props) {
 
   useEffect(() => {
     window.addEventListener('wheel', wheelHandler);
+    setView('map');
     return () => {
       window.removeEventListener('wheel', wheelHandler);
     }

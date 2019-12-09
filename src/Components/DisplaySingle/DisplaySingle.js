@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import CommentFeed from '../CommentFeed/CommentFeed';
 import CommentApi from '../../services/comment-api-service';
 import ImageContext from '../../contexts/ImageContext';
-import moment from 'moment';
+import { KeyboardArrowUp } from '@material-ui/icons';
 import './DisplaySingle.css';
 
 export default class DisplaySingle extends Component {
@@ -44,12 +45,15 @@ export default class DisplaySingle extends Component {
     if (this.state.loading === true) {
       return null;
     } else {
-      const { image_url, image_text, create_timestamp, karma_total } = this.state.image
+      const { id, image_url, image_text, create_timestamp, karma_total } = this.state.image
       return (
         <div className='DisplaySingle'>
           <img src={image_url} alt={image_text}/>
+          <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
+            <KeyboardArrowUp fontSize="large"/>
+            {karma_total}
+          </div>
           <div>{this.convertTime(create_timestamp)}</div>
-          <div>{karma_total}</div>
           <p>{image_text}</p>
           <CommentFeed id={this.state.image.id} comments={this.state.comments} setCommentsByPush={this.setCommentsByPush}/>
         </div>
