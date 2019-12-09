@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
 import KarmaService from '../../services/karma-service';
@@ -8,20 +8,14 @@ import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
     const context = useContext(ImageContext);
+    const { setView } = this.props;
 
     // const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-	
-    // const debounce = (func, delay) => {
-    //     console.log({ func }, { delay });
-    //     let debounceTimer;
-    //     return () => {
-    //         const context = this;
-    //         const args = arguments;
-    //         clearTimeout(debounceTimer);
-    //         debounceTimer = setTimeout(() => func.apply(context, args), delay);
-    //     };
-    // };
+
+    useEffect(() => {
+        setView('feed');
+      }, []);
 
 	const incrementUpvotes = async id => {
 		if (KarmaService.getKarma() < 1) {

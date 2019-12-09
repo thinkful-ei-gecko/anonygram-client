@@ -27,6 +27,7 @@ export default class App extends Component {
     user: null,
     loading: false,
     images: [],
+    view: '',
     error: null,
   };
 
@@ -90,6 +91,13 @@ export default class App extends Component {
   };
 
   /*******************************************************************
+    IMAGES
+  *******************************************************************/
+  setView = view => {
+    this.setState({ view });
+  }
+
+  /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
   setError = error => {
@@ -121,7 +129,7 @@ export default class App extends Component {
       const { userLocation, newContentLoaded } = this.state;
       return (
         <>
-          <Route exact path="/" render={() => <DisplayFeed />} />
+          <Route exact path="/" render={() => <DisplayFeed setView={this.setView} />} />
           <Route
             exact
             path="/"
@@ -145,6 +153,7 @@ export default class App extends Component {
               )}
             />
           ) : null}
+          <Route path='/local-map' render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} /> } />
         </>
       );
     }
@@ -172,7 +181,7 @@ export default class App extends Component {
       <ImageContext.Provider value={value}> 
         <div className="App">
           <div className="App__heading-container">
-            <Header/>
+            <Header view={this.state.view} setView={this.setView} />
             {this.renderNavRoutes()}
           </div>
           {this.renderMainRoutes()}
