@@ -172,6 +172,7 @@ export default class App extends Component {
               )}
             />
           ) : null}
+          <Route exact path='/local-map' render={() => <MapView userLocation={this.state.userLocation} /> } />
         </>
       );
     }

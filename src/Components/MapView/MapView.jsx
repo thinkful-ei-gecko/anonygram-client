@@ -134,6 +134,7 @@ function MapView(props) {
       {displayModal 
         ? <Modal 
         img={modalImage}
+        id='14'
         />
         : <></>
       }

@@ -36,6 +36,8 @@ class Header extends Component {
             <div className="App__karma-total">
               <ThumbUp /> {karmaService.getKarma()}
             </div>
+            |
+            <Link to='/local-map' className='resetStyles'>Map View</Link>
           </>
         ) : (
           <>
@@ -46,6 +48,8 @@ class Header extends Component {
             <Link to="/register" className="nav-link resetStyles">
               Register
             </Link>
+            |
+            <Link to='/local-map' className='resetStyles'>Map View</Link>
           </>
         )}
       </header>
