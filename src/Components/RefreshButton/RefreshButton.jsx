@@ -7,8 +7,10 @@ export default function RefreshButton (props) {
   const { handleGeolocation } = props;
 
   return (
-    <button onClick={() => handleGeolocation()} className='RefreshButton resetStyles'>
-      <RefreshIcon />
-    </button>
+    <div>
+      <button onClick={() => handleGeolocation()} className='RefreshButton resetStyles'>
+        <RefreshIcon />
+      </button>
+    </div>
   );
 };
