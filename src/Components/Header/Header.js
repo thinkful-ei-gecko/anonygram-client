@@ -8,7 +8,7 @@ import karmaService from '../../services/karma-service';
 class Header extends Component{
   render() {
     const { view } = this.props;
-
+    console.log(view)
     return (
       <header className='App-header'>
         {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
@@ -34,7 +34,7 @@ class Header extends Component{
           </>
         )}
       |
-      {(view === 'display-feed') 
+      {(view === 'feed') 
         ? <Link to='/local-map' className='resetStyles' >Map View</Link>
         : <Link to='/' className='resetStyles' >Feed View</Link>
       }

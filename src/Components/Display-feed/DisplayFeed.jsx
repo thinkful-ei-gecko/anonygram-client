@@ -8,7 +8,7 @@ import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
     const context = useContext(ImageContext);
-    const { setView } = this.props;
+    const { setView } = props;
 
     // const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
