@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import CommentFeed from '../CommentFeed/CommentFeed';
 import CommentApi from '../../services/comment-api-service';
@@ -72,4 +73,4 @@ export default class DisplaySingle extends Component {
       )
     }
   }
-};
+}
