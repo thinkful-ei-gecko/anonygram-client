@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import { Route , Switch} from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
-import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
 import NavBar from '../NavBar/NavBar';
@@ -39,11 +38,6 @@ export default class App extends Component {
     LIFECYCLE FUNCTIONS
   *******************************************************************/
   componentDidMount() {
-    //Add karma to localStorage if it doesn't exist there yet.
-    if (!karmaService.getKarma() && karmaService.getKarma() !== 0) {
-      karmaService.setNewKarma();
-    }
-
     //Run loading spinner
     this.setState({ loading: true });
 
@@ -110,7 +104,6 @@ export default class App extends Component {
   *******************************************************************/
   incrementUpvotes = id => {
 		if (KarmaService.getKarma() < 1) {
-			this.setAlert("Looks like you're out of karma. You'll get some more soon!")
 			return; 
 		}
 
@@ -152,7 +145,7 @@ export default class App extends Component {
       user: TokenService.hasAuthToken()
     })
   }
-  
+
   /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
@@ -236,7 +229,6 @@ export default class App extends Component {
     RENDER
   *******************************************************************/
   render = () => {
-
     const value = {
       userLocation: this.state.userLocation,
       newContentLoaded: this.state.newContentLoaded,

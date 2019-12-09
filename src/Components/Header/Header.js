@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import { ThumbUp, Refresh } from '@material-ui/icons';
+import { ThumbUp } from '@material-ui/icons';
 import RefreshButton from '../RefreshButton/RefreshButton';
+import UserContext from '../../contexts/UserContext';
 import TokenService from '../../services/token-service';
-import karmaService from '../../services/karma-service';
+import KarmaService from '../../services/karma-service';
 
 class Header extends Component {
+  static contextType = UserContext;
+
   state = {
     auth: TokenService.hasAuthToken(),
   };
 
   handleLogout = () => {
-    TokenService.clearAuthToken();
+    this.context.processLogout();
     this.setState({
       auth: TokenService.hasAuthToken()
     });
@@ -35,7 +38,7 @@ class Header extends Component {
               Logout
             </Link>
             <div className="App__karma-total">
-              <ThumbUp /> {karmaService.getKarma()}
+              <ThumbUp /> {KarmaService.getKarma()}
             </div>
           </>
         ) : (
