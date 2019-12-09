@@ -48,12 +48,16 @@ export default class App extends Component {
     this.setState({ loading: true });
 
     //Get user location AND get images for that location (see this.setPosition)
-    navigator.geolocation.getCurrentPosition(this.setPosition);
+    this.handleGeolocation();
   }
 
   /*******************************************************************
     GEOLOCATION
   *******************************************************************/
+  handleGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(this.setPosition);
+  }
+  
   setPosition = position => {
     const lat = position.coords.latitude;
     const long = position.coords.longitude;
@@ -253,7 +257,7 @@ export default class App extends Component {
       <ImageContext.Provider value={value}> 
         <div className="App">
           <div className="App__heading-container">
-            <Header view={this.state.view} />
+            <Header view={this.state.view} handleGeolocation={this.handleGeolocation}/>
             {this.renderNavRoutes()}
           </div>
           {this.renderMainRoutes()}
