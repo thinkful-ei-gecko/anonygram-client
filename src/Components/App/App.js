@@ -2,16 +2,18 @@
   IMPORTS
 *******************************************************************/
 import React, { Component } from 'react';
-import { Route , Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
 import NavBar from '../NavBar/NavBar';
 import MapView from '../MapView/MapView';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import UserAlert from '../UserAlert/UserAlert';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
@@ -31,7 +33,7 @@ export default class App extends Component {
     images: [],
     error: null,
     alert: null,
-   }
+  }
 
   /*******************************************************************
     LIFECYCLE FUNCTIONS
@@ -92,10 +94,10 @@ export default class App extends Component {
     this.setState({ sort: clone }, () => {
       const { sort, userLocation } = this.state
       ImageApi.getLocalImages(sort[0], userLocation.lat, userLocation.long)
-      .then((res) => {
-        this.setImages(res);
-        this.setState({ loading: false });
-      })
+        .then((res) => {
+          this.setImages(res);
+          this.setState({ loading: false });
+        })
     });
   }
 
@@ -132,10 +134,11 @@ export default class App extends Component {
   renderNavRoutes = () => {
     return (
       <Switch>
-        <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-        <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} /> 
-        <Route exact path='/register'component={Register} /> 
-        <Route render={() => <h2>Page Not Found</h2>} />
+        <ErrorBoundary>
+          <Route exact path={'/'} render={() => <NavBar setSort={this.setSort} />} />
+          {/* <Route exact path={'/login'} render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
+          <Route exact path={'/register'} component={Register} /> */}
+        </ErrorBoundary>
       </Switch>
     );
   };
@@ -147,32 +150,36 @@ export default class App extends Component {
     } else {
       const { userLocation, newContentLoaded } = this.state;
       return (
-        <>
-          <Route exact path="/" render={() => <DisplayFeed />} />
-          <Route
-            exact
-            path="/"
-            render={routeProps => (
-              <SubmissionForm
-                {...routeProps}
-                userLocation={userLocation}
-                newContentLoaded={newContentLoaded}
-                updateNewContent={this.setNewContentLoaded}
-              />
-            )}
-          />
-          {/* This next conditional prevents 'DisplaySingle' from rendering before it has what it needs (ComponentDidMount requires this.context.images to be ready, which won't be ready until 'this.state.images' is (you can't access context here)) */}
-          {this.state.images.length !== 0 ? (
+        <ErrorBoundary>
+          <Switch>
+            <Route exact path="/" component={DisplayFeed} />
             <Route
-              path={`/p/:submissionId`}
+              exact path="/"
               render={routeProps => (
-                <DisplaySingle
-                  submissionId={routeProps.match.params.submissionId}
+                <SubmissionForm
+                  {...routeProps}
+                  userLocation={userLocation}
+                  newContentLoaded={newContentLoaded}
+                  updateNewContent={this.setNewContentLoaded}
                 />
               )}
             />
-          ) : null}
-        </>
+            <Route exact path={'/login'} render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
+            <Route exact path={'/register'} component={Register} />
+            {/* This next conditional prevents 'DisplaySingle' from rendering before it has what it needs (ComponentDidMount requires this.context.images to be ready, which won't be ready until 'this.state.images' is (you can't access context here)) */}
+            {this.state.images.length !== 0 ? (
+              <Route
+                path={`/p/:submissionId`}
+                render={routeProps => (
+                  <DisplaySingle
+                    submissionId={routeProps.match.params.submissionId}
+                  />
+                )}
+              />
+            ) : null}
+            <Route component={NotFoundPage} />
+          </Switch>
+        </ErrorBoundary>
       );
     }
   };
@@ -199,13 +206,14 @@ export default class App extends Component {
     }
 
     return (
-     
-      <ImageContext.Provider value={value}> 
+
+      <ImageContext.Provider value={value}>
         <div className="App">
           <div className="App__heading-container">
-            <Header/>
+            <Header />
             {this.renderNavRoutes()}
           </div>
+          <UserAlert />
           {this.renderMainRoutes()}
         </div>
       </ImageContext.Provider>

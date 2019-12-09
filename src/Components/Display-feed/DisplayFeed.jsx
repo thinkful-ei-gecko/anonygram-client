@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
-// import AlertContext from '../../contexts/AlertContext';
 import KarmaService from '../../services/karma-service';
 import ImageApi from '../../services/image-api-service';
 
@@ -14,6 +13,9 @@ export default function DisplayFeed(props) {
     const incrementUpvotes = async id => {
         if (KarmaService.getKarma() < 1) {
             context.setAlert("Looks like you're out of karma. You'll get some more soon!")
+            setTimeout(() => {
+                context.setAlert(null);
+            }, 15000);
             return;
         }
 
