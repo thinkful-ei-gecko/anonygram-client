@@ -1,0 +1,8 @@
+.RefreshButton {
+  margin: 0;
+  padding: 0;
+}
+
+.RefreshButton:hover {
+  cursor: pointer;
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import { ThumbUp } from '@material-ui/icons';
+import { ThumbUp, Refresh } from '@material-ui/icons';
+import RefreshButton from '../RefreshButton/RefreshButton';
 import TokenService from '../../services/token-service';
 import karmaService from '../../services/karma-service';
 
@@ -52,6 +53,7 @@ class Header extends Component {
           ? <Link to='/local-map' className='resetStyles' >Map View</Link>
           : <Link to='/' className='resetStyles' >Feed View</Link>
         }
+        <Link className='resetStyles'><RefreshButton handleGeolocation={this.props.handleGeolocation}/></Link>
       </header>
     );
   }
