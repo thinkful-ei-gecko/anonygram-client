@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
 // import AlertContext from '../../contexts/AlertContext';
@@ -6,6 +6,10 @@ import ImageContext from '../../contexts/ImageContext';
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
+    useEffect(() => {
+        props.setView('feed');
+    }, []);
+
     const context = useContext(ImageContext);
 
     const generateJSX = () => {

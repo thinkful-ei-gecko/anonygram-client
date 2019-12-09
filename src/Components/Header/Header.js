@@ -48,6 +48,10 @@ class Header extends Component {
             </Link>
           </>
         )}
+        {(this.props.view === 'feed') 
+          ? <Link to='/local-map' className='resetStyles' >Map View</Link>
+          : <Link to='/' className='resetStyles' >Feed View</Link>
+        }
       </header>
     );
   }
