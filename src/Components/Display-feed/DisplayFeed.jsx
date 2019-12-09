@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
-// import AlertContext from '../../contexts/AlertContext';
 
 import './DisplayFeed.css';
 
