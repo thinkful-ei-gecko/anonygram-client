@@ -1,3 +1,7 @@
 .DisplaySingle {
   margin-top: 3em;
 }
+
+.DisplaySingle__div.upvoteButton:hover {
+  cursor: pointer;
+}

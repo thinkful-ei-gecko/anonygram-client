@@ -17,6 +17,7 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
+import KarmaService from '../../services/karma-service';
 import './App.css';
 import TokenService from '../../services/token-service';
 
@@ -31,6 +32,7 @@ export default class App extends Component {
     user: null,
     loading: false,
     images: [],
+    view: '',
     error: null,
     alert: null,
   }
@@ -48,12 +50,16 @@ export default class App extends Component {
     this.setState({ loading: true });
 
     //Get user location AND get images for that location (see this.setPosition)
-    navigator.geolocation.getCurrentPosition(this.setPosition);
+    this.handleGeolocation();
   }
 
   /*******************************************************************
     GEOLOCATION
   *******************************************************************/
+  handleGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(this.setPosition);
+  }
+
   setPosition = position => {
     const lat = position.coords.latitude;
     const long = position.coords.longitude;
@@ -102,6 +108,45 @@ export default class App extends Component {
   }
 
   /*******************************************************************
+    KARMA
+  *******************************************************************/
+  incrementUpvotes = id => {
+    if (KarmaService.getKarma() < 1) {
+      this.setAlert("Looks like you're out of karma. You'll get some more soon!")
+      return;
+    }
+
+    //update the item in a deep copy of the array. you will need to 
+    //update the state with a copy of the array photos provided
+    const tempImageFeed = this.state.images.map(imgObj => imgObj);
+    const image = tempImageFeed.find(imgObj => imgObj.id === id);
+    const index = tempImageFeed.indexOf(image);
+    tempImageFeed[index].karma_total++;
+    let currKarma = tempImageFeed[index].karma_total;
+
+    //set the copy to the context's value
+    this.setState({ images: tempImageFeed })
+
+    //if the total matches their servers, decrement the user's karma,
+    //otherwise there's an error, so don't take any karma.
+    ImageApi.patchImageKarma(id, currKarma)
+      .then(res => {
+        if (res && res.karma_total === currKarma) {
+          KarmaService.decrementKarma()
+        } else {
+          this.setAlert('Error: Please refresh page');
+        }
+      })
+  };
+
+  /*******************************************************************
+    VIEW
+  *******************************************************************/
+  setView = (view) => {
+    this.setState({ view })
+  }
+
+  /*******************************************************************
     USER
   *******************************************************************/
   handleLogin = () => {
@@ -109,6 +154,7 @@ export default class App extends Component {
       user: TokenService.hasAuthToken()
     })
   }
+
   /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
@@ -133,13 +179,16 @@ export default class App extends Component {
   *******************************************************************/
   renderNavRoutes = () => {
     return (
-      <Switch>
-        <ErrorBoundary>
-          <Route exact path={'/'} render={() => <NavBar setSort={this.setSort} />} />
-          {/* <Route exact path={'/login'} render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
-          <Route exact path={'/register'} component={Register} /> */}
-        </ErrorBoundary>
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
+          <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
+          <Route exact path='/register' component={Register} />
+          <Route exact path='/local-map' render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} />} />
+          <Route exact path={`/p/:submissionId`} render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
+          <Route render={() => <h2>Page Not Found</h2>} />
+        </Switch>
+      </ErrorBoundary>
     );
   };
 
@@ -151,8 +200,25 @@ export default class App extends Component {
       const { userLocation, newContentLoaded } = this.state;
       return (
         <ErrorBoundary>
-          <Switch>
-            <Route exact path="/" component={DisplayFeed} />
+          <Route exact path="/" render={() => <DisplayFeed setView={this.setView} />} />
+          <Route
+            exact
+            path="/"
+            render={routeProps => (
+              <SubmissionForm
+                {...routeProps}
+                userLocation={userLocation}
+                newContentLoaded={newContentLoaded}
+                updateNewContent={this.setNewContentLoaded}
+              />
+            )}
+          />
+          {/* This next conditional prevents 'DisplaySingle' from 
+          rendering before it has what it needs (ComponentDidMount 
+          requires this.context.images to be ready, which won't be 
+          ready until 'this.state.images' is (you can't access context
+          here)) */}
+          {this.state.images.length !== 0 ? (
             <Route
               exact path="/"
               render={routeProps => (
@@ -164,21 +230,10 @@ export default class App extends Component {
                 />
               )}
             />
-            <Route exact path={'/login'} render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
-            <Route exact path={'/register'} component={Register} />
-            {/* This next conditional prevents 'DisplaySingle' from rendering before it has what it needs (ComponentDidMount requires this.context.images to be ready, which won't be ready until 'this.state.images' is (you can't access context here)) */}
-            {this.state.images.length !== 0 ? (
-              <Route
-                path={`/p/:submissionId`}
-                render={routeProps => (
-                  <DisplaySingle
-                    submissionId={routeProps.match.params.submissionId}
-                  />
-                )}
-              />
-            ) : null}
-            <Route component={NotFoundPage} />
-          </Switch>
+          ) : null}
+          <Route
+            path='/local-map'
+            render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} />} />
         </ErrorBoundary>
       );
     }
@@ -195,9 +250,10 @@ export default class App extends Component {
       sort: this.state.sort,
       user: this.state.user,
       images: this.state.images,
+      setImages: this.setImages,
+      incrementUpvotes: this.incrementUpvotes,
       error: this.state.error,
       alert: this.state.alert,
-      setImages: this.setImages,
       setNewContentLoaded: this.setNewContentLoaded,
       setError: this.setError,
       setAlert: this.setAlert,
@@ -210,7 +266,7 @@ export default class App extends Component {
       <ImageContext.Provider value={value}>
         <div className="App">
           <div className="App__heading-container">
-            <Header />
+            <Header view={this.state.view} handleGeolocation={this.handleGeolocation} />
             {this.renderNavRoutes()}
           </div>
           <UserAlert />
