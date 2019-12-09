@@ -3,6 +3,7 @@ import CommentFeed from '../CommentFeed/CommentFeed';
 import CommentApi from '../../services/comment-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import moment from 'moment';
+import './DisplaySingle.css';
 
 export default class DisplaySingle extends Component {
   static contextType = ImageContext; 

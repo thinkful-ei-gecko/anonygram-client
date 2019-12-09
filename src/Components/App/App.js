@@ -2,7 +2,7 @@
   IMPORTS
 *******************************************************************/
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route , Switch} from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
@@ -110,14 +110,12 @@ export default class App extends Component {
   *******************************************************************/
   renderNavRoutes = () => {
     return (
-      <>
       <Switch>
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
         <Route exact path='/login' component={Login} /> 
         <Route exact path='/register'component={Register} /> 
-
+        <Route render={() => <h2>Page Not Found</h2>} />
       </Switch>
-      </>
     );
   };
 
