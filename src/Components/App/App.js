@@ -11,10 +11,12 @@ import NavBar from '../NavBar/NavBar';
 import MapView from '../MapView/MapView';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import UserAlert from '../UserAlert/UserAlert';
 import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import './App.css';
+import TokenService from '../../services/token-service';
 
 export default class App extends Component {
   /*******************************************************************
@@ -29,7 +31,8 @@ export default class App extends Component {
     images: [],
     view: '',
     error: null,
-  };
+    alert: null,
+   }
 
   /*******************************************************************
     LIFECYCLE FUNCTIONS
@@ -72,9 +75,9 @@ export default class App extends Component {
   /*******************************************************************
     LOADING
   *******************************************************************/
-  setNewContentLoaded = () => {
+  setNewContentLoaded = img => {
     let temp = !this.state.newContentLoaded;
-    this.setState({ newContentLoaded: temp });
+    this.setState({ newContentLoaded: temp, images: [img, ...this.state.images] });
   };
 
   /*******************************************************************
@@ -87,8 +90,15 @@ export default class App extends Component {
   setSort = () => {
     const clone = [...this.state.sort];
     clone.reverse();
-    this.setState({ sort: clone });
-  };
+    this.setState({ sort: clone }, () => {
+      const { sort, userLocation } = this.state
+      ImageApi.getLocalImages(sort[0], userLocation.lat, userLocation.long)
+      .then((res) => {
+        this.setImages(res);
+        this.setState({ loading: false });
+      })
+    });
+  }
 
   /*******************************************************************
     IMAGES
@@ -98,6 +108,14 @@ export default class App extends Component {
   }
 
   /*******************************************************************
+    USER
+  *******************************************************************/
+  handleLogin = () => {
+    this.setState({
+      user: TokenService.hasAuthToken()
+    })
+  }
+  /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
   setError = error => {
@@ -106,13 +124,24 @@ export default class App extends Component {
   };
 
   /*******************************************************************
+    ALERT FUNCTIONS
+  *******************************************************************/
+  setAlert = (alert) => {
+    this.setState({ alert });
+  };
+
+  clearAlert = () => {
+    this.setState({ alert: null });
+  }
+
+  /*******************************************************************
     ROUTES
   *******************************************************************/
   renderNavRoutes = () => {
     return (
       <Switch>
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-        <Route exact path='/login' component={Login} /> 
+        <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} /> 
         <Route exact path='/register'component={Register} /> 
         <Route render={() => <h2>Page Not Found</h2>} />
       </Switch>
@@ -168,11 +197,15 @@ export default class App extends Component {
       sort: this.state.sort,
       user: this.state.user,
       images: this.state.images,
-      setImages: this.setImages,
       error: this.state.error,
+      alert: this.state.alert,
+      setImages: this.setImages,
+      setNewContentLoaded: this.setNewContentLoaded,
       setError: this.setError,
+      setAlert: this.setAlert,
       clearError: this.clearError,
-    };
+      clearAlert: this.clearAlert,
+    }
 
     return (
      
