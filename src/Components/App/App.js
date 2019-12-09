@@ -113,20 +113,15 @@ export default class App extends Component {
 		const image = tempImageFeed.find(imgObj => imgObj.id === id);
 		const index = tempImageFeed.indexOf(image);
 		tempImageFeed[index].karma_total++;
-		let currKarma = tempImageFeed[index].karma_total;
 
 		//set the copy to the context's value
 		this.setState({ images: tempImageFeed })
 		
     //if the total matches their servers, decrement the user's karma,
     //otherwise there's an error, so don't take any karma.
-    ImageApi.patchImageKarma(id, currKarma)
-      .then(res => {
-        if (res && res.karma_total === currKarma) {
-          KarmaService.decrementKarma()
-        } else {
-          this.setAlert('Error: Please refresh page');
-        }
+    ImageApi.patchImageKarma(id)
+      .then(() => {
+        KarmaService.decrementKarma()
       })
 	};
 
