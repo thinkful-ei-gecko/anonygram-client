@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
+import Paginator from 'react-hooks-paginator';
+
 
 import './DisplayFeed.css';
 
@@ -8,8 +10,16 @@ export default function DisplayFeed(props) {
     useEffect(() => {
         props.setView('feed');
     }, []);
-
+    //
+    const [offset, setOffset] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentData, setCurrentData] = useState([]);
     const context = useContext(ImageContext);
+    const data = context.images; 
+    console.log(context)
+    useEffect(() => {
+        setCurrentData(data.slice(offset, offset + pageLimit));
+      }, [offset, data]);
 
     const generateJSX = () => {
         if (!context.images) {
@@ -17,8 +27,9 @@ export default function DisplayFeed(props) {
         }
         return (
             <>
+            //display currentData 
                 <ul className="img-container">
-                    {context.images.map(imgObj => (
+                    {data.map(imgObj => (
                         <DisplayItem
                             imgAddress={imgObj.image_url}
                             imgCaption={imgObj.image_text}
@@ -28,7 +39,15 @@ export default function DisplayFeed(props) {
                             key={imgObj.id}
                         />
                     ))}
-                </ul>
+                </ul> 
+                <Paginator
+                totalRecords={data.length}
+                pageLimit={4}
+                pageNeighbours={1}
+                setOffset={setOffset}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                />         
             </>
         )
     }

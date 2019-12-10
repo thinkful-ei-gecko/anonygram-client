@@ -2,8 +2,10 @@ import config from '../config';
 import TokenService from './token-service'
 
 const ImageApi = {
-  getLocalImages(sort, lat, long) {
-    return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}`, {
+  getLocalImages(sort, lat, long, page) {
+    let p = new URLSearchParams();
+    p.append('page', page || 1)
+    return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}` + p, {
     })
       .then((res) => 
         (!res.ok)

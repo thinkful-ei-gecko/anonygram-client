@@ -32,6 +32,7 @@ export default class App extends Component {
     user: null,
     loading: false,
     images: [],
+    page: null,
     view: '',
     error: null,
     alert: null,
