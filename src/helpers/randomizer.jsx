@@ -53,7 +53,6 @@ const randomizer = {
     //Make an object; assign usernames (value) for each userId (key) in array
     const newUsernames = {};
     userIds.map((userId, index) => {
-      // newUsernames[userId] = this.generateAnonUsername(index);
       newUsernames[userId] = this.generateRandomUsername(index);
     })
 

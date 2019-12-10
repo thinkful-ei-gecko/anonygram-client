@@ -45,6 +45,9 @@ export default class DisplaySingle extends Component {
     const userLoggedIn = TokenService.hasAuthToken();
 
     //This conditional is needed to keep componentDidMount in CommentFeed from running before the needed props are ready to be passed in (to generate usernames)
+    if (this.state.comments == null) {
+      return null;
+    }
     if (this.state.loading === true) {
       return <div className="loader"></div>;
     } else {
