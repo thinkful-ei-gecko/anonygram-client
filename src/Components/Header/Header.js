@@ -4,9 +4,11 @@ import './Header.css';
 import { ThumbUp, Refresh } from '@material-ui/icons';
 import RefreshButton from '../RefreshButton/RefreshButton';
 import TokenService from '../../services/token-service';
-import karmaService from '../../services/karma-service';
+import UserContext from '../../contexts/UserContext';
 
 class Header extends Component {
+  static contextType = UserContext;
+
   state = {
     auth: TokenService.hasAuthToken(),
   };
@@ -35,7 +37,7 @@ class Header extends Component {
               Logout
             </Link>
             <div className="App__karma-total">
-              <ThumbUp /> {karmaService.getKarma()}
+              <ThumbUp /> {this.context.user.karma_balance}
             </div>
           </>
         ) : (
