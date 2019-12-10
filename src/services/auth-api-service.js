@@ -3,6 +3,14 @@ import TokenService from './token-service'
 
 
 const AuthApiService = {
+  getUser(user_id) {
+    return fetch(`${config.API_ENDPOINT}/api/users/${user_id}`)
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  },
   postUser(user) {
     return fetch(`${config.API_ENDPOINT}/api/users`, {
       method: 'POST',

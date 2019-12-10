@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
-import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
 import NavBar from '../NavBar/NavBar';
@@ -17,11 +16,16 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
-import KarmaService from '../../services/karma-service';
+import UserContext from '../../contexts/UserContext';
 import './App.css';
 import TokenService from '../../services/token-service';
 
 export default class App extends Component {
+  /*******************************************************************
+    CONTEXT CONSUMER
+  ********************************************************************/
+  static contextType = UserContext;
+
   /*******************************************************************
     APP STATE
   ********************************************************************/
@@ -41,16 +45,14 @@ export default class App extends Component {
     LIFECYCLE FUNCTIONS
   *******************************************************************/
   componentDidMount() {
-    //Add karma to localStorage if it doesn't exist there yet.
-    if (!karmaService.getKarma() && karmaService.getKarma() !== 0) {
-      karmaService.setNewKarma();
-    }
-
     //Run loading spinner
     this.setState({ loading: true });
 
     //Get user location AND get images for that location (see this.setPosition)
     this.handleGeolocation();
+
+    // when we refresh the page, we want to fetch the most up-to-date user data (i.e. karma_balance)
+    this.context.updateUserStateFromDatabase();
   }
 
   /*******************************************************************
@@ -111,31 +113,26 @@ export default class App extends Component {
     KARMA
   *******************************************************************/
   incrementUpvotes = id => {
-    if (KarmaService.getKarma() < 1) {
+    if (this.context.user.karma_balance === 0) {
       this.setAlert("Looks like you're out of karma. You'll get some more soon!")
       return;
     }
-
+    
     //update the item in a deep copy of the array. you will need to 
     //update the state with a copy of the array photos provided
     const tempImageFeed = this.state.images.map(imgObj => imgObj);
     const image = tempImageFeed.find(imgObj => imgObj.id === id);
     const index = tempImageFeed.indexOf(image);
     tempImageFeed[index].karma_total++;
-    let currKarma = tempImageFeed[index].karma_total;
 
     //set the copy to the context's value
     this.setState({ images: tempImageFeed })
 
-    //if the total matches their servers, decrement the user's karma,
-    //otherwise there's an error, so don't take any karma.
-    ImageApi.patchImageKarma(id, currKarma)
-      .then(res => {
-        if (res && res.karma_total === currKarma) {
-          KarmaService.decrementKarma()
-        } else {
-          this.setAlert('Error: Please refresh page');
-        }
+    // the upvoter has successfully "transferred" 1 karma from their karma_balance
+    // to the image's karma_total, so update the current karma_balance
+    ImageApi.patchImageKarma(id)
+      .then(() => {
+        this.context.updateUserStateFromDatabase();
       })
   };
 
