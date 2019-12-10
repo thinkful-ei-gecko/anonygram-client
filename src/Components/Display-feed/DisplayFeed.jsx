@@ -26,7 +26,7 @@ export default function DisplayFeed(props) {
                             imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
-                            incrementUpvotes={context.incrementUpvotes}
+                            handleUpvote={context.handleUpvote}
                             key={imgObj.id}
                         />
                     ))}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserContext from '../../contexts/UserContext';
 import AuthApiService from '../../services/auth-api-service'
 import './Login.css';
+import KarmaService from '../../services/karma-service';
 
 
 class Login extends Component {
@@ -27,7 +28,7 @@ class Login extends Component {
       .then(res => {
         username.value = ''
         password.value = ''
-        this.context.processLogin(res.anonygramAuthToken);
+        this.context.processLogin(res.anonygramAuthToken, res.karma);
         this.props.handleLogin();
         this.handleLoginSuccess();
       })

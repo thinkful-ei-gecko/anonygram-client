@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AuthApiService from '../services/auth-api-service'
+import KarmaService from '../services/karma-service'
 import TokenService from '../services/token-service'
 import IdleService from '../services/idle-service'
 
@@ -64,13 +65,14 @@ export class UserProvider extends Component {
     this.setState({ user })
   }
 
-  processLogin = authToken => {
+  processLogin = (authToken, userKarma) => {
     TokenService.saveAuthToken(authToken)
     this.updateUserStateFromDatabase();
     IdleService.regiserIdleTimerResets()
     TokenService.queueCallbackBeforeExpiry(() => {
       this.fetchRefreshToken()
     })
+    KarmaService.setKarma(userKarma);
   }
 
   processLogout = () => {
@@ -78,6 +80,7 @@ export class UserProvider extends Component {
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
     this.setUser({})
+    KarmaService.clearKarma();
   }
 
   logoutBecauseIdle = () => {
@@ -85,6 +88,7 @@ export class UserProvider extends Component {
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
     this.setUser({ idle: true })
+    KarmaService.clearKarma();
   }
 
   fetchRefreshToken = () => {

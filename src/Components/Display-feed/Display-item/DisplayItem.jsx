@@ -5,7 +5,7 @@ import { KeyboardArrowUp } from '@material-ui/icons';
 import TokenService from '../../../services/token-service';
 
 export default function DisplayItem(props) {
-  const { imgAddress, imgCaption, upvotes, id, incrementUpvotes } = props;
+  const { imgAddress, imgCaption, upvotes, id, handleUpvote } = props;
   return (
     <li className="display-item">
       <Link to={`/p/${id}`}>
@@ -13,7 +13,7 @@ export default function DisplayItem(props) {
       </Link>
       {TokenService.hasAuthToken() ? <div className="upvote-wrapper">
         <div className="upvote-button">
-        <KeyboardArrowUp fontSize="large" onClick={() => incrementUpvotes(id)}/>
+        <KeyboardArrowUp fontSize="large" onClick={() => handleUpvote(id)}/>
         <p className="upvote-count">{upvotes}</p>
         </div>
       </div> 
