@@ -15,4 +15,5 @@ export default React.createContext({
   clearError: () => {},
   clearAlert: () => {},
   resetState: () => {},
+  handleDelete: () => {},
 })

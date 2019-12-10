@@ -2,7 +2,7 @@
   IMPORTS
 *******************************************************************/
 import React, { Component } from 'react';
-import { Route , Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import karmaService from '../../services/karma-service';
 import DisplayFeed from '../Display-feed/DisplayFeed';
@@ -33,7 +33,7 @@ export default class App extends Component {
     view: '',
     error: null,
     alert: null,
-   }
+  }
 
   /*******************************************************************
     LIFECYCLE FUNCTIONS
@@ -57,7 +57,7 @@ export default class App extends Component {
   handleGeolocation = () => {
     navigator.geolocation.getCurrentPosition(this.setPosition);
   }
-  
+
   setPosition = position => {
     const lat = position.coords.latitude;
     const long = position.coords.longitude;
@@ -98,10 +98,10 @@ export default class App extends Component {
     this.setState({ sort: clone }, () => {
       const { sort, userLocation } = this.state
       ImageApi.getLocalImages(sort[0], userLocation.lat, userLocation.long)
-      .then((res) => {
-        this.setImages(res);
-        this.setState({ loading: false });
-      })
+        .then((res) => {
+          this.setImages(res);
+          this.setState({ loading: false });
+        })
     });
   }
 
@@ -109,22 +109,22 @@ export default class App extends Component {
     KARMA
   *******************************************************************/
   incrementUpvotes = id => {
-		if (KarmaService.getKarma() < 1) {
-			this.setAlert("Looks like you're out of karma. You'll get some more soon!")
-			return; 
-		}
+    if (KarmaService.getKarma() < 1) {
+      this.setAlert("Looks like you're out of karma. You'll get some more soon!")
+      return;
+    }
 
     //update the item in a deep copy of the array. you will need to 
     //update the state with a copy of the array photos provided
-		const tempImageFeed = this.state.images.map(imgObj => imgObj);
-		const image = tempImageFeed.find(imgObj => imgObj.id === id);
-		const index = tempImageFeed.indexOf(image);
-		tempImageFeed[index].karma_total++;
-		let currKarma = tempImageFeed[index].karma_total;
+    const tempImageFeed = this.state.images.map(imgObj => imgObj);
+    const image = tempImageFeed.find(imgObj => imgObj.id === id);
+    const index = tempImageFeed.indexOf(image);
+    tempImageFeed[index].karma_total++;
+    let currKarma = tempImageFeed[index].karma_total;
 
-		//set the copy to the context's value
-		this.setState({ images: tempImageFeed })
-		
+    //set the copy to the context's value
+    this.setState({ images: tempImageFeed })
+
     //if the total matches their servers, decrement the user's karma,
     //otherwise there's an error, so don't take any karma.
     ImageApi.patchImageKarma(id, currKarma)
@@ -135,7 +135,7 @@ export default class App extends Component {
           this.setAlert('Error: Please refresh page');
         }
       })
-	};
+  };
 
   /*******************************************************************
     VIEW
@@ -152,7 +152,7 @@ export default class App extends Component {
       user: TokenService.hasAuthToken()
     })
   }
-  
+
   /*******************************************************************
     ERROR FUNCTIONS
   *******************************************************************/
@@ -170,7 +170,23 @@ export default class App extends Component {
 
   clearAlert = () => {
     this.setState({ alert: null });
-  }
+  };
+
+  /*******************************************************************
+    DELETE FUNCTIONS
+  *******************************************************************/
+  handleDelete = (id) => {
+    ImageApi.deleteImage(id)
+      .then(res => {
+        if (res.status === 204) {
+          const tempImageFeed = this.state.images.map((imgObj) => imgObj);
+          const filteredFeed = tempImageFeed.filter((imgObj) => imgObj.id !== id);
+          this.setState({ images: filteredFeed });
+        } else {
+          this.setAlert('Sorry, you are only allowed to delete images you posted');
+        }
+      });
+  };
 
   /*******************************************************************
     ROUTES
@@ -179,10 +195,10 @@ export default class App extends Component {
     return (
       <Switch>
         <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-        <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} /> 
-        <Route exact path='/register'component={Register} /> 
-        <Route exact path='/local-map' render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} /> } />
-        <Route exact path={`/p/:submissionId`} render={routeProps => ( <DisplaySingle submissionId={routeProps.match.params.submissionId}/>)}/>
+        <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/local-map' render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} />} />
+        <Route exact path={`/p/:submissionId`} render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
         <Route render={() => <h2>Page Not Found</h2>} />
       </Switch>
     );
@@ -196,7 +212,7 @@ export default class App extends Component {
       const { userLocation, newContentLoaded } = this.state;
       return (
         <>
-          <Route exact path="/" render={() => <DisplayFeed setView={this.setView}/>} />
+          <Route exact path="/" render={() => <DisplayFeed setView={this.setView} />} />
           <Route
             exact
             path="/"
@@ -224,9 +240,9 @@ export default class App extends Component {
               )}
             />
           ) : null}
-          <Route 
-            path='/local-map' 
-            render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} /> } />
+          <Route
+            path='/local-map'
+            render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} />} />
         </>
       );
     }
@@ -252,16 +268,18 @@ export default class App extends Component {
       setAlert: this.setAlert,
       clearError: this.clearError,
       clearAlert: this.clearAlert,
+      handleDelete: this.handleDelete,
     }
 
     return (
-     
-      <ImageContext.Provider value={value}> 
+
+      <ImageContext.Provider value={value}>
         <div className="App">
           <div className="App__heading-container">
-            <Header view={this.state.view} handleGeolocation={this.handleGeolocation}/>
+            <Header view={this.state.view} handleGeolocation={this.handleGeolocation} />
             {this.renderNavRoutes()}
           </div>
+          <UserAlert />
           {this.renderMainRoutes()}
         </div>
       </ImageContext.Provider>

@@ -15,7 +15,8 @@ class SubmissionForm extends Component {
       image: null,
       image_text: '',
       loading: false,
-      error: null
+      error: null,
+      uploading: false,
     };
   }
 
@@ -45,40 +46,54 @@ class SubmissionForm extends Component {
 
   onSubmitImageUploader = (e) => {
     e.preventDefault();
-    const { setAlert } = this.context;
+    const { setAlert, user } = this.context;
+    const { image, image_text, uploading } = this.state;
+    const {lat, long } = this.props.userLocation; 
 
-    //Start loading spinner
-    this.setState({ loading: true });
-    const formData = new FormData();
-    formData.append('someImage', this.state.image);
-    formData.append('image_text', this.state.image_text);
-    formData.set('latitude', this.props.userLocation.lat);
-    formData.set('longitude', this.props.userLocation.long);
+    console.log(user);
 
-    fetch(`${config.API_ENDPOINT}/api/images`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => {
-        //Remove loading spinner
-        this.setState({ loading: false });
-        if (res.status === 400) {
-          setAlert('Sorry, that content is not permitted');
-          return res.json().then((e) => Promise.reject(e))          
-        }
-        return res.json();
-      })
-      .then(resJson => {
-        const newImg = resJson;
-        this.props.updateNewContent(newImg);
-        this.setState({ image: null, image_text: '', error: null });
-        setAlert(null);
-      })
-      .catch(e => {
-        this.setState({
-          error: e.error
-        })
+    if (!uploading) {
+      //Start loading spinner
+      this.setState({
+        loading: true,
+        uploading: true,
       });
+      const formData = new FormData();
+      formData.append('someImage', image);
+      formData.append('image_text', image_text);
+      formData.set('latitude', lat);
+      formData.set('longitude', long);
+
+      formData.set('user_id', user)
+
+      fetch(`${config.API_ENDPOINT}/api/images`, {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => {
+          //Remove loading spinner
+          this.setState({
+            loading: false,
+            uploading: false,
+          });
+          if (res.status === 400) {
+            setAlert('Sorry, that content is not permitted');
+            return res.json().then((e) => Promise.reject(e))
+          }
+          return res.json();
+        })
+        .then(resJson => {
+          const newImg = resJson;
+          this.props.updateNewContent(newImg);
+          this.setState({ image: null, image_text: '', error: null });
+          setAlert(null);
+        })
+        .catch(e => {
+          this.setState({
+            error: e.error
+          })
+        });
+    }
   };
 
   resetState = () => {
@@ -116,12 +131,12 @@ class SubmissionForm extends Component {
               {isDragActive ? (
                 <p className="SubmissionForm__drag--active">Nice pic!</p>
               ) : (
-                !this.state.image && (
-                  <p className="SubmissionForm__drag">
-                    Drag a pic here to upload, or click to select one
+                  !this.state.image && (
+                    <p className="SubmissionForm__drag">
+                      Drag a pic here to upload, or click to select one
                   </p>
-                )
-              )}
+                  )
+                )}
               {!this.state.image ? (
                 !isDragActive && (
                   <button
@@ -135,29 +150,29 @@ class SubmissionForm extends Component {
                   </button>
                 )
               ) : (
-                <>
-                  <label htmlFor="text">Caption Image</label>
-                  <input
-                    id="text"
-                    type="text"
-                    onChange={this.imageTextHandler}
-                  />
-                  <button
-                    className="SubmissionForm__button"
-                    type="reset"
-                    onClick={() => this.resetState()}
-                  >
-                    Cancel
+                  <>
+                    <label htmlFor="text">Caption Image</label>
+                    <input
+                      id="text"
+                      type="text"
+                      onChange={this.imageTextHandler}
+                    />
+                    <button
+                      className="SubmissionForm__button"
+                      type="reset"
+                      onClick={() => this.resetState()}
+                    >
+                      Cancel
                   </button>
-                  <button
-                    className="SubmissionForm__button"
-                    type="submit"
-                    value="Upload"
-                  >
-                    Upload
+                    <button
+                      className="SubmissionForm__button"
+                      type="submit"
+                      value="Upload"
+                    >
+                      Upload
                   </button>
-                </>
-              )}
+                  </>
+                )}
             </form>
           )}
         </Dropzone>
