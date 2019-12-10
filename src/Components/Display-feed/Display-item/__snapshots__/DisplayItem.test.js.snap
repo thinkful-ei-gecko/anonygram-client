@@ -49,3 +49,39 @@ exports[`DisplayItem component renders elements given props 1`] = `
   </p>
 </li>
 `;
+
+exports[`DisplayItem component renders upvote icon when user has auth token 1`] = `
+<li
+  className="display-item"
+>
+  <Link
+    to="/p/20"
+  >
+    <img
+      alt="anonygram"
+      className="display-img"
+      src="https://lh3.googleusercontent.com/p/AF1QipMJcAXkTwnOj_TWYbMRwygy8ktducIF2kgOqSdW=s1600-w500"
+    />
+  </Link>
+  <div
+    className="upvote-wrapper"
+  >
+    <div
+      className="upvote-button"
+    >
+      <KeyboardArrowUpIcon
+        fontSize="large"
+        onClick={[Function]}
+      />
+      <p
+        className="upvote-count"
+      >
+        12
+      </p>
+    </div>
+  </div>
+  <p>
+    some image caption
+  </p>
+</li>
+`;
