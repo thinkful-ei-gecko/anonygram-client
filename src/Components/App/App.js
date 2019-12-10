@@ -187,30 +187,23 @@ export default class App extends Component {
         <ErrorBoundary>
           <Switch>
             <Route exact path="/" 
-              render={() => 
-                <DisplayFeed setView={this.setView} />} />
-            <Route exact path="/"
-              render={routeProps => (
-                <SubmissionForm
-                  {...routeProps}
+              render={routeProps => 
+                <DisplayFeed 
+                  {...routeProps} 
+                  setView={this.setView} 
                   userLocation={userLocation}
                   newContentLoaded={newContentLoaded}
-                  updateNewContent={this.setNewContentLoaded}
-                />
-              )}
-            />
+                  updateNewContent={this.setNewContentLoaded} />
+                } />
             <Route exact path='/local-map' 
               render={() => 
                 <MapView userLocation={this.state.userLocation} 
                 setView={this.setView} />} />
-
             <Route exact path='/login' 
               render={routeProps => 
                 <Login {...routeProps} handleLogin={this.handleLogin} />} />
-
             <Route exact path='/register' 
               component={Register} />
-            
             {/* This next conditional prevents 'DisplaySingle' from 
             rendering before it has what it needs (ComponentDidMount 
             requires this.context.images to be ready, which won't be 
