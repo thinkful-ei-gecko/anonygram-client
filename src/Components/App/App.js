@@ -213,6 +213,7 @@ export default class App extends Component {
               <Route exact path={`/p/:submissionId`} 
                 render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
             ) : null}
+            <Route render={() => <h2>Page Not Found</h2>} />
           </Switch>
         </ErrorBoundary>
       );
