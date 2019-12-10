@@ -41,6 +41,7 @@ exports[`CommendFeed component renders elements given props 1`] = `
     key="56532f9e-8022-4759-b134-b7269d510689"
     text="comment text 1"
     timestamp="a few seconds ago"
+    username="ObtuseRubberGoose"
   />
   <form
     className="CommentFeed__form"

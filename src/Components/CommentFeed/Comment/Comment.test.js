@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Comment from './Comment';
 import toJson from 'enzyme-to-json';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 
 describe('Comment component', () => {
   it('renders without crashing', () => {

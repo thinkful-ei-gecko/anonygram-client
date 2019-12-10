@@ -27,9 +27,15 @@ describe('CommendFeed component', () => {
     ],
     setCommentsByPush: () => {},
   };
+  
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<BrowserRouter><CommentFeed /></BrowserRouter>, div);
+    ReactDOM.render(
+      <BrowserRouter>
+        <CommentFeed />
+      </BrowserRouter>,
+      div
+    );
     ReactDOM.unmountComponentAtNode(div);
   });
   it('renders elements by default', () => {
@@ -39,6 +45,11 @@ describe('CommendFeed component', () => {
 
   it('renders elements given props', () => {
     const wrapper = shallow(<CommentFeed {...props} />, { context });
+    wrapper.setState({
+      usernames: {
+        '1': 'ObtuseRubberGoose'
+      } 
+    })
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
