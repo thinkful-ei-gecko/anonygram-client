@@ -177,21 +177,6 @@ export default class App extends Component {
   /*******************************************************************
     ROUTES
   *******************************************************************/
-  renderNavRoutes = () => {
-    return (
-      <ErrorBoundary>
-        <Switch>
-          <Route exact path='/' render={() => <NavBar setSort={this.setSort} />} />
-          <Route exact path='/login' render={routeProps => <Login {...routeProps} handleLogin={this.handleLogin} />} />
-          <Route exact path='/register' component={Register} />
-          <Route exact path='/local-map' render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} />} />
-          <Route exact path={`/p/:submissionId`} render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
-          <Route render={() => <h2>Page Not Found</h2>} />
-        </Switch>
-      </ErrorBoundary>
-    );
-  };
-
   renderMainRoutes = () => {
     // Display loading spinner if loading
     if (this.state.loading) {
@@ -200,27 +185,11 @@ export default class App extends Component {
       const { userLocation, newContentLoaded } = this.state;
       return (
         <ErrorBoundary>
-          <Route exact path="/" render={() => <DisplayFeed setView={this.setView} />} />
-          <Route
-            exact
-            path="/"
-            render={routeProps => (
-              <SubmissionForm
-                {...routeProps}
-                userLocation={userLocation}
-                newContentLoaded={newContentLoaded}
-                updateNewContent={this.setNewContentLoaded}
-              />
-            )}
-          />
-          {/* This next conditional prevents 'DisplaySingle' from 
-          rendering before it has what it needs (ComponentDidMount 
-          requires this.context.images to be ready, which won't be 
-          ready until 'this.state.images' is (you can't access context
-          here)) */}
-          {this.state.images.length !== 0 ? (
-            <Route
-              exact path="/"
+          <Switch>
+            <Route exact path="/" 
+              render={() => 
+                <DisplayFeed setView={this.setView} />} />
+            <Route exact path="/"
               render={routeProps => (
                 <SubmissionForm
                   {...routeProps}
@@ -230,10 +199,28 @@ export default class App extends Component {
                 />
               )}
             />
-          ) : null}
-          <Route
-            path='/local-map'
-            render={() => <MapView userLocation={this.state.userLocation} setView={this.setView} />} />
+            <Route exact path='/local-map' 
+              render={() => 
+                <MapView userLocation={this.state.userLocation} 
+                setView={this.setView} />} />
+
+            <Route exact path='/login' 
+              render={routeProps => 
+                <Login {...routeProps} handleLogin={this.handleLogin} />} />
+
+            <Route exact path='/register' 
+              component={Register} />
+            
+            {/* This next conditional prevents 'DisplaySingle' from 
+            rendering before it has what it needs (ComponentDidMount 
+            requires this.context.images to be ready, which won't be 
+            ready until 'this.state.images' is (+ you can't access context
+            here)) */}
+            {this.state.images.length !== 0 ? (
+              <Route exact path={`/p/:submissionId`} 
+                render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
+            ) : null}
+          </Switch>
         </ErrorBoundary>
       );
     }
@@ -267,7 +254,7 @@ export default class App extends Component {
         <div className="App">
           <div className="App__heading-container">
             <Header view={this.state.view} handleGeolocation={this.handleGeolocation} />
-            {this.renderNavRoutes()}
+            <NavBar setSort={this.setSort} />
           </div>
           <UserAlert />
           {this.renderMainRoutes()}
