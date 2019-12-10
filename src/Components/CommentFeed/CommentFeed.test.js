@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import CommentFeed from './CommentFeed';
-import Comment from './Comment/Comment';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 describe('CommendFeed component', () => {
   CommentFeed.contextTypes = {
-    user: {},
+    user: PropTypes.object,
   };
   const context = {
     user: {
@@ -24,7 +24,7 @@ describe('CommendFeed component', () => {
         comment_text: 'comment text 1',
       },
     ],
-    setCommentsByPush: () => {}
+    setCommentsByPush: () => {},
   };
   it('renders without crashing', () => {
     const div = document.createElement('div');
@@ -40,7 +40,7 @@ describe('CommendFeed component', () => {
     const wrapper = shallow(<CommentFeed {...props} />, { context });
     expect(toJson(wrapper)).toMatchSnapshot();
   });
-  
+
   it('obscures usernames when multiple comments present', () => {
     const propsWithComments = {
       id: '4d8a8589-1c1d-48e8-97fa-f2cee900e1cf',
@@ -58,11 +58,13 @@ describe('CommendFeed component', () => {
           comment_text: 'comment text 1',
         },
       ],
-      setCommentsByPush: () => {}
+      setCommentsByPush: () => {},
     };
-    const wrapper = shallow(<CommentFeed { ...propsWithComments } />, { context })
-    const user1 = wrapper.childAt(0).props().username
-    const user2 = wrapper.childAt(1).props().username
-    expect(user1 === user2).toEqual(false)
-  })
+    const wrapper = shallow(<CommentFeed {...propsWithComments} />, {
+      context,
+    });
+    const user1 = wrapper.childAt(0).props().username;
+    const user2 = wrapper.childAt(1).props().username;
+    expect(user1 === user2).toEqual(false);
+  });
 });

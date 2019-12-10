@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import DisplaySingle from './DisplaySingle';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 describe('DisplaySingle component', () => {
@@ -51,6 +51,12 @@ describe('DisplaySingle component', () => {
   };
   it('renders a submission given props and context', async () => {
     const wrapper = shallow(<DisplaySingle {...props} />, { context });
+    const instance = wrapper.instance()
+    // for testing snapshot, need to hard code the X days ago
+    // to something consistent
+    jest
+      .spyOn(instance, 'convertTime')
+      .mockImplementation(() => '1 day ago')
     wrapper.setState({
       loading: false,
       image: state.image,
