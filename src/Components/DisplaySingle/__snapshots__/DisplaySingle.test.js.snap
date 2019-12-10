@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplaySingle component renders a submission given props and context 1`] = `
+<div
+  className="DisplaySingle"
+>
+  <img
+    alt="this is image text"
+    src="https://via.placeholder.com/150"
+  />
+  <div
+    className="DisplaySingle__div upvoteButton"
+    onClick={[Function]}
+  >
+    <KeyboardArrowUpIcon
+      fontSize="large"
+    />
+    3
+  </div>
+  <div>
+    16 hours ago
+  </div>
+  <p>
+    this is image text
+  </p>
+  <CommentFeed
+    comments={
+      Array [
+        Object {
+          "comment_id": "2d644486-26dc-4ad3-b460-3c6895aa260f",
+          "comment_text": "some comment text",
+          "comment_timestamp": 2019-12-10T00:40:55.725Z,
+          "user_id": "2d644486-26dc-4ad3-b460-3c6895aa260f",
+        },
+      ]
+    }
+    id={1}
+    setCommentsByPush={[Function]}
+  />
+</div>
+`;
