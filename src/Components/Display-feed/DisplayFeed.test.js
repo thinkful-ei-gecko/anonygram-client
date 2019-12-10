@@ -54,6 +54,8 @@ describe('DisplayFeed component', () => {
       .spyOn(ImageContext, 'useImageContext')
       .mockImplementation(() => contextValues);
       const wrapper = shallow(<DisplayFeed />, { context })
+      // "click" it twice
+      contextValues.images[0].karma_total = wrapper.find('DisplayItem').at(0).props().incrementUpvotes()
       contextValues.images[0].karma_total = wrapper.find('DisplayItem').at(0).props().incrementUpvotes()
       wrapper.setContext(contextValues)
       expect(toJson(wrapper)).toMatchSnapshot();

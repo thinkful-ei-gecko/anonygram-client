@@ -13,7 +13,7 @@ exports[`DisplayFeed component clicking upvote updates prop value as expected 1`
       imgCaption={null}
       incrementUpvotes={[Function]}
       key="20"
-      upvotes={1}
+      upvotes={2}
     />
     <DisplayItem
       id={21}
