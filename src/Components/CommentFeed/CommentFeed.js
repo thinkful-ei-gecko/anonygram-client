@@ -8,7 +8,6 @@ import UserContext from '../../contexts/UserContext';
 import './CommentFeed.css';
 
 import moment from 'moment';
-import { isEmptyStatement } from '@babel/types';
 
 export default class CommentFeed extends Component {
   state = {
