@@ -8,13 +8,7 @@ exports[`DisplaySingle component renders a submission given props and context 1`
     alt="this is image text"
     src="https://via.placeholder.com/150"
   />
-  <div
-    className="DisplaySingle__div upvoteButton"
-    onClick={[Function]}
-  >
-    <KeyboardArrowUpIcon
-      fontSize="large"
-    />
+  <div>
     3
   </div>
   <div>
@@ -36,6 +30,7 @@ exports[`DisplaySingle component renders a submission given props and context 1`
     }
     id={1}
     setCommentsByPush={[Function]}
+    userLoggedIn={false}
   />
 </div>
 `;

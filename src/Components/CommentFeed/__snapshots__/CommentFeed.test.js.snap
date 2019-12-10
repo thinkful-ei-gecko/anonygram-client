@@ -6,16 +6,27 @@ exports[`CommendFeed component renders elements by default 1`] = `
     className="CommentFeed__form"
     onSubmit={[Function]}
   >
+    <label
+      htmlFor="newComment"
+    >
+      You must be logged in to post a comment. Log in 
+      <Link
+        to="/login"
+      >
+        here
+      </Link>
+      .
+    </label>
     <input
       className="CommentFeed__input"
+      disabled={true}
       id="newComment"
-      onChange={[Function]}
-      placeholder="Add a comment..."
+      placeholder=""
       type="text"
-      value=""
     />
     <button
       className="CommentFeed__button"
+      disabled={true}
       type="submit"
     >
       Post
@@ -35,16 +46,27 @@ exports[`CommendFeed component renders elements given props 1`] = `
     className="CommentFeed__form"
     onSubmit={[Function]}
   >
+    <label
+      htmlFor="newComment"
+    >
+      You must be logged in to post a comment. Log in 
+      <Link
+        to="/login"
+      >
+        here
+      </Link>
+      .
+    </label>
     <input
       className="CommentFeed__input"
+      disabled={true}
       id="newComment"
-      onChange={[Function]}
-      placeholder="Add a comment..."
+      placeholder=""
       type="text"
-      value=""
     />
     <button
       className="CommentFeed__button"
+      disabled={true}
       type="submit"
     >
       Post

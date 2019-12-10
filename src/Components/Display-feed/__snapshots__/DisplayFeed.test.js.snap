@@ -7,6 +7,13 @@ exports[`DisplayFeed component renders elements by default 1`] = `
   <ul
     className="img-container"
   />
+  <SubmissionForm
+    routeProps={
+      Object {
+        "setView": [Function],
+      }
+    }
+  />
 </section>
 `;
 
@@ -34,5 +41,12 @@ exports[`DisplayFeed component renders elements given ImageContext 1`] = `
       upvotes={0}
     />
   </ul>
+  <SubmissionForm
+    routeProps={
+      Object {
+        "setView": [Function],
+      }
+    }
+  />
 </section>
 `;

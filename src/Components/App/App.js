@@ -59,7 +59,9 @@ export default class App extends Component {
     GEOLOCATION
   *******************************************************************/
   handleGeolocation = () => {
-    navigator.geolocation.getCurrentPosition(this.setPosition);
+    if (!!navigator && !!navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setPosition);
+    }
   }
 
   setPosition = position => {

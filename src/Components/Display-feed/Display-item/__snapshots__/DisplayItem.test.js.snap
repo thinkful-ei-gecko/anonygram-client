@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisplayItem component renders elements by default 1`] = `
+<li
+  className="display-item"
+>
+  <Link
+    to="/p/undefined"
+  >
+    <img
+      alt="anonygram"
+      className="display-img"
+    />
+  </Link>
+  <div
+    className="upvote-wrapper"
+  >
+    <p
+      className="upvote-button-no-auth"
+    />
+  </div>
+</li>
+`;
+
+exports[`DisplayItem component renders elements given props 1`] = `
+<li
+  className="display-item"
+>
+  <Link
+    to="/p/20"
+  >
+    <img
+      alt="anonygram"
+      className="display-img"
+      src="https://lh3.googleusercontent.com/p/AF1QipMJcAXkTwnOj_TWYbMRwygy8ktducIF2kgOqSdW=s1600-w500"
+    />
+  </Link>
+  <div
+    className="upvote-wrapper"
+  >
+    <p
+      className="upvote-button-no-auth"
+    >
+      12
+    </p>
+  </div>
+  <p>
+    some image caption
+  </p>
+</li>
+`;
