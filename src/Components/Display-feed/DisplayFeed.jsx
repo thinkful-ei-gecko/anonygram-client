@@ -35,7 +35,7 @@ export default function DisplayFeed(props) {
                   routeProps={rest}
                   userLocation={userLocation}
                   newContentLoaded={newContentLoaded}
-                  updateNewContent={this.setNewContentLoaded}
+                  updateNewContent={updateNewContent}
                 />
             </>
         )
