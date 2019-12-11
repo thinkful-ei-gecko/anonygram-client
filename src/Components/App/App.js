@@ -11,6 +11,7 @@ import MapView from '../MapView/MapView';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Information from '../Information/Information';
 import UserAlert from '../UserAlert/UserAlert';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Header from '../Header/Header'
@@ -228,6 +229,7 @@ export default class App extends Component {
               <Route exact path={`/p/:submissionId`} 
                 render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
             ) : null}
+            <Route exact path='/info' component={Information}/>
             <Route render={() => <h2>Page Not Found</h2>} />
           </Switch>
         </ErrorBoundary>
