@@ -72,4 +72,4 @@ export default class DisplaySingle extends Component {
       )
     }
   }
-};
+}

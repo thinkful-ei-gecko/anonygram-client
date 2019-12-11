@@ -17,6 +17,10 @@ export default class CommentFeed extends Component {
   
   static contextType = UserContext;
 
+  static defaultProps = {
+    comments: []
+  }
+
   processTimestamp(timestamp) {
     return moment(new Date(timestamp)).local().fromNow();
   }
