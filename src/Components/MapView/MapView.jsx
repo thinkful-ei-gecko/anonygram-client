@@ -157,7 +157,7 @@ function MapView(props) {
     <>
       <Map
         google={props.google}
-        ref={refContainer}
+        // ref={refContainer}
         zoom={zoomState}
         style={mapStyles}
         initialCenter={{ lat: lat, lng: long }}
