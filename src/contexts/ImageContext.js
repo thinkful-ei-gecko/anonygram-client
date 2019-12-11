@@ -1,6 +1,6 @@
-import React from 'react';
-
-export default React.createContext({
+import React, { useContext } from 'react';
+export const useImageContext = () => useContext(ImageContext);
+const defaultValues = {
   userLocation: {},
   newContentLoaded: null, 
   sort: ['new', 'top'],
@@ -16,4 +16,7 @@ export default React.createContext({
   clearAlert: () => {},
   resetState: () => {},
   handleDelete: () => {},
-})
+}
+const ImageContext = React.createContext(defaultValues)
+
+export default ImageContext;

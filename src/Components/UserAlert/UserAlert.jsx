@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import ImageContext from '../../contexts/ImageContext';
+import React from 'react';
+import { useImageContext } from '../../contexts/ImageContext';
 import './UserAlert.css';
 
 export default function UserAlert() {
 
-  const context = useContext(ImageContext);
+  const context = useImageContext();
 
   const { alert } = context;
 

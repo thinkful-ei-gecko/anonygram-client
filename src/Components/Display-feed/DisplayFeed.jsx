@@ -1,6 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
-import ImageContext from '../../contexts/ImageContext';
+import SubmissionForm from '../SubmissionForm/SubmissionForm';
+import { useImageContext } from '../../contexts/ImageContext';
 
 import './DisplayFeed.css';
 
@@ -11,7 +12,8 @@ export default function DisplayFeed(props) {
         setView('feed');
     }, []);
 
-    const context = useContext(ImageContext);
+    const context = useImageContext();
+    const { userLocation, newContentLoaded, updateNewContent, ...rest } = props
 
     const generateJSX = () => {
         const { images, handleDelete, incrementUpvotes } = context;
@@ -35,6 +37,12 @@ export default function DisplayFeed(props) {
                         />
                     ))}
                 </ul>
+                <SubmissionForm
+                  routeProps={rest}
+                  userLocation={userLocation}
+                  newContentLoaded={newContentLoaded}
+                  updateNewContent={updateNewContent}
+                />
             </>
         )
     }
@@ -44,4 +52,8 @@ export default function DisplayFeed(props) {
             {generateJSX()}
         </section>
     )
+}
+
+DisplayFeed.defaultProps = {
+    setView: () => {}
 }

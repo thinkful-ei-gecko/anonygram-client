@@ -4,6 +4,7 @@ import ImageContext from '../../contexts/ImageContext';
 import './SubmissionForm.css';
 import config from '../../config';
 import { AddToPhotos } from '@material-ui/icons';
+import TokenService from '../../services/token-service';
 
 class SubmissionForm extends Component {
 
@@ -46,29 +47,39 @@ class SubmissionForm extends Component {
 
   onSubmitImageUploader = (e) => {
     e.preventDefault();
-    const { setAlert, user } = this.context;
-    const { image, image_text, uploading } = this.state;
-    const {lat, long } = this.props.userLocation; 
+    const { setAlert } = this.context;
 
-    console.log(user);
+    //Start loading spinner
+    this.setState({ loading: true });
+    const formData = new FormData();
+    formData.append('someImage', this.state.image);
+    formData.append('image_text', this.state.image_text);
+    formData.set('latitude', this.props.userLocation.lat);
+    formData.set('longitude', this.props.userLocation.long);
 
-    if (!uploading) {
-      //Start loading spinner
-      this.setState({
-        loading: true,
-        uploading: true,
-      });
-      const formData = new FormData();
-      formData.append('someImage', image);
-      formData.append('image_text', image_text);
-      formData.set('latitude', lat);
-      formData.set('longitude', long);
+    const userAuth = TokenService.hasAuthToken() 
+      ? { Authorization: `Bearer ${TokenService.getAuthToken()}` } 
+      : {};
 
-      formData.set('user_id', user)
-
-      fetch(`${config.API_ENDPOINT}/api/images`, {
-        method: 'POST',
-        body: formData,
+    fetch(`${config.API_ENDPOINT}/api/images`, {
+      method: 'POST',
+      body: formData,
+      headers: userAuth,
+    })
+      .then(res => {
+        //Remove loading spinner
+        this.setState({ loading: false });
+        if (res.status === 400) {
+          setAlert('Sorry, that content is not permitted');
+          return res.json().then((e) => Promise.reject(e))          
+        }
+        return res.json();
+      })
+      .then(resJson => {
+        const newImg = resJson;
+        this.props.updateNewContent(newImg);
+        this.setState({ image: null, image_text: '', error: null });
+        setAlert(null);
       })
         .then(res => {
           //Remove loading spinner
