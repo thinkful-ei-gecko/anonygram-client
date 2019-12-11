@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header';
-import { BrowserRouter } from "react-router-dom";
-
-
+import RefreshButton from './RefreshButton';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<BrowserRouter> <Header/></BrowserRouter> , div);
+  ReactDOM.render(<RefreshButton />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

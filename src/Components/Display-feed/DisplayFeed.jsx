@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
-import ImageContext from '../../contexts/ImageContext';
+import SubmissionForm from '../SubmissionForm/SubmissionForm';
+import { useImageContext } from '../../contexts/ImageContext';
 
 import './DisplayFeed.css';
 
@@ -8,10 +9,12 @@ export default function DisplayFeed(props) {
     const [pageOffset, setPageOffset] = useState(1000);
     const [bottom, setBottom] = useState(2000);
 
-    const context = useContext(ImageContext);
+    const context = useImageContext();
     const dpFeedRef = useRef(null);
 
     const { images, page, setPage, morePagesAvail, debounce } = context;
+
+    const { userLocation, newContentLoaded, updateNewContent, ...rest } = props
 
     useEffect(() => {
         props.setView('feed');
@@ -57,6 +60,11 @@ export default function DisplayFeed(props) {
                         />
                     ))}
                 </ul>
+                <SubmissionForm
+                  routeProps={rest}
+                  userLocation={userLocation}
+                  newContentLoaded={newContentLoaded}
+                  updateNewContent={updateNewContent}
                 />
             </>
         )
@@ -67,4 +75,8 @@ export default function DisplayFeed(props) {
             {generateJSX()}
         </section>
     )
+}
+
+DisplayFeed.defaultProps = {
+    setView: () => {}
 }

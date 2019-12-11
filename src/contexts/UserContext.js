@@ -11,6 +11,7 @@ const UserContext = React.createContext({
   setUser: () => {},
   processLogin: () => {},
   processLogout: () => {},
+  updateUserStateFromDatabase: () => {},
 })
 
 export default UserContext
@@ -18,15 +19,19 @@ export default UserContext
 export class UserProvider extends Component {
   constructor(props) {
     super(props)
-    const state = { user: { id: '', username: '' }, error: null }
+    const state = { user: { id: '', username: '', karma_balance: null }, error: null }
 
     const jwtPayload = TokenService.parseAuthToken()
-
-    if (jwtPayload)
-      state.user = {
-        id: jwtPayload.user_id,
-        username: jwtPayload.sub,
-      }
+    if (jwtPayload) {
+      AuthApiService.getUser(jwtPayload.id).then((userData) => {
+        const { id, username, karma_balance } = userData;
+        state.user = {
+          id,
+          username,
+          karma_balance,
+        };
+      });
+    }
 
     this.state = state;
     IdleService.setIdleCallback(this.logoutBecauseIdle)
@@ -61,11 +66,7 @@ export class UserProvider extends Component {
 
   processLogin = authToken => {
     TokenService.saveAuthToken(authToken)
-    const jwtPayload = TokenService.parseAuthToken()
-    this.setUser({
-      id: jwtPayload.id,
-      username: jwtPayload.username,
-    })
+    this.updateUserStateFromDatabase();
     IdleService.regiserIdleTimerResets()
     TokenService.queueCallbackBeforeExpiry(() => {
       this.fetchRefreshToken()
@@ -99,6 +100,20 @@ export class UserProvider extends Component {
       })
   }
 
+  updateUserStateFromDatabase = () => {
+    const jwtPayload = TokenService.parseAuthToken();
+    if (jwtPayload) {
+      AuthApiService.getUser(jwtPayload.id).then((userData) => {
+        const { id, username, karma_balance } = userData;
+        this.setUser({
+          id,
+          username,
+          karma_balance,
+        });
+      });
+    }
+  }
+
   render() {
     const value = {
       user: this.state.user,
@@ -108,6 +123,7 @@ export class UserProvider extends Component {
       setUser: this.setUser,
       processLogin: this.processLogin,
       processLogout: this.processLogout,
+      updateUserStateFromDatabase: this.updateUserStateFromDatabase,
     }
     return (
       <UserContext.Provider value={value}>

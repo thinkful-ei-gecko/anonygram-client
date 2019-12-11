@@ -22,14 +22,12 @@ const ImageApi = {
       )
   },
 
-  patchImageKarma(id, karma_total) {
+  patchImageKarma(id) {
     return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
 			method: "PATCH",
 			headers: {
         "Authorization": `Bearer ${TokenService.getAuthToken()}`,
-				"content-type": "application/json"
 			},
-			body: JSON.stringify({karma_total: karma_total})
     })  
       .then((res) => {
         return (!res.ok)
