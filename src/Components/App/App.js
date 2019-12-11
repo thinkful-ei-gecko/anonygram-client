@@ -18,8 +18,9 @@ import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import KarmaService from '../../services/karma-service';
-import './App.css';
 import TokenService from '../../services/token-service';
+
+import './App.css';
 
 export default class App extends Component {
   /*******************************************************************

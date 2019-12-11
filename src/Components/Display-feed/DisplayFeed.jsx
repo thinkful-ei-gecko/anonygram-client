@@ -17,6 +17,13 @@ export default function DisplayFeed(props) {
         props.setView('feed');
         setPageOffset(window.pageYOffset);
         setBottom(dpFeedRef.current.getBoundingClientRect().bottom);
+        const handleScroll = () => {
+            setPageOffset(window.pageYOffset);
+        }
+        window.addEventListener('scroll', handleScroll);
+        return (() => {
+            window.removeEventListener('scroll', handleScroll);
+        })
     }, []);
 
     useEffect(() => {
@@ -31,16 +38,6 @@ export default function DisplayFeed(props) {
         };
 
     }, [bottom, pageOffset, morePagesAvail, page, setPage, debounce]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setPageOffset(window.pageYOffset);
-        }
-        window.addEventListener('scroll', handleScroll);
-        return (() => {
-            window.removeEventListener('scroll', handleScroll);
-        })
-    }, []);
 
     const generateJSX = () => {
         if (!context.images) {

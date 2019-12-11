@@ -21,7 +21,7 @@ function MapView(props) {
 
   useEffect(() => {
     setLoading(true);
-    ImageApi.getLocalImages('new', lat, long)
+    ImageApi.getMapImages('new', lat, long)
       .then((res) => {
         setImageFeed(res);
         setLoading(false);
@@ -147,13 +147,6 @@ export default GoogleApiWrapper({
 })(MapView);
 
 /*
-
-TODO: stash API key
-Load/update image feed on app and pass it down as props
-modal the markers so they pop up with the pic
-
+TODO: 
 can we set bounds instead of locking all movment?
-
-Look into hotpads - similar version
-
 */
