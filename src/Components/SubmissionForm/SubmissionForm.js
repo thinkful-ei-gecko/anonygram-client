@@ -7,7 +7,6 @@ import { AddToPhotos } from '@material-ui/icons';
 import TokenService from '../../services/token-service';
 
 class SubmissionForm extends Component {
-
   static contextType = ImageContext;
 
   constructor(props) {
@@ -57,8 +56,8 @@ class SubmissionForm extends Component {
     formData.set('latitude', this.props.userLocation.lat);
     formData.set('longitude', this.props.userLocation.long);
 
-    const userAuth = TokenService.hasAuthToken() 
-      ? { Authorization: `Bearer ${TokenService.getAuthToken()}` } 
+    const userAuth = TokenService.hasAuthToken()
+      ? { Authorization: `Bearer ${TokenService.getAuthToken()}` }
       : {};
 
     fetch(`${config.API_ENDPOINT}/api/images`, {
@@ -66,45 +65,26 @@ class SubmissionForm extends Component {
       body: formData,
       headers: userAuth,
     })
-      .then(res => {
+      .then((res) => {
         //Remove loading spinner
         this.setState({ loading: false });
         if (res.status === 400) {
           setAlert('Sorry, that content is not permitted');
-          return res.json().then((e) => Promise.reject(e))          
+          return res.json().then((e) => Promise.reject(e));
         }
         return res.json();
       })
-      .then(resJson => {
+      .then((resJson) => {
         const newImg = resJson;
         this.props.updateNewContent(newImg);
         this.setState({ image: null, image_text: '', error: null });
         setAlert(null);
       })
-        .then(res => {
-          //Remove loading spinner
-          this.setState({
-            loading: false,
-            uploading: false,
-          });
-          if (res.status === 400) {
-            setAlert('Sorry, that content is not permitted');
-            return res.json().then((e) => Promise.reject(e))
-          }
-          return res.json();
-        })
-        .then(resJson => {
-          const newImg = resJson;
-          this.props.updateNewContent(newImg);
-          this.setState({ image: null, image_text: '', error: null });
-          setAlert(null);
-        })
-        .catch(e => {
-          this.setState({
-            error: e.error
-          })
+      .catch((e) => {
+        this.setState({
+          error: e.error,
         });
-    }
+      });
   };
 
   resetState = () => {
@@ -112,7 +92,6 @@ class SubmissionForm extends Component {
   };
 
   render() {
-
     return (
       <div className="SubmissionForm">
         {/* Display loading spinner if loading */}
@@ -122,7 +101,7 @@ class SubmissionForm extends Component {
           component utilizing hooks to detect dropped files 
           while users are on desktop applications
            */}
-        <Dropzone onDrop={file => this.imageDragHandler(file[0])}>
+        <Dropzone onDrop={(file) => this.imageDragHandler(file[0])}>
           {({ getRootProps, getInputProps, isDragActive }) => (
             <form
               {...getRootProps()}
@@ -137,17 +116,17 @@ class SubmissionForm extends Component {
                 accept="image/*"
                 onChange={this.imageSelectHandler}
                 name="someImage"
-                ref={imageInput => (this.imageInput = imageInput)}
+                ref={(imageInput) => (this.imageInput = imageInput)}
               />
               {isDragActive ? (
                 <p className="SubmissionForm__drag--active">Nice pic!</p>
               ) : (
-                  !this.state.image && (
-                    <p className="SubmissionForm__drag">
-                      Drag a pic here to upload, or click to select one
+                !this.state.image && (
+                  <p className="SubmissionForm__drag">
+                    Drag a pic here to upload, or click to select one
                   </p>
-                  )
-                )}
+                )
+              )}
               {!this.state.image ? (
                 !isDragActive && (
                   <button
@@ -155,35 +134,25 @@ class SubmissionForm extends Component {
                     className="SubmissionForm__button"
                     onClick={() => this.imageInput.click()}
                   >
-
                     <AddToPhotos fontSize="large" />
-
                   </button>
                 )
               ) : (
-                  <>
-                    <label htmlFor="text">Caption Image</label>
-                    <input
-                      id="text"
-                      type="text"
-                      onChange={this.imageTextHandler}
-                    />
-                    <button
-                      className="SubmissionForm__button"
-                      type="reset"
-                      onClick={() => this.resetState()}
-                    >
-                      Cancel
+                <>
+                  <label htmlFor="text">Caption Image</label>
+                  <input id="text" type="text" onChange={this.imageTextHandler} />
+                  <button
+                    className="SubmissionForm__button"
+                    type="reset"
+                    onClick={() => this.resetState()}
+                  >
+                    Cancel
                   </button>
-                    <button
-                      className="SubmissionForm__button"
-                      type="submit"
-                      value="Upload"
-                    >
-                      Upload
+                  <button className="SubmissionForm__button" type="submit" value="Upload">
+                    Upload
                   </button>
-                  </>
-                )}
+                </>
+              )}
             </form>
           )}
         </Dropzone>
