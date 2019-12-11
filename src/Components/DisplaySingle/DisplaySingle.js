@@ -57,7 +57,7 @@ export default class DisplaySingle extends Component {
           <img src={image_url} alt={image_text}/>
           { /* If user is logged in, render enabled upvote button */
           userLoggedIn ? (
-            <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.handleUpvote(id)}>
+            <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
               <KeyboardArrowUp fontSize="large"/>
               {karma_total}
             </div>
@@ -72,4 +72,4 @@ export default class DisplaySingle extends Component {
       )
     }
   }
-};
+}
