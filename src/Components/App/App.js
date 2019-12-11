@@ -172,7 +172,23 @@ export default class App extends Component {
 
   clearAlert = () => {
     this.setState({ alert: null });
-  }
+  };
+
+  /*******************************************************************
+    DELETE FUNCTIONS
+  *******************************************************************/
+  handleDelete = (id) => {
+    ImageApi.deleteImage(id)
+      .then(res => {
+        if (res.status === 204) {
+          const tempImageFeed = this.state.images.map((imgObj) => imgObj);
+          const filteredFeed = tempImageFeed.filter((imgObj) => imgObj.id !== id);
+          this.setState({ images: filteredFeed });
+        } else {
+          this.setAlert('Sorry, you are only allowed to delete images you posted');
+        }
+      });
+  };
 
   /*******************************************************************
     ROUTES
@@ -241,6 +257,7 @@ export default class App extends Component {
       setAlert: this.setAlert,
       clearError: this.clearError,
       clearAlert: this.clearAlert,
+      handleDelete: this.handleDelete,
     }
 
     return (

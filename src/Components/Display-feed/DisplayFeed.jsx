@@ -6,27 +6,33 @@ import { useImageContext } from '../../contexts/ImageContext';
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
+    const { setView } = props;
+
     useEffect(() => {
-        props.setView('feed');
+        setView('feed');
     }, []);
 
     const context = useImageContext();
     const { userLocation, newContentLoaded, updateNewContent, ...rest } = props
 
     const generateJSX = () => {
-        if (!context.images) {
+        const { images, handleDelete, incrementUpvotes } = context;
+
+        if (!images) {
             return null;
         }
         return (
             <>
                 <ul className="img-container">
-                    {context.images.map(imgObj => (
+                    {images.map(imgObj => (
                         <DisplayItem
                             imgAddress={imgObj.image_url}
                             imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
-                            incrementUpvotes={context.incrementUpvotes}
+                            userId={imgObj.user_id}
+                            incrementUpvotes={incrementUpvotes}
+                            handleDelete={handleDelete}
                             key={imgObj.id}
                         />
                     ))}

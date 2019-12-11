@@ -15,6 +15,7 @@ const defaultValues = {
   clearError: () => {},
   clearAlert: () => {},
   resetState: () => {},
+  handleDelete: () => {},
 }
 const ImageContext = React.createContext(defaultValues)
 
