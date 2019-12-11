@@ -4,6 +4,7 @@ import ImageContext from '../../contexts/ImageContext';
 import './SubmissionForm.css';
 import config from '../../config';
 import { AddToPhotos } from '@material-ui/icons';
+import TokenService from '../../services/token-service';
 
 class SubmissionForm extends Component {
 
@@ -55,9 +56,14 @@ class SubmissionForm extends Component {
     formData.set('latitude', this.props.userLocation.lat);
     formData.set('longitude', this.props.userLocation.long);
 
+    const userAuth = TokenService.hasAuthToken() 
+      ? { Authorization: `Bearer ${TokenService.getAuthToken()}` } 
+      : {};
+
     fetch(`${config.API_ENDPOINT}/api/images`, {
       method: 'POST',
       body: formData,
+      headers: userAuth,
     })
       .then(res => {
         //Remove loading spinner
