@@ -1,51 +1,46 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import ImageContext from '../../contexts/ImageContext';
-// import Paginator from 'react-hooks-paginator';
-
 
 import './DisplayFeed.css';
 
 export default function DisplayFeed(props) {
-    // const [offset, setOffset] = useState(0);
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [currentData, setCurrentData] = useState([]);
-    const [scrollHeight, setScrollHeight] = useState(0);
-    const [screenHeight, setScreenHeight] = useState(0);
-    const [pageOffset, setPageOffset] = useState(0);
+    const [pageOffset, setPageOffset] = useState(1000);
+    const [bottom, setBottom] = useState(2000);
 
     const context = useContext(ImageContext);
-
     const dpFeedRef = useRef(null);
-    const data = context.images; 
+
+    const { images, page, setPage, morePagesAvail, debounce } = context;
 
     useEffect(() => {
         props.setView('feed');
+        setPageOffset(window.pageYOffset);
+        setBottom(dpFeedRef.current.getBoundingClientRect().bottom);
     }, []);
 
     useEffect(() => {
-            setScrollHeight(dpFeedRef.current.scrollHeight);
-            setScreenHeight(window.innerHeight);
+        if (dpFeedRef.current) {
+            setBottom(dpFeedRef.current.getBoundingClientRect().bottom);
+        }
+
+        if (pageOffset >= bottom && morePagesAvail && !debounce) {
+            let pageClone = page + 1;
+            setPage(pageClone);
             setPageOffset(window.pageYOffset);
-            console.log('scroll ' + scrollHeight);
-            console.log('height ' + screenHeight);
-            console.log('offset ' + pageOffset);
-    }, [scrollHeight, pageOffset, screenHeight, context.images]);
+        };
+
+    }, [bottom, pageOffset, morePagesAvail, page, setPage, debounce]);
 
     useEffect(() => {
         const handleScroll = () => {
             setPageOffset(window.pageYOffset);
-            console.log(pageOffset)
         }
         window.addEventListener('scroll', handleScroll);
         return (() => {
             window.removeEventListener('scroll', handleScroll);
         })
     }, []);
-
-    // useEffect(() => {
-    //     setCurrentData(data.slice(offset, offset + pageLimit));
-    //   }, [offset, data]);
 
     const generateJSX = () => {
         if (!context.images) {
@@ -54,7 +49,7 @@ export default function DisplayFeed(props) {
         return (
             <>
                 <ul className="img-container" ref={dpFeedRef}>
-                    {data.map(imgObj => (
+                    {images.map(imgObj => (
                         <DisplayItem
                             imgAddress={imgObj.image_url}
                             imgCaption={imgObj.image_text}
@@ -64,8 +59,8 @@ export default function DisplayFeed(props) {
                             key={imgObj.id}
                         />
                     ))}
-                </ul> 
-                />         
+                </ul>
+                />
             </>
         )
     }
