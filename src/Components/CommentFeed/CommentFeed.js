@@ -85,7 +85,7 @@ export default class CommentFeed extends Component {
               <>
                 <label htmlFor='newComment'>Add a comment</label>
                 <input className='CommentFeed__input' onChange={(e) => this.handleChange(e)} value={this.state.newComment} type='text' id='newComment' placeholder='Add a comment...' />
-                <button type='submit' className='CommentFeed__button'>Post</button>
+                <button type='submit' className='CommentFeed__button' disabled={!this.state.newComment}>Post</button>
               </>
             ) : (
               <>
