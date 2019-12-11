@@ -6,7 +6,6 @@ export default function Comment (props) {
 
   return (
     <div className='Comment'>
-      {/* <hr></hr> */}
       <div className='Comment__div mainContainer'>
         <p className='Comment__p'><span className='Comment__span username bold'>{username}</span>{text}</p>
       </div>

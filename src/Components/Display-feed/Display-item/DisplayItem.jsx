@@ -9,7 +9,10 @@ export default function DisplayItem(props) {
   return (
     <li className="display-item">
       <Link to={`/p/${id}`}>
-        <img className="display-img" src={imgAddress} alt="anonygram" />
+        <div className='img-container'>
+          <img className="display-img" src={imgAddress} alt="anonygram" />
+        </div>
+        
       </Link>
       {TokenService.hasAuthToken() ? <div className="upvote-wrapper">
         <div className="upvote-button">
