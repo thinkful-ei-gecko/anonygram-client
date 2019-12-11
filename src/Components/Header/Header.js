@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import { ThumbUp, Refresh } from '@material-ui/icons';
+import { ThumbUp, Info } from '@material-ui/icons';
 import RefreshButton from '../RefreshButton/RefreshButton';
 import TokenService from '../../services/token-service';
 import UserContext from '../../contexts/UserContext';
@@ -58,6 +58,9 @@ class Header extends Component {
         }
         |
         <RefreshButton handleGeolocation={this.props.handleGeolocation}/>
+        |
+        <Link to='/info' className="Header__Info-icon resetStyles"><Info/></Link>
+        <Link to='/info' className="Header__Info-nav resetStyles">Information</Link>
       </header>
     );
   }

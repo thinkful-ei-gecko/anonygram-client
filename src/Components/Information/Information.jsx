@@ -10,36 +10,70 @@ const Information = () => {
       </header>
       <h2 className="Information__h2">Table of Contents</h2>
       <ul className="Information__ul">
-        <li><Link smooth to="/info#about">About</Link></li>
-        <li><Link smooth to="/info#getting-started">Getting Started</Link></li>
+        <li>
+          <Link smooth to="/info#about">
+            About
+          </Link>
+        </li>
+        <li>
+          <Link smooth to="/info#getting-started">
+            Getting Started
+          </Link>
+        </li>
       </ul>
-      <h3 id="about" className="Information__h3">About</h3>
+      <h3 id="demo" className="Information__h3">Demo Account</h3>
+      <ul className="Information__demo">
+        <li>UN: admin</li>
+        <li>PW: Password1!</li>
+      </ul>
+      <h3 id="about" className="Information__h3">
+        About
+      </h3>
       <p className="Information__paragraph">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam
-        excepturi temporibus quaerat aut eius quibusdam, velit non recusandae
-        impedit delectus illum quos ipsam voluptatem ea itaque placeat eveniet
-        minima consequatur? Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Dignissimos alias, earum quisquam nam impedit expedita
-        voluptatibus at iusto aut praesentium iste magni possimus? Incidunt,
-        velit ad consectetur ipsam nesciunt quasi.
+        Anonygram is a new form of social media that allows users the freedom to
+        explore and contribute to their current metros without feeling pressure
+        to make an account or follow anyone. Posts are shown and created based
+        on your area, so you can keep track of interesting and photogenic
+        happenings with your hometown or while exploring new places. Wherever
+        you are is where the action is, and your contributions can be shared to
+        your corner of the world with no strings attached.
       </p>
       <p className="Information__paragraph">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam
-        excepturi temporibus quaerat aut eius quibusdam, velit non recusandae
-        impedit delectus illum quos ipsam voluptatem ea itaque placeat eveniet
-        minima consequatur? Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Dignissimos alias, earum quisquam nam impedit expedita
-        voluptatibus at iusto aut praesentium iste magni possimus? Incidunt,
-        velit ad consectetur ipsam nesciunt quasi.
+        Choose between our modern, sortable feed or a map overview of your area
+        to dive into posts. Feeling inspired by your fellow Anonygramers? Why
+        not make an account and take advantage of additional features! Send real
+        people in your community as much karma as you like. Want to know more
+        about that post? Creating an account will let you join the conversation
+        without revealing any personal information.
       </p>
-      <h3 id="getting-started" className="Information__h3">Getting Started</h3>
-      <p className="Information__paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vel ducimus nam illum neque. Incidunt animi veniam ratione tempore, vel error ipsa explicabo mollitia quibusdam unde minima quam rem vitae?</p>
+      <h3 id="getting-started" className="Information__h3">
+        Getting Started
+      </h3>
+      <p className="Information__paragraph">
+        Anonygram is safe, private, and easy to jump right into, whether you
+        choose to create an account or not! We never ask for any personal information
+        and regularly remove old content to ensure a care-free experience.
+      </p>
+      <h4 className="Information__h4">Totally Anonymous</h4>
       <ol className="Information__ol">
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae veritatis deserunt sit quisquam accusantium quam eum, soluta doloremque assumenda temporibus sint accusamus, blanditiis dignissimos aut ab ducimus veniam ad iure!</li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et porro ipsum eaque, reprehenderit, non rerum debitis repudiandae vitae esse dicta nostrum tenetur dolorem facilis a ducimus. Modi accusantium maxime nam!</li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae eius, cumque est dolorem eum sed odio dolore, harum magni fuga cum adipisci voluptas deleniti magnam quis ut, maxime corrupti? Quasi.</li>
-        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti dicta illum placeat ipsa voluptas excepturi, rem eligendi amet commodi saepe veniam, ea mollitia cum culpa expedita in laudantium, voluptatum dignissimos.</li>
-        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos rem possimus ipsa deleniti dolorum, iste recusandae voluptate magni temporibus veniam reiciendis non aperiam error et aliquid obcaecati? Consectetur, cupiditate fugit!</li>
+        <li>
+          Access the feed or map views to see the current posts available in
+          your area
+        </li>
+        <li>Sort posts by freshness or most upvotes</li>
+        <li>
+          Upload your own original content with an optional caption to show off
+          your own perspective
+        </li>
+      </ol>
+      <h4 className="Information__h4">With A Secure Account</h4>
+      <ol className="Information__ol">
+        <li>Access the “Register” page to create a new account</li>
+        <li>Take advantage of a karma pool to give kudos to your favorite posts</li>
+        <li>
+          Click or tap a post to comment with an anonymized username that keeps your identity
+          private in every conversation
+        </li>
       </ol>
     </section>
   );

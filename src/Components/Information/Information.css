@@ -1,5 +1,5 @@
 .Information__container {
-  padding: 2em;
+  padding: 1.5em;
 }
 
 .Information__h1 {
@@ -16,6 +16,11 @@
   padding: 1em 0;
 }
 
+.Information__h4 {
+  font-size: 2em;
+  padding: 1em 0;
+}
+
 .Information__ul {
   font-size: 1.5em;
   width: 10em;
@@ -29,9 +34,25 @@
   color: black;
 }
 
+.Information__demo {
+  font-size: 1.5em;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  width: 10em;
+  padding: 1em;
+  margin: 0 auto;
+  color: black;
+}
+
+.Information__demo > li{
+  text-align: left;
+}
+
 .Information__paragraph {
   font-size: 1.5em;
   padding-bottom: 1em;
+  text-align: left;
 }
 
 .Information__ol > li {
@@ -47,13 +68,26 @@
 }
 
 @media screen and (min-width: 80em) {
+  .Information__container {
+    padding: 4em;
+  }
   .Information__ul {
     width: 20em;
+  }
+
+  .Information__demo {
+    font-size: 1.5em;
+    list-style-type: none;
+    width: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 1em;
+    margin: 0 auto;
+    color: black;
   }
 }
 
 @media screen and (min-width: 120em) {
-  .Information__ul > li {
-    width: 20em;
-  }
+  
 }
