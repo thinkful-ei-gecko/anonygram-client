@@ -6,11 +6,11 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 //Components
-import Nav from '../Nav/Nav';
+import Header from '../Header/Header';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
-import Footer from '../Footer/Footer';
+import OptionsBar from '../OptionsBar/OptionsBar';
 import MapView from '../MapView/MapView';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -180,13 +180,13 @@ export default class App extends Component {
   /*******************************************************************
     ROUTES
   *******************************************************************/
-  renderNavRoutes = () => {
+  renderHeaderRoutes = () => {
     return (
       <Switch>
         <Route path='/p/:submissionId'
-          render={routeProps => <Nav path={routeProps.match.path} />} />
+          render={routeProps => <Header path={routeProps.match.path} />} />
         <Route 
-          component={Nav} />
+          component={Header} />
     </Switch>
     )
   }
@@ -265,12 +265,21 @@ export default class App extends Component {
 
       <ImageContext.Provider value={value}>
         <div className="App">
-          <div className="App__heading-container">
-            {this.renderNavRoutes()}
+          <div className="App___header-container">
+            {this.renderHeaderRoutes()}
+          <OptionsBar 
+            screen='desktop'
+            view={this.state.view} 
+            handleGeolocation={this.handleGeolocation}
+            setSort={this.setSort}
+          />  
           </div>
-          <UserAlert />
-          {this.renderMainRoutes()}
-          <Footer 
+          <div className="App__main">
+            <UserAlert />
+            {this.renderMainRoutes()}
+          </div>
+          <OptionsBar 
+            screen='mobile'
             view={this.state.view} 
             handleGeolocation={this.handleGeolocation}
             setSort={this.setSort}
