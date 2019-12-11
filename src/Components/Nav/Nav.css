@@ -1,0 +1,17 @@
+.App-nav {
+    height: 2em;
+    width: 100%;
+    padding: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+    background-color: #03a9f4;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.nav-link {
+	float: right;
+}

@@ -1,23 +1,29 @@
 /*******************************************************************
   IMPORTS
 *******************************************************************/
+//Library Components
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SubmissionForm from '../SubmissionForm/SubmissionForm';
+
+//Components
+import Nav from '../Nav/Nav';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
-import NavBar from '../NavBar/NavBar';
+import Footer from '../Footer/Footer';
 import MapView from '../MapView/MapView';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import UserAlert from '../UserAlert/UserAlert';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import Header from '../Header/Header'
+
+//CSS
+import './App.css';
+
+//Contexts, services and the likes
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import UserContext from '../../contexts/UserContext';
-import './App.css';
 import TokenService from '../../services/token-service';
 
 export default class App extends Component {
@@ -174,6 +180,17 @@ export default class App extends Component {
   /*******************************************************************
     ROUTES
   *******************************************************************/
+  renderNavRoutes = () => {
+    return (
+      <Switch>
+        <Route path='/p/:submissionId'
+          render={routeProps => <Nav path={routeProps.match.path} />} />
+        <Route 
+          component={Nav} />
+    </Switch>
+    )
+  }
+  
   renderMainRoutes = () => {
     // Display loading spinner if loading
     if (this.state.loading) {
@@ -194,8 +211,13 @@ export default class App extends Component {
                 } />
             <Route exact path='/local-map' 
               render={() => 
-                <MapView userLocation={this.state.userLocation} 
-                setView={this.setView} />} />
+                <MapView 
+                  setView={this.setView} 
+                  userLocation={userLocation}
+                  newContentLoaded={newContentLoaded}
+                  updateNewContent={this.setNewContentLoaded}
+                /> } 
+            />
             <Route exact path='/login' 
               render={routeProps => 
                 <Login {...routeProps} handleLogin={this.handleLogin} />} />
@@ -210,7 +232,7 @@ export default class App extends Component {
               <Route exact path={`/p/:submissionId`} 
                 render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
             ) : null}
-            <Route render={() => <h2>Page Not Found</h2>} />
+            <Route component={NotFoundPage} />
           </Switch>
         </ErrorBoundary>
       );
@@ -244,11 +266,15 @@ export default class App extends Component {
       <ImageContext.Provider value={value}>
         <div className="App">
           <div className="App__heading-container">
-            <Header view={this.state.view} handleGeolocation={this.handleGeolocation} />
-            <NavBar setSort={this.setSort} />
+            {this.renderNavRoutes()}
           </div>
           <UserAlert />
           {this.renderMainRoutes()}
+          <Footer 
+            view={this.state.view} 
+            handleGeolocation={this.handleGeolocation}
+            setSort={this.setSort}
+          />
         </div>
       </ImageContext.Provider>
     );

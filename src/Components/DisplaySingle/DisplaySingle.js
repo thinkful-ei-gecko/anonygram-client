@@ -9,7 +9,7 @@ import './DisplaySingle.css';
 
 export default class DisplaySingle extends Component {
   static contextType = ImageContext; 
-
+  
   state = {
     image: {}, 
     comments: [], 
