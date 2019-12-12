@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import './Header.css';
-import { ThumbUp, Info } from '@material-ui/icons';
-import RefreshButton from '../RefreshButton/RefreshButton';
 import TokenService from '../../services/token-service';
 import UserContext from '../../contexts/UserContext';
 
@@ -22,45 +21,34 @@ class Header extends Component {
 
   render() {
     return (
-      <header className="App-header">
+      <header aria-labelledby='primary-navigation' >
         {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
-        <Link to="/" className="resetStyles">
-          <h1>Anonygram</h1>
+        <Link to="/" className="header appName resetStyles bold">
+          {(this.props.path === '/p/:submissionId' || this.props.path === '/local-map') 
+            ? <ArrowBackIosIcon />
+            : 'Anonygram'
+          }
         </Link>{' '}
         {TokenService.hasAuthToken() ? (
-          <>
+          <div className='Header__div'>
             <Link
               to="/login"
-              className="nav-link resetStyles"
+              className="Header__link resetStyles"
               onClick={this.handleLogout}
             >
               Logout
             </Link>
-            <div className="App__karma-total">
-              <ThumbUp /> {this.context.user.karma_balance}
-            </div>
-          </>
+          </div>
         ) : (
-          <>
-            <Link to="/login" className="nav-link resetStyles">
+          <div className='resetStyles'>
+            <Link to="/login" className="Header__link resetStyles">
               Login
             </Link>
-            |
-            <Link to="/register" className="nav-link resetStyles">
+            <Link to="/register" className="Header__link resetStyles">
               Register
             </Link>
-          </>
+          </div>
         )}
-        |
-        {(this.props.view === 'feed') 
-          ? <Link to='/local-map' className='resetStyles' >Map View</Link>
-          : <Link to='/' className='resetStyles' >Feed View</Link>
-        }
-        |
-        <RefreshButton handleGeolocation={this.props.handleGeolocation}/>
-        |
-        <Link to='/info' className="Header__Info-icon resetStyles"><Info/></Link>
-        <Link to='/info' className="Header__Info-nav resetStyles">Information</Link>
       </header>
     );
   }

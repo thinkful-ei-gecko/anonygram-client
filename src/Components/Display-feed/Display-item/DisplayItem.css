@@ -4,7 +4,7 @@
 
 .display-img {
     width: 100%;
-    min-width: 310px;
+    min-width: 288px;
     height: auto;
 }
 
@@ -62,7 +62,6 @@
     font-weight: bold;
     text-align: center;
 }
-
 
 .delete-wrapper {
     position: relative;

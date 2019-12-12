@@ -1,20 +1,27 @@
 /*******************************************************************
   IMPORTS
 *******************************************************************/
+//Library Components
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SubmissionForm from '../SubmissionForm/SubmissionForm';
+
+//Components
+import Header from '../Header/Header';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
-import NavBar from '../NavBar/NavBar';
+import OptionsBar from '../OptionsBar/OptionsBar';
 import MapView from '../MapView/MapView';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Information from '../Information/Information';
 import UserAlert from '../UserAlert/UserAlert';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import Header from '../Header/Header'
+
+//CSS
+import './App.css';
+
+//Contexts, services and the likes
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import UserContext from '../../contexts/UserContext';
@@ -249,6 +256,19 @@ export default class App extends Component {
   /*******************************************************************
     ROUTES
   *******************************************************************/
+  renderHeaderRoutes = () => {
+    return (
+      <Switch>
+        <Route path='/p/:submissionId'
+          render={routeProps => <Header path={routeProps.match.path} />} />
+        <Route path='/local-map'
+          render={routeProps => <Header path={routeProps.match.path} />} />
+        <Route 
+          component={Header} />
+    </Switch>
+    )
+  }
+  
   renderMainRoutes = () => {
     // Display loading spinner if loading
     if (this.state.loading) {
@@ -269,8 +289,13 @@ export default class App extends Component {
                 } />
             <Route exact path='/local-map' 
               render={() => 
-                <MapView userLocation={this.state.userLocation} 
-                setView={this.setView} />} />
+                <MapView 
+                  setView={this.setView} 
+                  userLocation={userLocation}
+                  newContentLoaded={newContentLoaded}
+                  updateNewContent={this.setNewContentLoaded}
+                /> } 
+            />
             <Route exact path='/login' 
               render={routeProps => 
                 <Login {...routeProps} handleLogin={this.handleLogin} />} />
@@ -286,7 +311,7 @@ export default class App extends Component {
                 render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
             ) : null}
             <Route exact path='/info' component={Information}/>
-            <Route render={() => <h2>Page Not Found</h2>} />
+            <Route component={NotFoundPage} />
           </Switch>
         </ErrorBoundary>
       );
@@ -326,13 +351,28 @@ export default class App extends Component {
 
       <ImageContext.Provider value={value}>
         <div className="App">
-          <div className="App__heading-container">
-            <Header view={this.state.view} handleGeolocation={this.handleGeolocation} />
-            <NavBar setSort={this.setSort} />
+          <div className="App___header-container">
+            {this.renderHeaderRoutes()}
+          <OptionsBar 
+            screen='desktop'
+            view={this.state.view} 
+            handleGeolocation={this.handleGeolocation}
+            setSort={this.setSort}
+          />  
           </div>
-          <UserAlert />
-          {this.renderMainRoutes()}
-        </div>
+
+          <div className="App__main">
+            <UserAlert />
+            {this.renderMainRoutes()}
+          </div>
+          
+          <OptionsBar 
+            screen='mobile'
+            view={this.state.view} 
+            handleGeolocation={this.handleGeolocation}
+            setSort={this.setSort}
+          />
+          </div>
       </ImageContext.Provider>
     );
   };

@@ -1,6 +1,8 @@
 .Comment {
-  margin: .7em 1em;
-  padding: 0 0 .2em;
+  margin: .4em 1.0em;
+  padding: .5em;
+  background: #87818129;
+  border-radius: 8px;
 }
 
 .Comment > * {
@@ -9,6 +11,7 @@
 
 .Comment__span.username {
   padding: .25em 5px 0 0;
+  color: black;
 }
 
 .Comment__p {
