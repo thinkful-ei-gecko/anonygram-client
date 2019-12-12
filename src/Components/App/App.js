@@ -18,8 +18,9 @@ import Header from '../Header/Header'
 import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import UserContext from '../../contexts/UserContext';
-import './App.css';
 import TokenService from '../../services/token-service';
+
+import './App.css';
 
 export default class App extends Component {
   /*******************************************************************
@@ -37,6 +38,9 @@ export default class App extends Component {
     user: null,
     loading: false,
     images: [],
+    page: 1,
+    debounce: false,
+    morePagesAvail: true,
     view: '',
     error: null,
     alert: null,
@@ -72,11 +76,12 @@ export default class App extends Component {
 
     //After state is updated for user location, the images are called again
     this.setState({ userLocation: posObj }, () => {
-      const { sort, userLocation } = this.state;
+      const { sort, userLocation, page } = this.state;
       ImageApi.getLocalImages(
         sort[0],
         userLocation.lat,
-        userLocation.long
+        userLocation.long,
+        page
       ).then(res => {
         this.setImages(res);
         this.setState({ loading: false });
@@ -108,6 +113,9 @@ export default class App extends Component {
         .then((res) => {
           this.setImages(res);
           this.setState({ loading: false });
+          if (res.length < 10) {
+            this.setMorePagesAvail();
+          }
         })
     });
   }
@@ -145,6 +153,54 @@ export default class App extends Component {
   setView = (view) => {
     this.setState({ view })
   }
+
+  /*******************************************************************
+    PAGE
+  *******************************************************************/
+
+  setMorePagesAvail = () => {
+    this.setState({ morePagesAvail: false });
+  }
+
+  setDebounce = () => {
+    const { debounce } = this.state;
+
+      let debounceHolder = !debounce
+      this.setState({ debounce: debounceHolder } )
+
+      setTimeout(() => {
+        let debounceHolder = debounce
+        this.setState({ debounce: debounceHolder })
+      }, 1000)
+    // }
+  }
+
+  setPage = (page) => {
+    const { debounce } = this.state;
+
+    if (!debounce) {
+      this.setDebounce();
+      this.setState({ page }, () => {
+        const { sort, userLocation } = this.state;
+        if (page > 1) {
+          ImageApi.getLocalImages(
+            sort[0],
+            userLocation.lat,
+            userLocation.long,
+            page)
+            .then((res) => {
+              const tempImageFeed = this.state.images.map(imgObj => imgObj);
+              const concatFeed = [...tempImageFeed, ...res];
+              if (res.length < 10) {
+                this.setMorePagesAvail();
+              }
+              this.setImages(concatFeed);
+              this.setState({ loading: false });
+            })
+        }
+      })
+    }
+  };
 
   /*******************************************************************
     USER
@@ -249,10 +305,16 @@ export default class App extends Component {
       user: this.state.user,
       images: this.state.images,
       setImages: this.setImages,
+      page: this.state.page,
+      morePagesAvail: this.state.morePagesAvail,
+      debounce: this.state.debounce,
       incrementUpvotes: this.incrementUpvotes,
       error: this.state.error,
       alert: this.state.alert,
       setNewContentLoaded: this.setNewContentLoaded,
+      setPage: this.setPage,
+      setMorePagesAvail: this.setMorePagesAvail,
+      setDebounce: this.setDebounce,
       setError: this.setError,
       setAlert: this.setAlert,
       clearError: this.clearError,
