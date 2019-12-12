@@ -28,6 +28,7 @@ class SubmissionForm extends Component {
       image: e.target.files[0],
       isActive: true
     });
+    e.target.value = null;
     clearAlert();
   };
 
@@ -100,7 +101,7 @@ class SubmissionForm extends Component {
   render() {
     return (
       <>
-      {this.state.isActive && (<div className="SubmissionForm__overlay">
+      {this.state.isActive && (<div className="SubmissionForm__overlay" onClick={this.resetState}>
 
       </div>)}
       <div className="SubmissionForm">
