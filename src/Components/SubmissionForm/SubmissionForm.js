@@ -30,6 +30,7 @@ class SubmissionForm extends Component {
     }, () => {
       document.getElementById('your-image').src = window.URL.createObjectURL(this.state.image)
     });
+    e.target.value = null;
     clearAlert();
   };
 
@@ -102,7 +103,7 @@ class SubmissionForm extends Component {
   render() {
     return (
       <>
-      {this.state.isActive && (<div className="SubmissionForm__overlay">
+      {this.state.isActive && (<div className="SubmissionForm__overlay" onClick={this.resetState}>
 
       </div>)}
       <div className={`SubmissionForm ${this.state.isActive && 'hasImage'}`}>
