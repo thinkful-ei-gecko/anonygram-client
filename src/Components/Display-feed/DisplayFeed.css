@@ -1,19 +1,7 @@
 .display-feed {
-    /* margin: 1em 0; */
-    /* padding-top: 3.5em; */
     padding-bottom: 4em;
     position: relative;
 }
-/* 
-.notificationsContainer {
-    background-color: lightcoral;
-    height: 2em;
-    width: 80%;
-    margin: 0 auto;
-    position: sticky;
-    position: -webkit-sticky;
-    bottom: 3em;
-} */
 
 .img-container {
     margin: 0;
@@ -39,23 +27,16 @@
     }
     .img-container {
         width: 80%;
+        max-width: 1010px;
         margin: 0 auto;
         grid-template-columns: repeat(6, 1fr);
-    }
-    .img-container li {
-        grid-column: span 2;
-        grid-row: span 2;
     }
 }
 
 @media screen and (min-width: 120em) {
     .img-container {
-        width: 80%;
+        width: 70%;
         margin: 0 auto;
         grid-template-columns: repeat(8, 1fr);
-    }
-    .img-container li {
-        grid-column: span 2;
-        grid-row: span 2;
     }
 }
