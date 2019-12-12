@@ -27,6 +27,8 @@ class SubmissionForm extends Component {
     this.setState({
       image: e.target.files[0],
       isActive: true
+    }, () => {
+      document.getElementById('your-image').src = window.URL.createObjectURL(this.state.image)
     });
     clearAlert();
   };
@@ -103,7 +105,7 @@ class SubmissionForm extends Component {
       {this.state.isActive && (<div className="SubmissionForm__overlay">
 
       </div>)}
-      <div className="SubmissionForm">
+      <div className={`SubmissionForm ${this.state.isActive && 'hasImage'}`}>
         {/* Display loading spinner if loading */}
         {this.state.loading && <div className="loader"></div>}
 
@@ -149,16 +151,17 @@ class SubmissionForm extends Component {
                 )
               ) : (
                 <>
-                  <label htmlFor="text">Caption Image</label>
-                  <input id="text" type="text" onChange={this.imageTextHandler} />
+                  <img className='SubmissionForm__img' id='your-image' alt='your-image' />
+                  <label className='SubmissionForm__label' htmlFor="text">Caption Image</label>
+                  <input className='SubmissionForm__input' id="text" type="text" onChange={this.imageTextHandler} />
                   <button
-                    className="SubmissionForm__button"
+                    className="SubmissionForm__button hasImage"
                     type="reset"
                     onClick={() => this.resetState()}
                   >
                     Cancel
                   </button>
-                  <button className="SubmissionForm__button" type="submit" value="Upload">
+                  <button className="SubmissionForm__button hasImage" type="submit" value="Upload">
                     Upload
                   </button>
                 </>

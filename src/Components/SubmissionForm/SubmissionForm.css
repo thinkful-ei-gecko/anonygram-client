@@ -6,8 +6,48 @@
   outline: black;
 }
 
+.SubmissionForm.hasImage {
+  width: 90vw;
+  height: 72vh;
+  padding: 1em;
+  background: white;
+  left: 50%;
+  margin-left: -45vw;
+  top: 50%;
+  margin-top: -36vh;
+  bottom: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form.SubmissionForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.SubmissionForm__img {
+  height: 45vh;
+  width: 100%;
+  margin: auto;
+  object-fit: contain;
+}
+
+.SubmissionForm__label {
+  display: block;
+  margin: .9em .25em .25em;
+}
+
+.SubmissionForm__input {
+  max-width: 318px;
+  height: 2.5em;
+  display: block;
+  margin: auto;
+}
+
 .SubmissionForm__overlay {
-  position: absolute;
+  position: fixed;
   z-index: 999999;
   top: 0;
   bottom: 0;
@@ -26,7 +66,15 @@
   box-shadow: -5px 5px  #007ac1;
   width: 100%;
   padding: 1em;
-  border-radius: 20px;
+  border-radius: 30px;
+}
+
+.SubmissionForm__button.hasImage {
+  padding: auto;
+  border-radius: 10px;
+  width: inherit;
+  margin: 1em .75em 0;
+  box-shadow: none;
 }
 
 .SubmissionForm__button:hover {
@@ -48,5 +96,24 @@
 @media screen and (min-width: 100em) {
   .SubmissionForm__drag {
     display: unset;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .SubmissionForm {
+    bottom: 4em;
+  }
+
+  .SubmissionForm.hasImage {
+    height: 75vh;
+    max-width: 350px; 
+    margin-left: -175px;
+    margin-top: -37.5vh;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .SubmissionForm {
+    bottom: 2em;
   }
 }

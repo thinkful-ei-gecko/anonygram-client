@@ -37,7 +37,7 @@
   z-index: 1;
 }
 
-.App__main {
+.App__main > *:not(.SubmissionForm) {
   margin: 4em 1em;
 }
 
