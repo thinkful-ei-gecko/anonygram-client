@@ -276,10 +276,12 @@ export default class App extends Component {
             setSort={this.setSort}
           />  
           </div>
+
           <div className="App__main">
             <UserAlert />
             {this.renderMainRoutes()}
           </div>
+          
           <OptionsBar 
             screen='mobile'
             view={this.state.view} 
