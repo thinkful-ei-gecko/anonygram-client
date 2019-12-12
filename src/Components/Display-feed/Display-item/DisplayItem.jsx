@@ -6,7 +6,7 @@ import TokenService from '../../../services/token-service';
 
 export default function DisplayItem(props) {
   const { imgAddress, imgCaption, upvotes, id, incrementUpvotes, handleDelete, userId } = props;
-  const userIDFromToken = TokenService.parseAuthToken().id;
+  const userIDFromToken = TokenService.parseAuthToken() !== undefined ? TokenService.parseAuthToken().id : ''; 
   return (
     <li className="display-item">
       <Link to={`/p/${id}`}>
@@ -14,14 +14,14 @@ export default function DisplayItem(props) {
       </Link>
       {userIDFromToken === userId ? <div className="delete-wrapper">
         <div className="delete-button">
-          <DeleteOutline fontSize="large" onClick={() => handleDelete(id)} />
+          <DeleteOutline fontSize="medium" onClick={() => handleDelete(id)} />
         </div>
       </div>
       :
       <></>
       }
 
-      {userIDFromToken !== userId ? <div className="upvote-wrapper">
+      {userIDFromToken && userIDFromToken !== userId ? <div className="upvote-wrapper">
         <div className="upvote-button">
           <KeyboardArrowUp fontSize="large" onClick={() => incrementUpvotes(id)} />
           <p className="upvote-count">{upvotes}</p>
