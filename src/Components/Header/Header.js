@@ -24,7 +24,7 @@ class Header extends Component {
       <header aria-labelledby='primary-navigation' >
         {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
         <Link to="/" className="header appName resetStyles bold">
-          {(this.props.path === '/p/:submissionId') 
+          {(this.props.path === '/p/:submissionId' || this.props.path === '/local-map') 
             ? <ArrowBackIosIcon />
             : 'Anonygram'
           }

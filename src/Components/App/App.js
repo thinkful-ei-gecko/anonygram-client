@@ -187,6 +187,8 @@ export default class App extends Component {
       <Switch>
         <Route path='/p/:submissionId'
           render={routeProps => <Header path={routeProps.match.path} />} />
+        <Route path='/local-map'
+          render={routeProps => <Header path={routeProps.match.path} />} />
         <Route 
           component={Header} />
     </Switch>
