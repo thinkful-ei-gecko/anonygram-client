@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import ImageApi from '../../services/image-api-service';
@@ -18,11 +18,48 @@ function MapView(props) {
 
   const zoomBoundaries = { min: 12, max: 14 };
 
+  // const refContainer = useRef(null);
+
+  // const allowedBoundaries = new props.google.maps.LatLngBounds(
+  //   new props.google.maps.LatLng(),
+  //   new props.google.maps.LatLng(),
+  // )
+
   let holderZoom = zoomState;
+
+  // console.log(refContainer.current)
+
+  // if (refContainer.current !== null) {
+  //   console.log(refContainer.current)
+  // }
+
+  // useEffect(() => {
+  //   const { current } = refContainer;
+
+
+  //   const allowedBoundaries = new props.google.maps.LatLngBounds(
+  //     new props.google.maps.LatLng(),
+  //     new props.google.maps.LatLng(),
+  //   );
+
+  //   const lastValidCenter = current.getCenter();
+  //   const validatePan = () => {
+  //     if (allowedBoundaries.contains(current.getCenter())) {
+  //       lastValidCenter = current.getCenter();
+  //       return;
+  //     }
+  //     current.panTo(lastValidCenter);
+  //   }
+  //   props.google.maps.event.addEventListener(current, 'center_changed', validatePan);
+
+  //   return () => {
+  //     props.google.maps.event.removeEventListener(current, 'center_changed', validatePan);
+  //   }
+  // }, [])
 
   useEffect(() => {
     setLoading(true);
-    ImageApi.getLocalImages('new', lat, long)
+    ImageApi.getMapImages('new', lat, long)
       .then((res) => {
         setImageFeed(res);
         setLoading(false);
@@ -121,6 +158,7 @@ function MapView(props) {
     <>
       <Map
         google={props.google}
+        // ref={refContainer}
         zoom={zoomState}
         style={mapStyles}
         initialCenter={{ lat: lat, lng: long }}
@@ -129,7 +167,7 @@ function MapView(props) {
         disableDefaultUI={true}
         gestureHandling="none"
         zoomControl={false}
-        
+        // onCenterChanged={() => console.log('hi')}
       >
         {generateMarkers()}
       </Map>
@@ -153,13 +191,6 @@ export default GoogleApiWrapper({
 })(MapView);
 
 /*
-
-TODO: stash API key
-Load/update image feed on app and pass it down as props
-modal the markers so they pop up with the pic
-
+TODO: 
 can we set bounds instead of locking all movment?
-
-Look into hotpads - similar version
-
 */

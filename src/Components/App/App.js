@@ -14,6 +14,7 @@ import OptionsBar from '../OptionsBar/OptionsBar';
 import MapView from '../MapView/MapView';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Information from '../Information/Information';
 import UserAlert from '../UserAlert/UserAlert';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
@@ -25,6 +26,8 @@ import ImageApi from '../../services/image-api-service';
 import ImageContext from '../../contexts/ImageContext';
 import UserContext from '../../contexts/UserContext';
 import TokenService from '../../services/token-service';
+
+import './App.css';
 
 export default class App extends Component {
   /*******************************************************************
@@ -42,6 +45,9 @@ export default class App extends Component {
     user: null,
     loading: false,
     images: [],
+    page: 1,
+    debounce: false,
+    morePagesAvail: true,
     view: '',
     error: null,
     alert: null,
@@ -77,11 +83,12 @@ export default class App extends Component {
 
     //After state is updated for user location, the images are called again
     this.setState({ userLocation: posObj }, () => {
-      const { sort, userLocation } = this.state;
+      const { sort, userLocation, page } = this.state;
       ImageApi.getLocalImages(
         sort[0],
         userLocation.lat,
-        userLocation.long
+        userLocation.long,
+        page
       ).then(res => {
         this.setImages(res);
         this.setState({ loading: false });
@@ -113,6 +120,9 @@ export default class App extends Component {
         .then((res) => {
           this.setImages(res);
           this.setState({ loading: false });
+          if (res.length < 10) {
+            this.setMorePagesAvail();
+          }
         })
     });
   }
@@ -152,6 +162,54 @@ export default class App extends Component {
   }
 
   /*******************************************************************
+    PAGE
+  *******************************************************************/
+
+  setMorePagesAvail = () => {
+    this.setState({ morePagesAvail: false });
+  }
+
+  setDebounce = () => {
+    const { debounce } = this.state;
+
+      let debounceHolder = !debounce
+      this.setState({ debounce: debounceHolder } )
+
+      setTimeout(() => {
+        let debounceHolder = debounce
+        this.setState({ debounce: debounceHolder })
+      }, 1000)
+    // }
+  }
+
+  setPage = (page) => {
+    const { debounce } = this.state;
+
+    if (!debounce) {
+      this.setDebounce();
+      this.setState({ page }, () => {
+        const { sort, userLocation } = this.state;
+        if (page > 1) {
+          ImageApi.getLocalImages(
+            sort[0],
+            userLocation.lat,
+            userLocation.long,
+            page)
+            .then((res) => {
+              const tempImageFeed = this.state.images.map(imgObj => imgObj);
+              const concatFeed = [...tempImageFeed, ...res];
+              if (res.length < 10) {
+                this.setMorePagesAvail();
+              }
+              this.setImages(concatFeed);
+              this.setState({ loading: false });
+            })
+        }
+      })
+    }
+  };
+
+  /*******************************************************************
     USER
   *******************************************************************/
   handleLogin = () => {
@@ -177,7 +235,23 @@ export default class App extends Component {
 
   clearAlert = () => {
     this.setState({ alert: null });
-  }
+  };
+
+  /*******************************************************************
+    DELETE FUNCTIONS
+  *******************************************************************/
+  handleDelete = (id) => {
+    ImageApi.deleteImage(id)
+      .then(res => {
+        if (res.status === 204) {
+          const tempImageFeed = this.state.images.map((imgObj) => imgObj);
+          const filteredFeed = tempImageFeed.filter((imgObj) => imgObj.id !== id);
+          this.setState({ images: filteredFeed });
+        } else {
+          this.setAlert('Sorry, you are only allowed to delete images you posted');
+        }
+      });
+  };
 
   /*******************************************************************
     ROUTES
@@ -236,6 +310,7 @@ export default class App extends Component {
               <Route exact path={`/p/:submissionId`} 
                 render={routeProps => (<DisplaySingle submissionId={routeProps.match.params.submissionId} />)} />
             ) : null}
+            <Route exact path='/info' component={Information}/>
             <Route component={NotFoundPage} />
           </Switch>
         </ErrorBoundary>
@@ -255,14 +330,21 @@ export default class App extends Component {
       user: this.state.user,
       images: this.state.images,
       setImages: this.setImages,
+      page: this.state.page,
+      morePagesAvail: this.state.morePagesAvail,
+      debounce: this.state.debounce,
       incrementUpvotes: this.incrementUpvotes,
       error: this.state.error,
       alert: this.state.alert,
       setNewContentLoaded: this.setNewContentLoaded,
+      setPage: this.setPage,
+      setMorePagesAvail: this.setMorePagesAvail,
+      setDebounce: this.setDebounce,
       setError: this.setError,
       setAlert: this.setAlert,
       clearError: this.clearError,
       clearAlert: this.clearAlert,
+      handleDelete: this.handleDelete,
     }
 
     return (

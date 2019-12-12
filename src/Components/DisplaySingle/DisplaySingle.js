@@ -43,6 +43,7 @@ export default class DisplaySingle extends Component {
 
   render = () => {
     const userLoggedIn = TokenService.hasAuthToken();
+    const userIDFromToken = TokenService.parseAuthToken() !== undefined ? TokenService.parseAuthToken().id : ''; 
 
     //This conditional is needed to keep componentDidMount in CommentFeed from running before the needed props are ready to be passed in (to generate usernames)
     if (this.state.comments == null) {
@@ -51,12 +52,12 @@ export default class DisplaySingle extends Component {
     if (this.state.loading === true) {
       return <div className="loader"></div>;
     } else {
-      const { id, image_url, image_text, create_timestamp, karma_total } = this.state.image
+      const { id, image_url, image_text, create_timestamp, karma_total, user_id } = this.state.image
       return (
         <div className='DisplaySingle'>
           <img src={image_url} alt={image_text}/>
           { /* If user is logged in, render enabled upvote button */
-          userLoggedIn ? (
+          userLoggedIn && userIDFromToken !== user_id  ? (
             <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
               <KeyboardArrowUp fontSize="large"/>
               
