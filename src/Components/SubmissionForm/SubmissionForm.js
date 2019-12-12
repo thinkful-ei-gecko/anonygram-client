@@ -13,6 +13,7 @@ class SubmissionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isActive: false,
       image: null,
       image_text: '',
       loading: false,
@@ -22,9 +23,10 @@ class SubmissionForm extends Component {
 
   imageSelectHandler = (e) => {
     const { clearAlert } = this.context;
-
+    document.body.style.overflow = 'hidden'
     this.setState({
       image: e.target.files[0],
+      isActive: true
     });
     clearAlert();
   };
@@ -37,9 +39,10 @@ class SubmissionForm extends Component {
 
   imageDragHandler = (file) => {
     const { clearAlert } = this.context;
-
+    document.body.style.overflow = 'hidden'
     this.setState({
       image: file,
+      isActive: true
     });
     clearAlert();
   };
@@ -77,7 +80,7 @@ class SubmissionForm extends Component {
       .then(resJson => {
         const newImg = resJson;
         this.props.updateNewContent(newImg);
-        this.setState({ image: null, image_text: '', error: null });
+        this.setState({ isActive: false, image: null, image_text: '', error: null });
         setAlert(null);
       })
       .catch(e => {
@@ -88,12 +91,19 @@ class SubmissionForm extends Component {
   };
 
   resetState = () => {
-    this.setState({ image: null, image_text: '' });
+    // restore scroll when setting form's activeness back to default
+    // and remove the overlay
+    document.body.style.overflow = 'unset'
+    this.setState({ image: null, image_text: '', isActive: false });
   };
 
   render() {
 
     return (
+      <>
+      {this.state.isActive && (<div className="SubmissionForm__overlay">
+
+      </div>)}
       <div className="SubmissionForm">
         {/* Display loading spinner if loading */}
         {this.state.loading && <div className="loader"></div>}
@@ -168,6 +178,7 @@ class SubmissionForm extends Component {
           )}
         </Dropzone>
       </div>
+      </>
     );
   }
 }
