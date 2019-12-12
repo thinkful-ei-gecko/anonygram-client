@@ -14,7 +14,7 @@ export default function DisplayItem(props) {
       </Link>
       {userIDFromToken === userId ? <div className="delete-wrapper">
         <div className="delete-button">
-          <DeleteOutline fontSize="large" onClick={() => handleDelete(id)} />
+          <DeleteOutline className="delete-icon" fontSize="small" onClick={() => handleDelete(id)} />
         </div>
       </div>
       :
