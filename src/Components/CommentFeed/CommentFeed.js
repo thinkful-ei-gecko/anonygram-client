@@ -67,7 +67,7 @@ export default class CommentFeed extends Component {
     // (this.props.comments.length === 1 && (Object.keys(this.state.usernames).length === 0)) && this.generateUsernames(this.props.comments);
 
     return (
-      <div>
+      <div className='comment-container'>
         {(comments.length === 0) 
           ? null
           : (
@@ -83,7 +83,6 @@ export default class CommentFeed extends Component {
           { //Conditionally render for logged in user
             userLoggedIn ? (
               <>
-                <label htmlFor='newComment'>Add a comment</label>
                 <input className='CommentFeed__input' onChange={(e) => this.handleChange(e)} value={this.state.newComment} type='text' id='newComment' placeholder='Add a comment...' />
                 <button type='submit' className='CommentFeed__button' disabled={!this.state.newComment}>Post</button>
               </>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import ImageApi from '../../services/image-api-service';
 import config from '../../config';
 
 function MapView(props) {
 
-  const { userLocation, setView } = props;
+  const { userLocation, setView, newContentLoaded, updateNewContent } = props;
   const { lat, long } = userLocation;
 
   const [imageFeed, setImageFeed] = useState([]);
@@ -121,6 +122,11 @@ function MapView(props) {
       >
         {generateMarkers()}
       </Map>
+      <SubmissionForm
+        userLocation={userLocation}
+        newContentLoaded={newContentLoaded}
+        updateNewContent={updateNewContent}
+      />
     </>
   )
 }

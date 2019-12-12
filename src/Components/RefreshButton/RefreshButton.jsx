@@ -9,7 +9,11 @@ export default function RefreshButton (props) {
   return (
     <div>
       <button onClick={() => handleGeolocation()} className='RefreshButton resetStyles'>
-        <RefreshIcon />
+        {props.screen === 'mobile' ? (
+          <RefreshIcon />
+        ) : (
+          'Refresh Feed'
+        )}
       </button>
     </div>
   );
