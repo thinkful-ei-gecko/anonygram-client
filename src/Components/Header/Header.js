@@ -23,15 +23,14 @@ class Header extends Component {
     return (
       <header aria-labelledby='primary-navigation' >
         {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
-        <Link to="/" className="header resetStyles h1Link">
+        <Link to="/" className="header appName resetStyles bold">
           {(this.props.path === '/p/:submissionId') 
             ? <ArrowBackIosIcon />
-            : <h1 className='Header__h1'>Anonygram</h1>
+            : 'Anonygram'
           }
         </Link>{' '}
-        <ul>
         {TokenService.hasAuthToken() ? (
-          <>
+          <div className='Header__div'>
             <Link
               to="/login"
               className="header-link resetStyles"
@@ -39,18 +38,17 @@ class Header extends Component {
             >
               Logout
             </Link>
-          </>
+          </div>
         ) : (
-          <>
+          <div className='resetStyles'>
             <Link to="/login" className="Header__link resetStyles">
               Login
             </Link>
             <Link to="/register" className="Header__link resetStyles">
               Register
             </Link>
-          </>
+          </div>
         )}
-        </ul>
       </header>
     );
   }

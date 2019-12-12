@@ -59,6 +59,7 @@ export default class DisplaySingle extends Component {
           userLoggedIn ? (
             <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
               <KeyboardArrowUp fontSize="large"/>
+              
               {karma_total}
             </div>
           ) : (

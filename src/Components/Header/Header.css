@@ -1,14 +1,42 @@
 header {
-    height: 2.5em;
     width: 100%;
-    padding: 1em;
+    padding: .25em .75em;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	align-items: center;
     background-color: #03a9f4;
 }
 
-.h1Link {
-    margin-right: auto;
+.header.appName {
+    font-size: 2em;
+}
+
+.Header__div {
+    display: inline;
+}
+
+.Header__link {
+    margin: 0 0 0 .5em;
+    font-size: 1.2em;
+}
+
+@media screen and (min-width: 768px) {
+    header {
+        padding: .5em 1.5em;
+    }
+    .Header__link {
+        margin: 0 0 0 1em;
+        font-size: 1.25em;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    
+}
+
+@media screen and (min-width: 1440px) {
+    header {
+        padding: 1em calc((100vw - 1010px)/2);
+    }
 }
