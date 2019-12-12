@@ -34,4 +34,7 @@ header {
     header {
         padding: .5em calc((100vw - 1010px)/2);
     }
+    .Header__link {
+        font-size: 1.2em;
+    }
 }
