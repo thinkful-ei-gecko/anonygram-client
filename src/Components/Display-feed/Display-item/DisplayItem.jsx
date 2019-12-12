@@ -6,7 +6,7 @@ import TokenService from '../../../services/token-service';
 
 export default function DisplayItem(props) {
   const [loading, setLoading] = useState(true);
-  const { imgAddress, imgCaption, upvotes, id, incrementUpvotes, handleDelete, userId } = props;
+  const { imgAddress, upvotes, id, incrementUpvotes, handleDelete, userId } = props;
   const userIDFromToken = TokenService.parseAuthToken() !== undefined ? TokenService.parseAuthToken().id : ''; 
   const handleHasLoaded = () => setLoading(false)
   

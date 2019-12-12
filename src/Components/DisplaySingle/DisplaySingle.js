@@ -55,7 +55,7 @@ export default class DisplaySingle extends Component {
       const { id, image_url, image_text, create_timestamp, karma_total, user_id } = this.state.image
       return (
         <div className='DisplaySingle'>
-          <img src={image_url} alt={image_text}/>
+          <img className='single-image' src={image_url} alt={image_text}/>
           { /* If user is logged in, render enabled upvote button */
           userLoggedIn && userIDFromToken !== user_id  ? (
             <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
@@ -64,9 +64,14 @@ export default class DisplaySingle extends Component {
               {karma_total}
             </div>
           ) : (
-            <div>{karma_total}</div>
+            <div className='upvote-wrapper'>
+              <div className="upvote-button">
+               <KeyboardArrowUp fontSize="large"/>
+               <p className="upvote-count">{karma_total}</p>
+              </div>
+            </div>
           )}
-          <div>{this.convertTime(create_timestamp)}</div>
+          <div className='timestamp-display'>{this.convertTime(create_timestamp)}</div>
 
           <p>{image_text}</p>
           <CommentFeed id={this.state.image.id} comments={this.state.comments} setCommentsByPush={this.setCommentsByPush} userLoggedIn={userLoggedIn}/>
