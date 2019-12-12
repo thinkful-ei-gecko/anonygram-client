@@ -372,7 +372,7 @@ export default class App extends Component {
             handleGeolocation={this.handleGeolocation}
             setSort={this.setSort}
           />
-        </div>
+          </div>
       </ImageContext.Provider>
     );
   };
