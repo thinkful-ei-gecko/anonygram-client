@@ -22,7 +22,6 @@ export default function DisplayItem(props) {
       <p className="upvote-button-no-auth">{upvotes}</p>
     </div> 
       }
-      {imgCaption && <p>{imgCaption}</p>}
     </li>
   );
 }

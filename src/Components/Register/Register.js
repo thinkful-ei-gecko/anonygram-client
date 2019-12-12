@@ -78,9 +78,9 @@ class Register extends Component {
               />
             </div>
             <footer>
-              <button type='submit' name='submit'>
+              <button className='Register__button' type='submit' name='submit'>
                 Sign up
-          </button>
+              </button>
             </footer>
           </form>
         </div>

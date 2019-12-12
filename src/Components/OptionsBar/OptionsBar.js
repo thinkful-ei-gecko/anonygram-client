@@ -21,36 +21,42 @@ export default function OptionsBar(props) {
 	if (screen === 'mobile' ) {
 		return (
 			<div className='OptionsBar mobile'>
-			
-			{/* Conditionally render button for map/feed view */}
-			{(view === "feed") ? (
-				<Link to='/local-map' className='resetStyles'>
-					<MapIcon />
-				</Link>
-			) : (
-				<Link to='/' className='resetStyles'>
-					<DynamicFeedIcon />
-				</Link>
-			)}
-			
-			{/* Render karma count if logged in */
-				TokenService.hasAuthToken() && (
-					<div className="App__karma-total">
-						<ThumbUp />{' '} 
-						{context.user.karma_balance}
-					</div>
-				)
-			}
-	
-			<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
-			
-			<NavBar setSort={props.setSort} />
-		</div>
+				{/* Render karma count if logged in */
+					TokenService.hasAuthToken() && (
+						<div className="App__karma-total">
+							<ThumbUp />{' '} 
+							{context.user.karma_balance}
+						</div>
+					)
+				}
+				{/* Conditionally render button for map/feed view */}
+				{(view === "feed") ? (
+					<Link to='/local-map' className='resetStyles'>
+						<MapIcon />
+					</Link>
+				) : (
+					<Link to='/' className='resetStyles'>
+						<DynamicFeedIcon />
+					</Link>
+				)}
+		
+				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
+				
+				<NavBar setSort={props.setSort} />
+			</div>
 		)
 	} else {
 		return (
 			<div className='OptionsBar desktop'>
-			
+				{/* Render karma count if logged in */
+					TokenService.hasAuthToken() && (
+						<div className="App__karma-total">
+							Karma Count:{' '}
+							{context.user.karma_balance}
+						</div>
+					)
+				}
+
 				{/* Conditionally render button for map/feed view */}
 				{(view === "feed") ? (
 					<Link to='/local-map' className='resetStyles'>
@@ -61,15 +67,6 @@ export default function OptionsBar(props) {
 						Feed View
 					</Link>
 				)}
-				
-				{/* Render karma count if logged in */
-					TokenService.hasAuthToken() && (
-						<div className="App__karma-total">
-							Karma Count:{' '}
-							{context.user.karma_balance}
-						</div>
-					)
-				}
 		
 				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
 				

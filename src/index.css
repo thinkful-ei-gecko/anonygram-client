@@ -27,6 +27,10 @@ a.resetStyles {
   color: black;
 }
 
+button {
+  border: none;
+}
+
 .bold {
   font-weight: 600;
 }

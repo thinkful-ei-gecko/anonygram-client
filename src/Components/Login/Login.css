@@ -26,7 +26,7 @@ input {
     border: 1px solid #ccc;
 }
 
-button {
+.Login__button {
     background-color:  #03a9f4;
     color: black;
     letter-spacing: 3px;
@@ -36,7 +36,7 @@ button {
     border: none;
     width: 100%;
 }
-button:hover{
+.Login__button:hover{
     opacity: 0.8;
 }
 
