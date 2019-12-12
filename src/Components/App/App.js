@@ -288,8 +288,9 @@ export default class App extends Component {
                   updateNewContent={this.setNewContentLoaded} />
                 } />
             <Route exact path='/local-map' 
-              render={() => 
+              render={(routeProps) => 
                 <MapView 
+                  {...routeProps}
                   setView={this.setView} 
                   userLocation={userLocation}
                   newContentLoaded={newContentLoaded}

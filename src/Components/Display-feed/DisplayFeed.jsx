@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DisplayItem from './Display-item/DisplayItem';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import { useImageContext } from '../../contexts/ImageContext';

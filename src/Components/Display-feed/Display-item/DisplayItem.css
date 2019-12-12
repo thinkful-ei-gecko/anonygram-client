@@ -4,8 +4,9 @@
 
 .display-img {
     width: 100%;
-    min-width: 288px;
-    height: auto;
+    min-width: 310px;
+    min-height: 310px;
+    object-fit: cover;
 }
 
 .upvote-wrapper {

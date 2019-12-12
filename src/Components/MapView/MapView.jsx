@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import SubmissionForm from '../SubmissionForm/SubmissionForm';
 import ImageApi from '../../services/image-api-service';
-import Modal from './Modal/Modal';
 import config from '../../config';
 
 function MapView(props) {
@@ -13,49 +12,10 @@ function MapView(props) {
   const [imageFeed, setImageFeed] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [zoomState, setZoomState] = useState(12);
-  const [displayModal, setDisplayModal] = useState(false);
-  const [modalImage, setModalImage] = useState("");
 
   const zoomBoundaries = { min: 12, max: 14 };
 
-  // const refContainer = useRef(null);
-
-  // const allowedBoundaries = new props.google.maps.LatLngBounds(
-  //   new props.google.maps.LatLng(),
-  //   new props.google.maps.LatLng(),
-  // )
-
   let holderZoom = zoomState;
-
-  // console.log(refContainer.current)
-
-  // if (refContainer.current !== null) {
-  //   console.log(refContainer.current)
-  // }
-
-  // useEffect(() => {
-  //   const { current } = refContainer;
-
-
-  //   const allowedBoundaries = new props.google.maps.LatLngBounds(
-  //     new props.google.maps.LatLng(),
-  //     new props.google.maps.LatLng(),
-  //   );
-
-  //   const lastValidCenter = current.getCenter();
-  //   const validatePan = () => {
-  //     if (allowedBoundaries.contains(current.getCenter())) {
-  //       lastValidCenter = current.getCenter();
-  //       return;
-  //     }
-  //     current.panTo(lastValidCenter);
-  //   }
-  //   props.google.maps.event.addEventListener(current, 'center_changed', validatePan);
-
-  //   return () => {
-  //     props.google.maps.event.removeEventListener(current, 'center_changed', validatePan);
-  //   }
-  // }, [])
 
   useEffect(() => {
     setLoading(true);
@@ -98,14 +58,8 @@ function MapView(props) {
     height: '100%',
   };
 
-  const handleMarkerClick = (markerImg) => {
-    setDisplayModal(true);
-    setModalImage(markerImg);
-  };
-
-  const handleClose = () => {
-    setDisplayModal(false);
-    setModalImage('');
+  const handleMarkerClick = (id) => {
+    props.history.push(`/p/${id}`)
   };
 
   const truncateCoord = (coord) => {
@@ -142,12 +96,12 @@ function MapView(props) {
         }
 
         return (
-          <Marker
-            key={point.id}
-            icon={{ url: point.img, scaledSize: new props.google.maps.Size(scale, scale) }}
-            position={{ lat: point.lat, lng: point.long }}
-            onClick={() => handleMarkerClick(point.img)}
-          />
+            <Marker
+              key={point.id}
+              icon={{ url: point.img, scaledSize: new props.google.maps.Size(scale, scale) }}
+              position={{ lat: point.lat, lng: point.long }}
+              onClick={() => handleMarkerClick(point.id)}
+            />
         )
       }
     })
@@ -158,25 +112,16 @@ function MapView(props) {
     <>
       <Map
         google={props.google}
-        // ref={refContainer}
         zoom={zoomState}
         style={mapStyles}
         initialCenter={{ lat: lat, lng: long }}
         defaultOptions={{ draggable: false }}
-        onClick={handleClose}
         disableDefaultUI={true}
         gestureHandling="none"
         zoomControl={false}
-        // onCenterChanged={() => console.log('hi')}
       >
         {generateMarkers()}
       </Map>
-      {displayModal 
-        ? <Modal 
-        img={modalImage}
-        />
-        : <></>
-      }
       <SubmissionForm
         userLocation={userLocation}
         newContentLoaded={newContentLoaded}
@@ -189,8 +134,3 @@ function MapView(props) {
 export default GoogleApiWrapper({
   apiKey: config.REACT_APP_MAP_API_KEY
 })(MapView);
-
-/*
-TODO: 
-can we set bounds instead of locking all movment?
-*/
