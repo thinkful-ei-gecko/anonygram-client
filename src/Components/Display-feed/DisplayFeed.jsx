@@ -12,7 +12,7 @@ export default function DisplayFeed(props) {
     const context = useImageContext();
     const dpFeedRef = useRef(null);
 
-    const { images, page, setPage, morePagesAvail, debounce } = context;
+    const { images, page, setPage, morePagesAvail, debounce, handleDelete, incrementUpvotes } = context;
 
     const { userLocation, newContentLoaded, updateNewContent, ...rest } = props
 
@@ -43,7 +43,8 @@ export default function DisplayFeed(props) {
     }, [bottom, pageOffset, morePagesAvail, page, setPage, debounce]);
 
     const generateJSX = () => {
-        if (!context.images) {
+
+        if (!images) {
             return null;
         }
         return (
@@ -55,7 +56,9 @@ export default function DisplayFeed(props) {
                             imgCaption={imgObj.image_text}
                             upvotes={imgObj.karma_total}
                             id={imgObj.id}
-                            incrementUpvotes={context.incrementUpvotes}
+                            userId={imgObj.user_id}
+                            incrementUpvotes={incrementUpvotes}
+                            handleDelete={handleDelete}
                             key={imgObj.id}
                         />
                     ))}

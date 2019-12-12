@@ -15,7 +15,7 @@ const ImageApi = {
   getMapImages(sort, lat, long) {
     return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}`, {
     })
-      .then((res) => 
+      .then((res) =>
         (!res.ok)
           ? res.json().then((e) => Promise.reject(e))
           : res.json()
@@ -24,8 +24,8 @@ const ImageApi = {
 
   patchImageKarma(id) {
     return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
-			method: "PATCH",
-			headers: {
+      method: "PATCH",
+      headers: {
         "Authorization": `Bearer ${TokenService.getAuthToken()}`,
 			},
     })  
@@ -34,6 +34,16 @@ const ImageApi = {
           ? res.json().then((e) => Promise.reject(e))
           : res.json();
       })
+      .catch(err => console.log("Error", err));
+  },
+
+  deleteImage(id) {
+    return fetch(`${config.API_ENDPOINT}/api/images/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${TokenService.getAuthToken()}`,
+      },
+    })
       .catch(err => console.log("Error", err));
   },
 }
