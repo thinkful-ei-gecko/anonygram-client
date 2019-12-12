@@ -32,6 +32,6 @@ header {
 
 @media screen and (min-width: 1440px) {
     header {
-        padding: 1em calc((100vw - 1010px)/2);
+        padding: .5em calc((100vw - 1010px)/2);
     }
 }

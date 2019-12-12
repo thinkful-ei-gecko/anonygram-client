@@ -30,5 +30,6 @@
   .OptionsBar.desktop {
     padding: 1em calc((100vw - 1010px)/2);
     font-size: 1.2em;
+    top: 2.8em;
   }
 }

@@ -36,7 +36,7 @@ export default function OptionsBar(props) {
 			{/* Render karma count if logged in */
 				TokenService.hasAuthToken() && (
 					<div className="App__karma-total">
-						<ThumbUp /> 
+						<ThumbUp />{' '} 
 						{context.user.karma_balance}
 					</div>
 				)
@@ -65,7 +65,7 @@ export default function OptionsBar(props) {
 				{/* Render karma count if logged in */
 					TokenService.hasAuthToken() && (
 						<div className="App__karma-total">
-							Karma Count: 
+							Karma Count:{' '}
 							{context.user.karma_balance}
 						</div>
 					)
