@@ -28,6 +28,7 @@
 
 @media screen and (min-width: 1440px) {
   .OptionsBar.desktop {
-    top: 4.4em;
+    padding: 1em calc((100vw - 1010px)/2);
+    font-size: 1.2em;
   }
 }
