@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MapIcon from '@material-ui/icons/Map';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { ThumbUp } from '@material-ui/icons';
+import InfoIcon from '@material-ui/icons/Info';
 
 import NavBar from '../NavBar/NavBar';
 import RefreshButton from '../RefreshButton/RefreshButton';
@@ -43,6 +44,10 @@ export default function OptionsBar(props) {
 				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
 				
 				<NavBar setSort={props.setSort} />
+
+				<Link to='/info' className='resetStyles'>
+					<InfoIcon />
+				</Link>
 			</div>
 		)
 	} else {
@@ -71,6 +76,8 @@ export default function OptionsBar(props) {
 				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
 				
 				<NavBar setSort={props.setSort} />
+
+				<Link to='/info' className='resetStyles'>About</Link>
 			</div>
 		)
 	}

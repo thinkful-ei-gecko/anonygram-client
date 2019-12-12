@@ -33,7 +33,7 @@ class Header extends Component {
           <div className='Header__div'>
             <Link
               to="/login"
-              className="header-link resetStyles"
+              className="Header__link resetStyles"
               onClick={this.handleLogout}
             >
               Logout
