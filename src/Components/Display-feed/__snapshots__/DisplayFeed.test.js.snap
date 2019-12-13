@@ -25,6 +25,7 @@ exports[`DisplayFeed component clicking upvote updates prop value as expected 1`
     />
   </ul>
   <SubmissionForm
+    parent="DisplayFeed"
     routeProps={
       Object {
         "setView": [Function],
@@ -42,6 +43,7 @@ exports[`DisplayFeed component renders elements by default 1`] = `
     className="img-container"
   />
   <SubmissionForm
+    parent="DisplayFeed"
     routeProps={
       Object {
         "setView": [Function],
@@ -76,6 +78,7 @@ exports[`DisplayFeed component renders elements given ImageContext 1`] = `
     />
   </ul>
   <SubmissionForm
+    parent="DisplayFeed"
     routeProps={
       Object {
         "setView": [Function],
