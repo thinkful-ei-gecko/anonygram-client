@@ -141,4 +141,16 @@ form.SubmissionForm {
   .mobile {
     display: none;
   }
+
+  .SubmissionForm {
+    position: static;
+  }
+
+  .hasImage {
+    position: fixed!important;
+  }
+
+  .SubmissionForm__button {
+    position: unset!important;
+  }
 }
