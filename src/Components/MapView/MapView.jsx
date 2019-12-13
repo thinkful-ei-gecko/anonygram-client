@@ -61,7 +61,7 @@ function MapView(props) {
       let point2 = e.targetTouches[1];
       
       let sqrVectorDistance = Math.pow(point1.clientX - point2.clientX, 2) + Math.pow(point1.clientY - point2.clientY, 2);
-      console.log(sqrVectorDistance)
+      // console.log(sqrVectorDistance);
       if (sqrVectorDistance > 50000) { // zoom out
         if (holderZoom + 1 <= zoomBoundaries.max) {
           setZoomState(zoomState => zoomState += 1);
