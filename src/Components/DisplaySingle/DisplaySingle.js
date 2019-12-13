@@ -58,10 +58,11 @@ export default class DisplaySingle extends Component {
           <img className='single-image' src={image_url} alt={image_text}/>
           { /* If user is logged in, render enabled upvote button */
           userLoggedIn && userIDFromToken !== user_id  ? (
-            <div className='DisplaySingle__div upvoteButton' onClick={() => this.context.incrementUpvotes(id)}>
-              <KeyboardArrowUp fontSize="large"/>
-              
-              {karma_total}
+            <div className='upvote-wrapper' onClick={() => this.context.incrementUpvotes(id)}>
+              <div className="upvote-button">
+               <KeyboardArrowUp fontSize="large"/>
+               <p className="upvote-count">{karma_total}</p>
+              </div>
             </div>
           ) : (
             <div className='upvote-wrapper'>

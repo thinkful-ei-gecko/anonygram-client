@@ -74,6 +74,7 @@ class SubmissionForm extends Component {
       .then((res) => {
         //Remove loading spinner
         this.setState({ loading: false });
+        document.body.style.overflow = 'unset'
         if (res.status === 400) {
           setAlert('Sorry, that content is not permitted');
           return res.json().then((e) => Promise.reject(e));
@@ -149,14 +150,14 @@ class SubmissionForm extends Component {
                       className='SubmissionForm__button laptop'
                       onClick={() => this.imageInput.click()}
                     >
-                      <AddToPhotos fontSize="medium" /><div className='button-text Aramanth'>Add Post</div>
+                      <AddToPhotos fontSize="default" /><div className='button-text Aramanth'>Add Post</div>
                     </button>
                     )}
                   </>
                 )
               ) : (
                 <>
-                  <img className='SubmissionForm__img' id='your-image' alt='your-image' />
+                  <img className='SubmissionForm__img' id='your-image' alt='uploaded content' />
                   <label className='SubmissionForm__label' htmlFor="text">Caption Image</label>
                   <input className='SubmissionForm__input' id="text" type="text" onChange={this.imageTextHandler} />
                   <button

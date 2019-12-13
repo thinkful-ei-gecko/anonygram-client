@@ -7,9 +7,9 @@ export default function NavBar(props) {
     return (
     <div className="toggle toggle-blue">
         <input type="radio" className="toggle-input" name="view" value="popular" id="popular"  onClick={() => setSort()} />
-        <label for="popular" className="toggle-label toggle-label-off">POPULAR</label>
+        <label htmlFor="popular" className="toggle-label toggle-label-off">POPULAR</label>
         <input type="radio" className="toggle-input" name="view" value="newest" id="newest" onClick={() => setSort()} />
-        <label for="newest" className="toggle-label toggle-label-on">NEWEST</label>
+        <label htmlFor="newest" className="toggle-label toggle-label-on">NEWEST</label>
         <span className="toggle-selection"></span>
     </div>
 
