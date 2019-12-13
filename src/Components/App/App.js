@@ -118,11 +118,12 @@ export default class App extends Component {
     const clone = [...this.state.sort];
     clone.reverse();
     this.setState({ sort: clone }, () => {
-      const { sort, userLocation } = this.state;
+      const { page, sort, userLocation } = this.state;
       ImageApi.getLocalImages(
         sort[0],
         userLocation.lat,
-        userLocation.long
+        userLocation.long,
+        page
       ).then(res => {
         this.setImages(res);
         this.setState({ loading: false });
