@@ -1,7 +1,6 @@
 .display-feed {
-    /* margin: 1em 0; */
-    /* padding-top: 3.5em; */
     position: relative;
+    margin-bottom: 7em;
     width: 90%;
     margin: 0 auto;
 }
@@ -16,8 +15,6 @@
 
 @media screen and (min-width: 50em) {
     .img-container {
-        width: 80%;
-        margin: 0 auto;
         grid-template-columns: repeat(4, 1fr);
     }
     .img-container li {
@@ -26,14 +23,21 @@
     }
 }
 
+@media screen and (min-width: 768px) {
+    .display-feed {
+        margin-bottom: 3em;
+    }
+}
+
 @media screen and (min-width: 80em) {
     .display-feed {	
         padding-bottom: 5em;	
     }
+}
+
+@media screen and (min-width: 1120px) {
     .img-container {
-        width: 80%;
-        max-width: 1010px;
-        margin: 0 auto;
-        grid-template-columns: repeat(6, 1fr);
+        max-width: 990px;
+        margin: 0 calc((100vw - 990px)/2);
     }
 }
