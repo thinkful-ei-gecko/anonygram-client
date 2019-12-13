@@ -59,7 +59,7 @@ form.SubmissionForm {
   overflow-x: hidden;
 }
 
-.SubmissionForm__button {
+.SubmissionForm__button.blue {
   background-color: #03a9f4;
   box-shadow: -5px 5px  #007ac1;
   width: 100%;
@@ -91,6 +91,10 @@ form.SubmissionForm {
   display: none;
 }
 
+.laptop {
+  display: none;
+}
+
 @media screen and (min-width: 100em) {
   .SubmissionForm__drag {
     display: unset;
@@ -111,7 +115,25 @@ form.SubmissionForm {
 }
 
 @media screen and (min-width: 1024px) {
+  .laptop {
+    display: inline;
+    width: 130px;
+    background: green;
+    text-align: center;
+  }
+
+  .button-text {
+    display: inline;
+    font-size: 1.5em;
+  }
+
+  .mobile {
+    display: none;
+  }
+
   .SubmissionForm {
-    bottom: 2em;
+    position: static;
+    
+
   }
 }

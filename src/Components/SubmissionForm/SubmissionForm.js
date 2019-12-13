@@ -131,24 +131,26 @@ class SubmissionForm extends Component {
                 name="someImage"
                 ref={(imageInput) => (this.imageInput = imageInput)}
               />
-              {isDragActive ? (
-                <p className="SubmissionForm__drag--active">Nice pic!</p>
-              ) : (
-                !this.state.image && (
-                  <p className="SubmissionForm__drag">
-                    Drag a pic here to upload, or click to select one
-                  </p>
-                )
-              )}
+              {isDragActive && <p className="SubmissionForm__drag--active">Nice pic!</p>}
+              
               {!this.state.image ? (
                 !isDragActive && (
-                  <button
-                    type="button"
-                    className="SubmissionForm__button"
-                    onClick={() => this.imageInput.click()}
-                  >
-                    <AddToPhotos fontSize="large" />
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="SubmissionForm__button mobile blue"
+                      onClick={() => this.imageInput.click()}
+                    >
+                      <AddToPhotos fontSize="medium" />
+                    </button>
+                    <button
+                      type="button"
+                      className="SubmissionForm__button laptop"
+                      onClick={() => this.imageInput.click()}
+                    >
+                      <AddToPhotos fontSize="large" /><div className='button-text'>Add Post</div>
+                    </button>
+                  </>
                 )
               ) : (
                 <>
@@ -156,13 +158,13 @@ class SubmissionForm extends Component {
                   <label className='SubmissionForm__label' htmlFor="text">Caption Image</label>
                   <input className='SubmissionForm__input' id="text" type="text" onChange={this.imageTextHandler} />
                   <button
-                    className="SubmissionForm__button hasImage"
+                    className="SubmissionForm__button hasImage blue"
                     type="reset"
                     onClick={() => this.resetState()}
                   >
                     Cancel
                   </button>
-                  <button className="SubmissionForm__button hasImage" type="submit" value="Upload">
+                  <button className="SubmissionForm__button hasImage blue" type="submit" value="Upload">
                     Upload
                   </button>
                 </>
