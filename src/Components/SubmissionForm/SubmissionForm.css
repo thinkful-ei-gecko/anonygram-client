@@ -145,4 +145,12 @@ form.SubmissionForm {
   .SubmissionForm {
     position: static;
   }
+
+  .hasImage {
+    position: fixed!important;
+  }
+
+  .SubmissionForm__button {
+    position: unset!important;
+  }
 }

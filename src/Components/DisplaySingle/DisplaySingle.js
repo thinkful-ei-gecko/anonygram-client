@@ -21,6 +21,9 @@ export default class DisplaySingle extends Component {
   }
 
   componentDidMount = () => {
+    // scroll immediately to top-left when component renders
+    window.scrollTo(0, 0);
+
     const submissionId = this.props.submissionId;
     const image = this.context.images.find(img => img.id === Number(submissionId));
 
