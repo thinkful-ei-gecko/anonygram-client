@@ -2,8 +2,8 @@ import config from '../config';
 import TokenService from './token-service'
 
 const ImageApi = {
-  getLocalImages(sort, lat, long, page) {
-    return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}&page=${page}`, {
+  getLocalImages(sort, lat, long, page = null) {
+    return fetch(`${config.API_ENDPOINT}/api/images/?sort=${sort}&lat=${lat}&lon=${long}${page ? `&page=${page}` : ''}`, {
     })
       .then((res) => 
         (!res.ok)
