@@ -27,19 +27,24 @@ class Header extends Component {
       <header aria-labelledby='primary-navigation' >
         {/* <img className='App-logo' src='images/icon.png' alt='logo'/>{' '} */}
         <div className='Header___leftContainer'>
-          <Link to="/" className="header appName resetStyles bold">
-            {(path === '/p/:submissionId' || path === '/local-map') 
-              ? <ArrowBackIosIcon />
-              : 'Anonygram'
-            }
-          </Link>{' '}
-          <SubmissionForm
-            routeProps={rest}
-            userLocation={userLocation}
-            newContentLoaded={newContentLoaded}
-            updateNewContent={updateNewContent}
-            parent='Header'
-          />
+          {(path === '/p/:submissionId') ? (
+            <Link to="/" className="header appName resetStyles bold">
+              <ArrowBackIosIcon />
+            </Link>
+          ) : (
+            <>
+              <Link to="/" className="header appName resetStyles bold">
+                Anonygram
+              </Link>{' '}
+              <SubmissionForm
+                routeProps={rest}
+                userLocation={userLocation}
+                newContentLoaded={newContentLoaded}
+                updateNewContent={updateNewContent}
+                parent='Header'
+              />
+            </>
+          )}
         </div>
 
         {TokenService.hasAuthToken() ? (
