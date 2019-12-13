@@ -21,7 +21,7 @@
 ## Screeenshots 
 
 ### Desktop View 
-![](desktop-version .png)
+![](desktop-version.png)
 
 ### Mobile View
 ![](mobile-version.png)
