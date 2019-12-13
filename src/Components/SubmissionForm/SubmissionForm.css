@@ -7,10 +7,6 @@
 }
 
 .SubmissionForm.hasImage {
-  /* Position: fixed added again below fixes bug for form preview display:
-    W/o it, form renders relative to on button's original location; for 
-    width of laptop and larger, this is displayed in header component */
-  /* position: fixed; */
   width: 90vw;
   height: 75vh;
   padding: 1em;
