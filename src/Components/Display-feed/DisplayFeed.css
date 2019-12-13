@@ -1,5 +1,6 @@
 .display-feed {
     position: relative;
+    margin-bottom: 7em;
 }
 
 .img-container {
@@ -26,6 +27,12 @@
     .img-container li {
         grid-column: span 2;
         grid-row: span 2;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .display-feed {
+        margin-bottom: 3em;
     }
 }
 
