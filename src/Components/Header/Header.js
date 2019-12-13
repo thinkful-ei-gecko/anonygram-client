@@ -38,6 +38,7 @@ class Header extends Component {
             userLocation={userLocation}
             newContentLoaded={newContentLoaded}
             updateNewContent={updateNewContent}
+            parent='Header'
           />
         </div>
 

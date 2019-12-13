@@ -68,6 +68,7 @@ export default function DisplayFeed(props) {
                   userLocation={userLocation}
                   newContentLoaded={newContentLoaded}
                   updateNewContent={updateNewContent}
+                  parent='DisplayFeed'
                 />
             </>
         )

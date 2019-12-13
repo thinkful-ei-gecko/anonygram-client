@@ -141,14 +141,14 @@ class SubmissionForm extends Component {
                       className="SubmissionForm__button mobile blue"
                       onClick={() => this.imageInput.click()}
                     >
-                      <AddToPhotos fontSize="medium" />
+                      <AddToPhotos fontSize="large" />
                     </button>
                     <button
                       type="button"
-                      className="SubmissionForm__button laptop"
+                      className={`SubmissionForm__button laptop ${this.props.parent}`}
                       onClick={() => this.imageInput.click()}
                     >
-                      <AddToPhotos fontSize="large" /><div className='button-text'>Add Post</div>
+                      <AddToPhotos fontSize="medium" /><div className='button-text Aramanth'>Add Post</div>
                     </button>
                   </>
                 )

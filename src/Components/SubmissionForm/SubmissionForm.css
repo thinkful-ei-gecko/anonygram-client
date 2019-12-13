@@ -116,24 +116,26 @@ form.SubmissionForm {
 
 @media screen and (min-width: 1024px) {
   .laptop {
-    display: inline;
-    width: 130px;
+    margin: 0 0 0 1em;
+    padding: 6px;
+    display: flex;
     background: green;
+    border-radius: 10px;
     text-align: center;
   }
 
   .button-text {
     display: inline;
-    font-size: 1.5em;
+    font-size: 1.4em;
+    font-family: 'Amaranth', sans-serif;
+    margin: 0 0 0 .5em;
   }
 
-  .mobile {
+  .mobile,.laptop.DisplayFeed {
     display: none;
   }
 
   .SubmissionForm {
     position: static;
-    
-
   }
 }
