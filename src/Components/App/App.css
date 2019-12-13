@@ -41,14 +41,6 @@
   margin: 4em 1em;
 }
 
-.App-link {
-  color: #09d3ac;
-}
-
-.nav-link {  	
-  float: right;	
-}
-
 @media screen and (min-width: 768px) {
   .App__main {
     margin: 4em 0;

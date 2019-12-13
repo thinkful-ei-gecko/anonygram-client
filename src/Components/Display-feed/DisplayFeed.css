@@ -54,7 +54,7 @@
 @media screen and (min-width: 1440px) {
     .img-container {
         max-width: 990px;
-        margin: calc((100vw - 990px)/2);
+        margin: 0 calc((100vw - 990px)/2);
     }
 }
 
