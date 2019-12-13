@@ -1,9 +1,7 @@
 
 
 .single-image {
-  width: 100%;
-  min-width: 310px;
-  height: auto;
+  height: 50vh
 }
 
 .upvote-wrapper:hover{
