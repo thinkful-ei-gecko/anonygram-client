@@ -3,7 +3,6 @@
   z-index: 9999999;
   bottom: 3em;
   right: 1em;
-  outline: black;
 }
 
 .SubmissionForm.hasImage {
@@ -12,29 +11,31 @@
     width of laptop and larger, this is displayed in header component */
   position: fixed;
   width: 90vw;
-  height: 72vh;
+  height: 75vh;
   padding: 1em;
   background: white;
   left: 50%;
   margin-left: -45vw;
   top: 50%;
-  margin-top: -36vh;
+  margin-top: -37.5vh;
   bottom: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
 }
 
-form.SubmissionForm {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.SubmissionForm__button.close {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: inherit;
 }
 
 .SubmissionForm__img {
   height: 45vh;
   width: 100%;
-  margin: auto;
+  margin: 10px auto auto;
   object-fit: contain;
 }
 
@@ -115,9 +116,13 @@ form.SubmissionForm {
 
   .SubmissionForm.hasImage {
     height: 75vh;
-    max-width: 350px; 
-    margin-left: -175px;
+    max-width: 70%; 
+    margin-left: -35%;
     margin-top: -37.5vh;
+  }
+
+  .SubmissionForm__button.close {
+    left: 1em; top: 1em;
   }
 }
 
@@ -148,5 +153,10 @@ form.SubmissionForm {
 
   .SubmissionForm {
     position: static;
+  }
+
+  .SubmissionForm.hasImage {
+    max-width: 600px;
+    margin-left: -300px;
   }
 }
