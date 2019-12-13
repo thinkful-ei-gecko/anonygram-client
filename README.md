@@ -20,13 +20,11 @@
 
 ## Screeenshots 
 
-### Desktop Landing Page
+### Desktop View 
+![](desktop-version.png)
 
-Coming soon...
-
-### Mobile Landing Page 
-
-Coming soon...
+### Mobile View
+![](mobile-version.png)
 
 
 ## Summary 
