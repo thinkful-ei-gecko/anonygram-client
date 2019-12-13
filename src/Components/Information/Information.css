@@ -1,5 +1,9 @@
 .Information__container {
   padding: 1.5em;
+  background: whitesmoke;
+}
+.info-header{
+  background: whitesmoke;
 }
 
 .Information__h1 {
@@ -28,6 +32,7 @@
   margin: 0 auto;
   color: black;
   list-style-type: circle!important;
+  
 }
 
 .Information__ul > li {
@@ -35,6 +40,8 @@
 }
 
 .Information__demo {
+  border: 1px dotted black;
+  background: rgb(255, 255, 255);
   font-size: 1.5em;
   list-style-type: none;
   display: flex;
@@ -58,9 +65,16 @@
 .Information__ol > li {
   font-size: 1.5em;
   text-align: left;
+  list-style-type: circle;
   padding-bottom: 1em;
   width: 80%;
   margin: 0 auto;
+ 
+}
+
+.link{
+  
+  color: black;
 }
 
 @media screen and (min-width: 50em) {
