@@ -8,6 +8,8 @@
     margin: 0;
     padding: 0;
     display: grid;
+    grid-row-gap: 10px;
+    grid-column-gap: 14px;
 }
 
 @media screen and (min-width: 50em) {
@@ -33,11 +35,11 @@
         grid-template-columns: repeat(6, 1fr);
     }
 }
-
+/* 
 @media screen and (min-width: 120em) {
     .img-container {
         width: 70%;
         margin: 0 auto;
         grid-template-columns: repeat(8, 1fr);
     }
-}
+} */
