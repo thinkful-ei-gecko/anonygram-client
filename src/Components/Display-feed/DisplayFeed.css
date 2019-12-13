@@ -53,8 +53,6 @@
 
 @media screen and (min-width: 120em) {
     .img-container {
-        width: 80%;
-        margin: 0 auto;
         grid-template-columns: repeat(8, 1fr);
     }
     .img-container li {
