@@ -46,6 +46,8 @@ class SubmissionForm extends Component {
     this.setState({
       image: file,
       isActive: true
+    }, () => {
+      document.getElementById('your-image').src = window.URL.createObjectURL(this.state.image)
     });
     clearAlert();
   };
