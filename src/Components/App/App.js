@@ -187,7 +187,6 @@ export default class App extends Component {
       let debounceHolder = debounce;
       this.setState({ debounce: debounceHolder });
     }, 1000);
-    // }
   };
 
   setPage = page => {
@@ -328,6 +327,7 @@ export default class App extends Component {
                 <MapView
                   {...routeProps}
                   setView={this.setView}
+                  setStateImages={this.setImages}
                   userLocation={userLocation}
                   newContentLoaded={newContentLoaded}
                   updateNewContent={this.setNewContentLoaded}

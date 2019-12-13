@@ -6,7 +6,7 @@ import config from '../../config';
 
 function MapView(props) {
 
-  const { userLocation, setView, newContentLoaded, updateNewContent } = props;
+  const { userLocation, setView, setStateImages, newContentLoaded, updateNewContent } = props;
   const { lat, long } = userLocation;
 
   const [imageFeed, setImageFeed] = useState([]);
@@ -22,9 +22,10 @@ function MapView(props) {
     ImageApi.getMapImages('new', lat, long)
       .then((res) => {
         setImageFeed(res);
+        setStateImages(res);
         setLoading(false);
       })
-  }, [lat, long]);
+  }, [lat, long, setStateImages]);
 
   useEffect(() => {
     window.addEventListener('wheel', wheelHandler);
