@@ -80,11 +80,14 @@ form.SubmissionForm {
 }
 
 .SubmissionForm__drag--active {
-  padding: 1em;
-  border: 5px dashed rgb(93, 194, 93);
+  margin-left: 1em;
+  padding: .4em 1.75em;
+  border: 4px dashed rgb(93, 194, 93);
+  border-radius: 10px;
   background-color: rgb(150, 196, 150);
   opacity: 50;
   color: white;
+  font-size: 14px;
 }
 
 .SubmissionForm__drag {
