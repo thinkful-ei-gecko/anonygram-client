@@ -74,6 +74,7 @@ class SubmissionForm extends Component {
       .then((res) => {
         //Remove loading spinner
         this.setState({ loading: false });
+        document.body.style.overflow = 'unset'
         if (res.status === 400) {
           setAlert('Sorry, that content is not permitted');
           return res.json().then((e) => Promise.reject(e));
@@ -131,38 +132,42 @@ class SubmissionForm extends Component {
                 name="someImage"
                 ref={(imageInput) => (this.imageInput = imageInput)}
               />
-              {isDragActive ? (
-                <p className="SubmissionForm__drag--active">Nice pic!</p>
-              ) : (
-                !this.state.image && (
-                  <p className="SubmissionForm__drag">
-                    Drag a pic here to upload, or click to select one
-                  </p>
-                )
-              )}
+              {isDragActive && <p className="SubmissionForm__drag--active">Nice pic!</p>}
+              
               {!this.state.image ? (
                 !isDragActive && (
-                  <button
-                    type="button"
-                    className="SubmissionForm__button"
-                    onClick={() => this.imageInput.click()}
-                  >
-                    <AddToPhotos fontSize="large" />
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="SubmissionForm__button mobile blue"
+                      onClick={() => this.imageInput.click()}
+                    >
+                      <AddToPhotos fontSize="large" />
+                    </button>
+                    {this.props.parent === 'Header' && (
+                      <button
+                      type="button"
+                      className='SubmissionForm__button laptop'
+                      onClick={() => this.imageInput.click()}
+                    >
+                      <AddToPhotos fontSize="default" /><div className='button-text Aramanth'>Add Post</div>
+                    </button>
+                    )}
+                  </>
                 )
               ) : (
                 <>
-                  <img className='SubmissionForm__img' id='your-image' alt='your-image' />
+                  <img className='SubmissionForm__img' id='your-image' alt='uploaded content' />
                   <label className='SubmissionForm__label' htmlFor="text">Caption Image</label>
                   <input className='SubmissionForm__input' id="text" type="text" onChange={this.imageTextHandler} />
                   <button
-                    className="SubmissionForm__button hasImage"
+                    className="SubmissionForm__button hasImage blue"
                     type="reset"
                     onClick={() => this.resetState()}
                   >
                     Cancel
                   </button>
-                  <button className="SubmissionForm__button hasImage" type="submit" value="Upload">
+                  <button className="SubmissionForm__button hasImage blue" type="submit" value="Upload">
                     Upload
                   </button>
                 </>

@@ -59,7 +59,7 @@ form.SubmissionForm {
   overflow-x: hidden;
 }
 
-.SubmissionForm__button {
+.SubmissionForm__button.blue {
   background-color: #03a9f4;
   box-shadow: -5px 5px  #007ac1;
   width: 100%;
@@ -80,14 +80,21 @@ form.SubmissionForm {
 }
 
 .SubmissionForm__drag--active {
-  padding: 1em;
-  border: 5px dashed rgb(93, 194, 93);
+  margin-left: 1em;
+  padding: .4em 1.75em;
+  border: 4px dashed rgb(93, 194, 93);
+  border-radius: 10px;
   background-color: rgb(150, 196, 150);
   opacity: 50;
   color: white;
+  font-size: 14px;
 }
 
 .SubmissionForm__drag {
+  display: none;
+}
+
+.laptop {
   display: none;
 }
 
@@ -111,7 +118,31 @@ form.SubmissionForm {
 }
 
 @media screen and (min-width: 1024px) {
+  .laptop {
+    margin: 0 0 0 1em;
+    padding: 5px;
+    display: flex;
+    background: #43a047;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .laptop:hover {
+    background: #76d275;
+  }
+
+  .button-text {
+    display: inline;
+    font-size: 1.4em;
+    font-family: 'Amaranth', sans-serif;
+    margin: 0 .2em 0 .5em;
+  }
+
+  .mobile {
+    display: none;
+  }
+
   .SubmissionForm {
-    bottom: 2em;
+    position: static;
   }
 }

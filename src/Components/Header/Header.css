@@ -12,6 +12,12 @@ header {
     font-size: 2em;
 }
 
+.Header___leftContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .Header__div {
     display: inline;
 }
