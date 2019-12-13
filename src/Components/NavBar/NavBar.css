@@ -3,7 +3,7 @@
   height: 26px;
   width: 120px;
   margin: 20px auto;
-  background: white;
+  background: #c7c7c7;
   border-radius: 3px;
 }
 
@@ -52,7 +52,7 @@
   border-radius: 3px;
   
 }
-.toggle-blue .toggle-selection {
-  background-color: #3aa2d0;
+.toggle-green .toggle-selection {
+  background-color: #80c683;
 }
 

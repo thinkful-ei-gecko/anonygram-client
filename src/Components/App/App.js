@@ -301,7 +301,11 @@ export default class App extends Component {
   renderMainRoutes = () => {
     // Display loading spinner if loading
     if (this.state.loading) {
-      return <div className="loader"></div>;
+      return (
+        <div className='loader-container'>
+          <div className="loader"></div>
+        </div>
+      );
     } else {
       const { userLocation, newContentLoaded } = this.state;
       return (

@@ -7,23 +7,18 @@
 }
 
 .SubmissionForm.hasImage {
-  /* Position: fixed added again below fixes bug for form preview display:
-    W/o it, form renders relative to on button's original location; for 
-    width of laptop and larger, this is displayed in header component */
-  /* position: fixed; */
+  background: whitesmoke;
   width: 90vw;
   height: 75vh;
   padding: 1em;
-  background: white;
-  left: 50%;
-  margin-left: -45vw;
-  top: 50%;
-  margin-top: -37.5vh;
+  left: 50%; top: 50%;
+  margin-left: -45vw; margin-top: -37.5vh;
   bottom: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) -6px 6px 6px -6px, rgba(0, 0, 0, 0.1) 0px 0px 1px -1px;
 }
 
 .SubmissionForm__button.close {
@@ -65,9 +60,9 @@
   overflow-x: hidden;
 }
 
-.SubmissionForm__button.blue {
-  background-color: #03a9f4;
-  box-shadow: -5px 5px  #007ac1;
+.SubmissionForm__button.green {
+  background-color: #80c683;
+  box-shadow: rgba(0, 0, 0, 0.15) -6px 6px 6px -6px, rgba(0, 0, 0, 0.1) 0px 0px 1px -1px;
   width: 100%;
   padding: 1em;
   border-radius: 30px;
@@ -132,13 +127,13 @@
     margin: 0 0 0 1em;
     padding: 5px;
     display: flex;
-    background: #43a047;
+    background: #80c683;
     border-radius: 10px;
     text-align: center;
   }
 
   .laptop:hover {
-    background: #76d275;
+    background: #b1f9b3;
   }
 
   .button-text {

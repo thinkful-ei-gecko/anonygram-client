@@ -1,19 +1,14 @@
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  background: whitesmoke;
+  font-family: 'Roboto', sans-serif;
   height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 header > *, .OptionsBar > *, h1, h2, h3, h4 {
-  font-family: 'Amaranth', sans-serif;
-}
-
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 /* 
@@ -55,11 +50,14 @@ button {
   border-bottom-color: #fff;
   animation: spinner3 800ms ease infinite;
   margin: 0 auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px auto;
   }
 @keyframes spinner3 {
   to {
   transform: rotate(360deg);
   }  
+}
+
+.loader-container {
+  width: 100%;
 }

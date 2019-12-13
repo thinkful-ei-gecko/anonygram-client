@@ -53,7 +53,11 @@ export default class DisplaySingle extends Component {
       return null;
     }
     if (this.state.loading === true) {
-      return <div className="loader"></div>;
+      return (
+        <div className='loader-container'>
+          <div className="loader"></div>
+        </div>
+      )
     } else {
       const { id, image_url, image_text, create_timestamp, karma_total, user_id } = this.state.image
       return (
