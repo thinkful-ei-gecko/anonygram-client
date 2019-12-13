@@ -118,11 +118,12 @@ export default class App extends Component {
     const clone = [...this.state.sort];
     clone.reverse();
     this.setState({ sort: clone }, () => {
-      const { sort, userLocation } = this.state;
+      const { sort, userLocation, page } = this.state;
       ImageApi.getLocalImages(
         sort[0],
         userLocation.lat,
-        userLocation.long
+        userLocation.long,
+        page
       ).then(res => {
         this.setImages(res);
         this.setState({ loading: false });
@@ -238,6 +239,9 @@ export default class App extends Component {
   *******************************************************************/
   setAlert = alert => {
     this.setState({ alert });
+    setTimeout(() => {
+      this.clearAlert();
+    }, 15000)
   };
 
   clearAlert = () => {
