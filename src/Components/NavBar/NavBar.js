@@ -3,13 +3,15 @@ import './NavBar.css'
 
 export default function NavBar(props) {
     const { setSort } = props;
-
+    
     return (
-    <div className="nav-switch">
-        <input type="checkbox" name="onoffswitch" className="navswitch-checkbox" id="myonoffswitch" onClick={() => setSort()} />
-        <label className="navswitch-label" htmlFor="myonoffswitch">
-            <span className="navswitch-inner"></span>
-        </label>
+    <div className="toggle toggle-blue">
+        <input type="radio" className="toggle-input" name="view" value="popular" id="popular"  onClick={() => setSort()} />
+        <label for="popular" className="toggle-label toggle-label-off">POPULAR</label>
+        <input type="radio" className="toggle-input" name="view" value="newest" id="newest" onClick={() => setSort()} />
+        <label for="newest" className="toggle-label toggle-label-on">NEWEST</label>
+        <span className="toggle-selection"></span>
     </div>
+
     );
 }
