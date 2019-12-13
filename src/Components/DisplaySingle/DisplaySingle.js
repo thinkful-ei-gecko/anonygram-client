@@ -73,8 +73,7 @@ export default class DisplaySingle extends Component {
             </div>
           ) : (
             <div className='upvote-wrapper'>
-              <div className="upvote-button">
-               <KeyboardArrowUp fontSize="large"/>
+              <div className="upvote-button-no-auth">
                <p className="upvote-count">{karma_total}</p>
               </div>
             </div>
