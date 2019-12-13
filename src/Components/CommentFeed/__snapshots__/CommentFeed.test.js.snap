@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CommendFeed component renders elements by default 1`] = `
-<div>
+<div
+  className="comment-container"
+>
   <form
     className="CommentFeed__form"
     onSubmit={[Function]}
@@ -36,7 +38,9 @@ exports[`CommendFeed component renders elements by default 1`] = `
 `;
 
 exports[`CommendFeed component renders elements given props 1`] = `
-<div>
+<div
+  className="comment-container"
+>
   <Comment
     key="56532f9e-8022-4759-b134-b7269d510689"
     text="comment text 1"

@@ -4,8 +4,7 @@
 
 .display-img {
     width: 100%;
-    min-width: 310px;
-    min-height: 310px;
+    min-width: 288px;
     object-fit: cover;
 }
 
@@ -97,3 +96,11 @@
     opacity: 1;
     cursor: pointer;
 }
+
+
+@media screen and (min-width: 375px) {
+    .display-img {
+        min-width: 310px;
+        min-height: 310px;
+    }
+  }
