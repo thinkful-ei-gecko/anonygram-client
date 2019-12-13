@@ -141,8 +141,4 @@ form.SubmissionForm {
   .mobile {
     display: none;
   }
-
-  .SubmissionForm {
-    position: static;
-  }
 }
