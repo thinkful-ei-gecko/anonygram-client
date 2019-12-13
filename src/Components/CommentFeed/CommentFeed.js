@@ -35,7 +35,8 @@ export default class CommentFeed extends Component {
         //If first post by this user, a username will need to be generated for them
         if (!this.state.usernames[id]) {
           const newUn = this.generateUsernames([res]);
-          const newUsernames = {...this.state.usernames, newUn}
+          const newUsernames = {...this.state.usernames, ...newUn}
+          console.log(newUsernames);
           this.setState({ usernames: newUsernames, newComment: '' })
         } else {
           this.setState({ newComment: '' })
@@ -49,13 +50,13 @@ export default class CommentFeed extends Component {
 
   componentDidMount() {
     if (this.props.comments.length > 0) {
-      this.generateUsernames(this.props.comments)
+      const newUsernames = this.generateUsernames(this.props.comments)
+      this.setState({ usernames: newUsernames });
     }
   };
 
   generateUsernames = (comments) => {
-    const newUsernames = randomizer.getAnonUsernames(comments);
-    this.setState({ usernames: newUsernames });
+    return randomizer.getAnonUsernames(comments);
   }
 
   render() {
