@@ -157,7 +157,7 @@ class SubmissionForm extends Component {
                 )
               ) : (
                 <>
-                  <button onClick={() => this.resetState} className='SubmissionForm__button close'><Close /></button>
+                  <button onClick={() => this.resetState()} className='SubmissionForm__button close'><Close /></button>
                   <img className='SubmissionForm__img' id='your-image' alt='uploaded content' />
                   <label className='SubmissionForm__label' htmlFor="text">Caption Image</label>
                   <input className='SubmissionForm__input' id="text" type="text" onChange={this.imageTextHandler} />
