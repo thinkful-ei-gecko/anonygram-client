@@ -6,12 +6,28 @@ exports[`DisplaySingle component renders a submission given props and context 1`
 >
   <img
     alt="this is image text"
+    className="single-image"
     src="https://via.placeholder.com/150"
   />
-  <div>
-    3
+  <div
+    className="upvote-wrapper"
+  >
+    <div
+      className="upvote-button"
+    >
+      <KeyboardArrowUpIcon
+        fontSize="large"
+      />
+      <p
+        className="upvote-count"
+      >
+        3
+      </p>
+    </div>
   </div>
-  <div>
+  <div
+    className="timestamp-display"
+  >
     1 day ago
   </div>
   <p>
