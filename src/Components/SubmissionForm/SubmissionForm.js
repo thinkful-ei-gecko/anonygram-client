@@ -74,6 +74,7 @@ class SubmissionForm extends Component {
       .then((res) => {
         //Remove loading spinner
         this.setState({ loading: false });
+        document.body.style.overflow = 'unset'
         if (res.status === 400) {
           setAlert('Sorry, that content is not permitted');
           return res.json().then((e) => Promise.reject(e));
