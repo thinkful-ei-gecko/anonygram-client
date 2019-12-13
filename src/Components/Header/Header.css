@@ -5,12 +5,12 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #03a9f4;
+    background-color: #b2dfdb;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 6px 6px -6px, rgba(0, 0, 0, 0.1) 0px 0px 1px -1px;
 }
 
 .header.appName {
-    font-size: 2em;
+    font-size: 1.8em;
 }
 
 .Header___leftContainer {
@@ -25,7 +25,17 @@ header {
 
 .Header__link {
     margin: 0 0 0 .5em;
-    font-size: 1.2em;
+    font-size: 1em;
+}
+
+@media screen and (min-width: 375px) {
+    .header.appName {
+        font-size: 2em;
+    }
+
+    .Header__link {
+        font-size: 1.2em;
+    }
 }
 
 @media screen and (min-width: 768px) {

@@ -144,7 +144,7 @@ class SubmissionForm extends Component {
                   <>
                     <button
                       type="button"
-                      className="SubmissionForm__button mobile blue"
+                      className="SubmissionForm__button mobile green"
                       onClick={() => this.imageInput.click()}
                     >
                       <AddToPhotos fontSize="large" />
@@ -167,13 +167,13 @@ class SubmissionForm extends Component {
                   <label className='SubmissionForm__label' htmlFor="text">Caption Image</label>
                   <input className='SubmissionForm__input' id="text" type="text" onChange={this.imageTextHandler} />
                   <button
-                    className="SubmissionForm__button hasImage blue"
+                    className="SubmissionForm__button hasImage green"
                     type="reset"
                     onClick={() => this.resetState()}
                   >
                     Cancel
                   </button>
-                  <button className="SubmissionForm__button hasImage blue" type="submit" value="Upload">
+                  <button className="SubmissionForm__button hasImage green" type="submit" value="Upload">
                     Upload
                   </button>
                 </>

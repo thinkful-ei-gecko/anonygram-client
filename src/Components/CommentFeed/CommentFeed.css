@@ -8,15 +8,15 @@
   width: 80%;
   height: 100%;
   padding: 1em;
-  box-shadow: -2px 3.5px  #d4dbdf;
+  box-shadow: rgba(0, 0, 0, 0.15) -6px 6px 6px -6px, rgba(0, 0, 0, 0.1) 0px 0px 1px -1px;
   border-radius: 5px;
 }
 
 .CommentFeed__button {
   width: 20%;
   height: 100%;
-  background-color: #03a9f4;
-  box-shadow: -2px 3.5px  #007ac1;
+  background-color: #80c683;
+  box-shadow: rgba(0, 0, 0, 0.15) -6px 6px 6px -6px, rgba(0, 0, 0, 0.1) 0px 0px 1px -1px;
   padding: 1em;
   border-radius: 5px;
 }
