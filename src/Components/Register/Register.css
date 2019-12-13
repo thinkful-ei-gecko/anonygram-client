@@ -41,10 +41,11 @@ input {
 }
 
 
-
+/* Uses calc to center object horizontally 
+once it stops growing */
 @media screen and (min-width: 730px){
     .register-page{
-        margin: auto;
+        margin: 10vh calc((100vw - 550px)/2);
         max-width: 550px;
         height: 60vh;
     }
