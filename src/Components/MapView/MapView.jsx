@@ -28,9 +28,11 @@ function MapView(props) {
 
   useEffect(() => {
     window.addEventListener('wheel', wheelHandler);
+    window.addEventListener('touchmove', pinchHandler);
     setView('map');
     return () => {
       window.removeEventListener('wheel', wheelHandler);
+      window.removeEventListener('touchmove', pinchHandler);
     }
   }, []);
 
@@ -50,6 +52,28 @@ function MapView(props) {
           holderZoom += 1;
         }
       }, 100);
+    }
+  };
+
+  const pinchHandler = (e) => {
+    if (e.targetTouches.length === 2) {
+      let point1 = e.targetTouches[0];
+      let point2 = e.targetTouches[1];
+      
+      let sqrVectorDistance = Math.pow(point1.clientX - point2.clientX, 2) + Math.pow(point1.clientY - point2.clientY, 2);
+      console.log(sqrVectorDistance)
+      if (sqrVectorDistance > 50000) { // zoom out
+        if (holderZoom + 1 <= zoomBoundaries.max) {
+          setZoomState(zoomState => zoomState += 1);
+          holderZoom += 1;
+        }
+      }
+      else {
+        if (holderZoom - 1 >= zoomBoundaries.min) {
+          setZoomState(zoomState => zoomState -= 1);
+          holderZoom -= 1;
+        }
+      }
     }
   };
 
