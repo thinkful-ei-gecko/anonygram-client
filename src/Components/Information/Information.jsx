@@ -5,27 +5,23 @@ import { HashLink as Link } from 'react-router-hash-link';
 const Information = () => {
   return (
     <section className="Information__container">
-      <header>
+      <header className="info-header">
         <h1 className="Information__h1">Information</h1>
       </header>
       <h2 className="Information__h2">Table of Contents</h2>
       <ul className="Information__ul">
         <li>
-          <Link smooth to="/info#about">
+          <Link smooth to="/info#about" className='link'>
             About
           </Link>
         </li>
         <li>
-          <Link smooth to="/info#getting-started">
+          <Link smooth to="/info#getting-started" className='link'>
             Getting Started
           </Link>
         </li>
       </ul>
-      <h3 id="demo" className="Information__h3">Demo Account</h3>
-      <ul className="Information__demo">
-        <li>UN: admin</li>
-        <li>PW: Password1!</li>
-      </ul>
+      <hr/>
       <h3 id="about" className="Information__h3">
         About
       </h3>
@@ -46,6 +42,7 @@ const Information = () => {
         about that post? Creating an account will let you join the conversation
         without revealing any personal information.
       </p>
+      <hr/>
       <h3 id="getting-started" className="Information__h3">
         Getting Started
       </h3>
@@ -54,6 +51,11 @@ const Information = () => {
         choose to create an account or not! We never ask for any personal information
         and regularly remove old content to ensure a care-free experience.
       </p>
+      <h3 id="demo" className="Information__h3">Demo Account</h3>
+      <ul className="Information__demo">
+        <li>UN: admin</li>
+        <li>PW: Password1!</li>
+      </ul>
       <h4 className="Information__h4">Totally Anonymous</h4>
       <ol className="Information__ol">
         <li>
