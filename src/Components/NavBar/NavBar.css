@@ -1,41 +1,58 @@
-.navswitch-checkbox {
-  display: none;
-}
-.navswitch-label {
-  display: block; 
-  overflow: hidden; 
-  border: 2px solid #999999; 
- 
-}
-.navswitch-inner {
-  display: block;
-  width: 200%; 
-  margin-left: -100%;
-  transition: margin 0.3s ease-in 0s;
-}
-.navswitch-inner:before, .navswitch-inner:after {  
-  float: left; 
-  width: 50%; 
-  height: 30px;     
-  line-height: 30px;
-  color: white; 
-  font-weight: bold;
-  box-sizing: border-box;
-}
-.navswitch-inner:before {
-  content: "POPULAR";
-  padding-left: 10px;
-  background-color: #34A7C1; 
-  color: #FFFFFF;
-}
-.navswitch-inner:after {
-  content: "NEWEST";
-  background-color: #EEEEEE; 
-  color: #999999;
-  text-align: center;
+.toggle {
+  position: relative;
+  height: 26px;
+  width: 120px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 3px;
 }
 
-.navswitch-checkbox:checked + .navswitch-label .navswitch-inner {
-  margin-left: 0;
+.toggle-label {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 58px;
+  line-height: 26px;
+  font-size: 11px;
+  color:  black;
+  text-align: center;
+  cursor: pointer;
+}
+.toggle-label:active {
+  font-weight: bold;
+}
+
+.toggle-label-off {
+  padding-left: 2px;
+}
+
+.toggle-label-on {
+  padding-right: 2px;
+}
+
+
+.toggle-input {
+  display: none;
+}
+.toggle-input:checked + .toggle-label {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.65);
+}
+.toggle-input:checked + .toggle-label-on ~ .toggle-selection {
+  left: 60px;
+}
+
+.toggle-selection {
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 2px;
+  width: 58px;
+  height: 22px;
+  border-radius: 3px;
+  
+}
+.toggle-blue .toggle-selection {
+  background-color: #3aa2d0;
 }
 

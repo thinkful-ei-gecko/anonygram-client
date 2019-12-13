@@ -43,11 +43,15 @@ export default function OptionsBar(props) {
 		
 				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
 				
-				<NavBar setSort={props.setSort} />
+				
 
 				<Link to='/info' className='resetStyles'>
 					<InfoIcon />
 				</Link>
+				
+				<section>
+				  <NavBar setSort={props.setSort} />
+				</section>
 			</div>
 		)
 	} else {
@@ -74,10 +78,13 @@ export default function OptionsBar(props) {
 				)}
 		
 				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
-				
-				<NavBar setSort={props.setSort} />
-
 				<Link to='/info' className='resetStyles'>About</Link>
+				<section>
+				  <NavBar setSort={props.setSort} />
+				</section>
+				
+
+				
 			</div>
 		)
 	}

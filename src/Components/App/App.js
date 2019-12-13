@@ -260,11 +260,21 @@ export default class App extends Component {
     return (
       <Switch>
         <Route path='/p/:submissionId'
-          render={routeProps => <Header path={routeProps.match.path} />} />
-        <Route path='/local-map'
-          render={routeProps => <Header path={routeProps.match.path} />} />
+          render={routeProps => <Header 
+            {...routeProps} 
+            path={routeProps.match.path}
+            setView={this.setView} 
+            userLocation={this.state.userLocation}
+            newContentLoaded={this.state.newContentLoaded}
+            updateNewContent={this.setNewContentLoaded} /> } />
         <Route 
-          component={Header} />
+          render={routeProps => 
+            <Header 
+              {...routeProps} 
+              setView={this.setView} 
+              userLocation={this.state.userLocation}
+              newContentLoaded={this.state.newContentLoaded}
+              updateNewContent={this.setNewContentLoaded} /> } />
     </Switch>
     )
   }
@@ -325,27 +335,29 @@ export default class App extends Component {
   render = () => {
 
     const value = {
-      userLocation: this.state.userLocation,
-      newContentLoaded: this.state.newContentLoaded,
-      sort: this.state.sort,
-      user: this.state.user,
-      images: this.state.images,
-      setImages: this.setImages,
-      page: this.state.page,
-      morePagesAvail: this.state.morePagesAvail,
-      debounce: this.state.debounce,
-      incrementUpvotes: this.incrementUpvotes,
-      error: this.state.error,
+      //vars in ABC order
       alert: this.state.alert,
-      setNewContentLoaded: this.setNewContentLoaded,
-      setPage: this.setPage,
-      setMorePagesAvail: this.setMorePagesAvail,
+      debounce: this.state.debounce,
+      error: this.state.error,
+      images: this.state.images,
+      morePagesAvail: this.state.morePagesAvail,
+      newContentLoaded: this.state.newContentLoaded,
+      page: this.state.page,
+      setImages: this.setImages,
+      sort: this.state.sort,      
+      user: this.state.user,
+      userLocation: this.state.userLocation,      
+      //funcs in ABC order
+      clearAlert: this.clearAlert,
+      clearError: this.clearError,      
+      handleDelete: this.handleDelete,
+      incrementUpvotes: this.incrementUpvotes,
+      setAlert: this.setAlert,
       setDebounce: this.setDebounce,
       setError: this.setError,
-      setAlert: this.setAlert,
-      clearError: this.clearError,
-      clearAlert: this.clearAlert,
-      handleDelete: this.handleDelete,
+      setMorePagesAvail: this.setMorePagesAvail,
+      setNewContentLoaded: this.setNewContentLoaded,
+      setPage: this.setPage,
     }
 
     return (

@@ -1,27 +1,30 @@
 import React, { useContext } from 'react';
 export const useImageContext = () => useContext(ImageContext);
 const defaultValues = {
-  userLocation: {},
+  //vars in ABC order
+  alert: '',
+  debounce: null,
+  error: null,
+  images: [],
+  morePagesAvail: null,
   newContentLoaded: null, 
+  page: null,
   sort: ['new', 'top'],
   user: null,
-  page: null,
-  morePagesAvail: null,
-  debounce: null,
-  images: [],
+  userLocation: {},
+  //funcs in ABC order
+  clearAlert: () => {},
+  clearError: () => {},
+  handleDelete: () => {},
   incrementUpvotes: () => {},
-  error: null,
-  alert: '',
-  setNewContentLoaded: () => {},
-  setPage: () => {},
-  setMorePagesAvail: () => {},
+  resetState: () => {},
+  setAlert: () => {},
   setDebounce: () => {},
   setError: () => {},
-  setAlert: () => {},
-  clearError: () => {},
-  clearAlert: () => {},
-  resetState: () => {},
-  handleDelete: () => {},
+  setMorePagesAvail: () => {},
+  setNewContentLoaded: () => {},
+  setPage: () => {},
+  setView: () => {},
 }
 const ImageContext = React.createContext(defaultValues)
 
