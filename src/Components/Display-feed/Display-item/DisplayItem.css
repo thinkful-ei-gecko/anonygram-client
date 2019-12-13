@@ -1,10 +1,15 @@
 .display-item {
     list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .display-img {
     width: 100%;
     min-width: 288px;
+    min-height: 288px;
+    max-width: 500px;
+    max-height: 500px;
     object-fit: cover;
 }
 

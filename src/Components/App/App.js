@@ -118,7 +118,7 @@ export default class App extends Component {
     const clone = [...this.state.sort];
     clone.reverse();
     this.setState({ sort: clone }, () => {
-      const { page, sort, userLocation } = this.state;
+      const { sort, userLocation, page } = this.state;
       ImageApi.getLocalImages(
         sort[0],
         userLocation.lat,
@@ -187,7 +187,6 @@ export default class App extends Component {
       let debounceHolder = debounce;
       this.setState({ debounce: debounceHolder });
     }, 1000);
-    // }
   };
 
   setPage = page => {
@@ -239,6 +238,9 @@ export default class App extends Component {
   *******************************************************************/
   setAlert = alert => {
     this.setState({ alert });
+    setTimeout(() => {
+      this.clearAlert();
+    }, 15000)
   };
 
   clearAlert = () => {
@@ -325,6 +327,7 @@ export default class App extends Component {
                 <MapView
                   {...routeProps}
                   setView={this.setView}
+                  setStateImages={this.setImages}
                   userLocation={userLocation}
                   newContentLoaded={newContentLoaded}
                   updateNewContent={this.setNewContentLoaded}

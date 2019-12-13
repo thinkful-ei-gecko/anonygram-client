@@ -49,7 +49,7 @@ export default function OptionsBar(props) {
 					<InfoIcon />
 				</Link>
 				
-				<section>
+				<section className="floater">
 				  <NavBar setSort={props.setSort} />
 				</section>
 			</div>
@@ -79,7 +79,7 @@ export default function OptionsBar(props) {
 		
 				<RefreshButton screen={screen} handleGeolocation={props.handleGeolocation}/>
 				<Link to='/info' className='resetStyles'>About</Link>
-				<section>
+				<section className="floater">
 				  <NavBar setSort={props.setSort} />
 				</section>
 				
