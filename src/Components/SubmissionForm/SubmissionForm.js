@@ -109,7 +109,12 @@ class SubmissionForm extends Component {
       </div>)}
       <div className={`SubmissionForm ${this.state.isActive && 'hasImage'}`}>
         {/* Display loading spinner if loading */}
-        {this.state.loading && <div className="loader"></div>}
+        {this.state.loading && (
+            <div className='loader-container'>
+              <div className="loader"></div>
+            </div>
+          )
+        }
 
         {/* 
           component utilizing hooks to detect dropped files 
