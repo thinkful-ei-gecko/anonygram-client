@@ -36,7 +36,6 @@ export default class CommentFeed extends Component {
         if (!this.state.usernames[id]) {
           const newUn = this.generateUsernames([res]);
           const newUsernames = {...this.state.usernames, ...newUn}
-          console.log(newUsernames);
           this.setState({ usernames: newUsernames, newComment: '' })
         } else {
           this.setState({ newComment: '' })
