@@ -43,7 +43,7 @@ const randomizer = {
   getAnonUsernames(arrOfComments) {
     //Make an array with only userIds (no duplicates)
     const userIds = [];
-    arrOfComments.map(comment => {
+    arrOfComments.forEach(comment => {
       const currUserId = comment.user_id;
       if (!userIds.includes(currUserId)) {
         userIds.push(currUserId)
@@ -52,7 +52,7 @@ const randomizer = {
 
     //Make an object; assign usernames (value) for each userId (key) in array
     const newUsernames = {};
-    userIds.map(userId => {
+    userIds.forEach(userId => {
       newUsernames[userId] = this.generateRandomUsername();
     })
 
