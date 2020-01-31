@@ -46,8 +46,8 @@ button {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   border: 2px solid #03a9f4;
-  border-top-color: #fff;
-  border-bottom-color: #fff;
+  border-top-color: whitesmoke;
+  border-bottom-color: whitesmoke;
   animation: spinner3 800ms ease infinite;
   margin: 0 auto;
   margin: 30px auto;
