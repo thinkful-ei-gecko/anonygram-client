@@ -45,8 +45,9 @@ export default class ErrorLocation extends React.Component {
     if (currDisplay === "hidden") {
       // if a new item is to be displayed, then hide the previously displayed one. 
       let activeIndex = this.state.activeIndex;
-      if (activeIndex) {
-        browserTemp[this.state.activeIndex].display = "hidden";
+      // must be as below; else index of 0 would cause a false positive
+      if (activeIndex !== null) {
+        browserTemp[activeIndex].display = "hidden";
       }
       browserTemp[index].display = "active";
       newActiveIndex = index;
