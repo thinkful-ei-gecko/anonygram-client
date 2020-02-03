@@ -17,7 +17,7 @@ export default class DisplaySingle extends Component {
   }
 
   convertTime = (timestamp) => {
-    return moment((new Date(timestamp)).toString()).fromNow();
+    return moment.parseZone(new Date(timestamp).toString()).fromNow();
   }
 
   componentDidMount = () => {
