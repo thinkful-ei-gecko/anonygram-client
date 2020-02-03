@@ -72,7 +72,7 @@ export default class ErrorLocation extends React.Component {
           <img src={require("./nick-fewings-S7cyjr_3prc-unsplash.jpg")} alt="blue arrow pointing left"></img>
           <div className="ErrorLocation pContainer">
             <p>It looks like we don't have access to your location. Since Anonygram helps neighbors engage with their local community, this app can't do much right now.</p>
-            <p>To grant the us permission to your location, try refreshing the page then clicking "Allow" or "Grant Permissions" if your browser asks for your location.</p>
+            <p>To grant us permission to your location, try refreshing the page then clicking "Allow" or "Grant Permissions" if your browser asks for your location.</p>
             <p>If that doesn't work, try the following:</p>
             {BI.map((browser, index) => {
               return (
