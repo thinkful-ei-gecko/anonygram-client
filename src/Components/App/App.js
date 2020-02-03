@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 //Components
 import Header from '../Header/Header';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import ErrorLocation from '../ErrorLocation/ErrorLocation';
 import DisplayFeed from '../Display-feed/DisplayFeed';
 import DisplaySingle from '../DisplaySingle/DisplaySingle';
 import OptionsBar from '../OptionsBar/OptionsBar';
@@ -49,6 +50,7 @@ export default class App extends Component {
     debounce: false,
     morePagesAvail: true,
     view: '',
+    geolocationError: false,
     error: null,
     alert: null,
   };
@@ -69,11 +71,17 @@ export default class App extends Component {
 
   /*******************************************************************
     GEOLOCATION
-  *******************************************************************/
+  *******************************************************************/  
   handleGeolocation = () => {
+    const geolocationOptions = {
+      timeout: 10000 // 10 seconds 
+    };
+
     if (!!navigator && !!navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.setPosition);
-    }
+      navigator.geolocation.getCurrentPosition(this.setPosition, this.setGeolocationError, geolocationOptions);
+    } else {
+      this.setGeolocationError();
+    };
   };
 
   setPosition = position => {
@@ -95,6 +103,13 @@ export default class App extends Component {
       });
     });
   };
+
+  setGeolocationError = () => {
+    this.setState({
+      loading: false,
+      geolocationError: true });
+  };
+
 
   /*******************************************************************
     LOADING
@@ -306,6 +321,10 @@ export default class App extends Component {
           <div className="loader"></div>
         </div>
       );
+    } 
+    // Display location error if not granted permission to location
+    else if (this.state.geolocationError) {
+      return (<ErrorLocation />);
     } else {
       const { userLocation, newContentLoaded } = this.state;
       return (
